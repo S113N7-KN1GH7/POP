@@ -4,7 +4,7 @@
     { "source": "/login", "destination": "/login.html" },
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/leaderboard", "destination": "/leaderboard.html" },
-    { "source": "/matches", "destination": "/matches.html" }
-    { "source": "/", "destination": "/index.html" },
+    { "source": "/matches", "destination": "/matches.html" },
+    { "source": "/", "destination": "/index.html" }
   ]
 }
