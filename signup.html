@@ -3,7 +3,8 @@
 <head>
   <title>Player Signup</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <!-- ✅ Correct Supabase CDN -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
   <style>
     body {
@@ -25,22 +26,12 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
     input {
       width: 100%;
       padding: 10px;
       margin: 8px 0;
-      border: none;
       border-radius: 6px;
-      outline: none;
-    }
-
-    input:focus {
-      border: 2px solid #22c55e;
+      border: none;
     }
 
     button {
@@ -50,24 +41,7 @@
       border: none;
       border-radius: 6px;
       color: white;
-      font-weight: bold;
       cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #16a34a;
-    }
-
-    .link {
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .link a {
-      color: #22c55e;
-      text-decoration: none;
     }
   </style>
 </head>
@@ -75,23 +49,13 @@
 <body>
 
 <div class="card">
-  <h2>Player Signup</h2>
+  <h2>Signup</h2>
 
-  <input id="name" placeholder="Player Name">
+  <input id="name" placeholder="Name">
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-  <input id="fb" placeholder="Facebook Profile Link">
-  <input id="phone" placeholder="Phone Number">
-  <input id="konami" placeholder="Konami User ID">
-  <input id="device" placeholder="Device Name">
-  <input id="photo" placeholder="Photo URL">
-  <input id="cover" placeholder="Cover Photo URL">
 
   <button onclick="signup()">Create Account</button>
-
-  <div class="link">
-    Already have account? <a href="login.html">Login</a>
-  </div>
 </div>
 
 <script>
@@ -102,54 +66,51 @@ const supabase = window.supabase.createClient(
 
 async function signup() {
 
+  console.log("Signup clicked");
+
   const player_name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const fb = document.getElementById("fb").value || null;
-  const phone = document.getElementById("phone").value || null;
-  const konami = document.getElementById("konami").value || null;
-  const device = document.getElementById("device").value || null;
-  const photo = document.getElementById("photo").value || null;
-  const cover = document.getElementById("cover").value || null;
 
   if (!player_name || !email || !password) {
-    alert("Name, Email, Password required!");
+    alert("Fill all fields");
     return;
   }
 
-  // 🔐 Auth Signup
+  // 🔐 Auth signup
   const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password
+    email,
+    password
   });
+
+  console.log("Auth:", data, error);
 
   if (error) {
     alert(error.message);
     return;
   }
 
-  const user = data.user;
+  // ⚠️ Email confirm ON থাকলে user null হবে
+  if (!data.user) {
+    alert("Check your email to confirm account");
+    return;
+  }
 
   // 📦 Insert player
   const { error: insertError } = await supabase.from("players").insert([
     {
-      user_id: user.id,
+      user_id: data.user.id,
       player_name,
-      email,
-      fb_id_link: fb,
-      number: phone,
-      konami_user_id: konami,
-      device_name: device,
-      photo,
-      cover_photo: cover
+      email
     }
   ]);
+
+  console.log("Insert:", insertError);
 
   if (insertError) {
     alert(insertError.message);
   } else {
-    alert("Signup Successful 🎉");
-    window.location.href = "login.html";
+    alert("Signup Success 🎉");
   }
 }
 </script>
