@@ -1,7 +1,4 @@
 
-<!-- ============================================= -->
-<!-- DASHBOARD.HTML - Classic Clean Theme with Top Navbar -->
-<!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +20,11 @@
             color: #1a1a2e;
         }
 
-        /* ========== TOP NAVBAR ========== */
+        /* Top Navbar */
         .top-navbar {
             background: #ffffff;
             border-bottom: 1px solid #e8ecf1;
-            padding: 0 30px;
+            padding: 0 40px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -35,6 +32,7 @@
             align-items: center;
             justify-content: space-between;
             height: 70px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .logo-area {
@@ -43,21 +41,10 @@
             gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 32px;
-        }
+        .logo-icon { font-size: 32px; }
+        .logo-area h2 { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+        .logo-area span { color: #e94560; }
 
-        .logo-area h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .logo-area span {
-            color: #e94560;
-        }
-
-        /* Navigation Links */
         .nav-links {
             display: flex;
             align-items: center;
@@ -76,25 +63,13 @@
             transition: all 0.2s;
         }
 
-        .nav-link i {
-            font-size: 16px;
-        }
+        .nav-link:hover { background: #f0f4f8; color: #e94560; }
+        .nav-link.active { background: #e94560; color: #ffffff; }
 
-        .nav-link:hover {
-            background: #f0f4f8;
-            color: #e94560;
-        }
-
-        .nav-link.active {
-            background: #e94560;
-            color: #ffffff;
-        }
-
-        /* User Menu */
-        .user-menu {
+        .auth-buttons {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
         }
 
         .rank-badge {
@@ -105,16 +80,8 @@
             align-items: center;
             gap: 8px;
         }
-
-        .rank-badge i {
-            color: #f5a623;
-            font-size: 16px;
-        }
-
-        .rank-badge span {
-            font-weight: 600;
-            font-size: 14px;
-        }
+        .rank-badge i { color: #f5a623; font-size: 16px; }
+        .rank-badge span { font-weight: 600; font-size: 14px; }
 
         .logout-btn {
             background: transparent;
@@ -129,37 +96,30 @@
             font-weight: 500;
             transition: all 0.2s;
         }
+        .logout-btn:hover { background: #fff5f5; border-color: #e94560; }
 
-        .logout-btn:hover {
-            background: #fff5f5;
-            border-color: #e94560;
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a1a2e;
         }
 
-        /* ========== MAIN CONTENT ========== */
+        /* Main Content */
         .main-content {
             padding: 30px 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Welcome Section */
-        .welcome-section {
-            margin-bottom: 30px;
-        }
+        .welcome-section { margin-bottom: 30px; }
+        .welcome-section h1 { font-size: 28px; font-weight: 600; color: #1a1a2e; }
+        .welcome-section p { color: #8892b0; font-size: 14px; margin-top: 5px; }
+        .welcome-section h1 span { color: #e94560; }
 
-        .welcome-section h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .welcome-section p {
-            color: #8892b0;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Profile Section */
+        /* Profile Section - FIXED */
         .profile-section {
             background: #ffffff;
             border-radius: 20px;
@@ -167,58 +127,63 @@
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid #e8ecf1;
-        }
-
-        .cover-area {
-            height: 140px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: relative;
         }
 
+        /* Cover Photo - Full Width */
+        .cover-area {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
         .cover-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
+        /* Profile Info - Positioned Over Cover */
         .profile-info {
-            padding: 0 30px 30px 30px;
-            margin-top: -50px;
+            padding: 0 30px 25px 30px;
+            margin-top: -60px;
             display: flex;
             align-items: flex-end;
             gap: 25px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
+        /* Avatar - Correct Position */
+        .avatar-wrapper {
+            position: relative;
+        }
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 4px solid #ffffff;
             object-fit: cover;
             background: #f0f4f8;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .user-details h2 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1a1a2e;
+        .user-details {
+            background: rgba(255,255,255,0.9);
+            padding: 12px 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
         }
-
-        .user-details p {
-            color: #8892b0;
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
+        .user-details h2 { font-size: 22px; font-weight: 600; color: #1a1a2e; }
+        .user-details p { color: #8892b0; font-size: 13px; margin-top: 4px; }
         .user-badge {
             display: inline-block;
-            background: #f0f4f8;
+            background: #e94560;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 11px;
-            color: #e94560;
+            color: white;
             margin-top: 8px;
         }
 
@@ -229,7 +194,6 @@
             gap: 20px;
             margin-bottom: 30px;
         }
-
         .stat-card {
             background: #ffffff;
             border-radius: 16px;
@@ -241,12 +205,7 @@
             border: 1px solid #e8ecf1;
             transition: all 0.2s;
         }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .stat-icon {
             width: 50px;
             height: 50px;
@@ -258,19 +217,8 @@
             font-size: 24px;
             color: #e94560;
         }
-
-        .stat-info h4 {
-            font-size: 12px;
-            color: #8892b0;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .stat-info h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
+        .stat-info h4 { font-size: 12px; color: #8892b0; font-weight: 500; margin-bottom: 4px; }
+        .stat-info h3 { font-size: 28px; font-weight: 700; color: #1a1a2e; }
 
         /* Two Column Layout */
         .two-col {
@@ -279,7 +227,6 @@
             gap: 25px;
             margin-bottom: 30px;
         }
-
         .card {
             background: #ffffff;
             border-radius: 16px;
@@ -287,7 +234,6 @@
             border: 1px solid #e8ecf1;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -296,54 +242,26 @@
             padding-bottom: 12px;
             border-bottom: 1px solid #e8ecf1;
         }
+        .card-header h3 { font-size: 16px; font-weight: 600; color: #1a1a2e; }
+        .card-header i { color: #8892b0; font-size: 18px; }
 
-        .card-header h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .card-header i {
-            color: #8892b0;
-            font-size: 18px;
-        }
-
-        /* Info Rows */
         .info-row {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid #f0f4f8;
         }
+        .info-row span:first-child { color: #8892b0; font-size: 13px; }
+        .info-row span:last-child { font-weight: 500; color: #1a1a2e; }
 
-        .info-row span:first-child {
-            color: #8892b0;
-            font-size: 13px;
-        }
-
-        .info-row span:last-child {
-            font-weight: 500;
-            color: #1a1a2e;
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            margin-top: 16px;
-        }
-
-        .progress-label {
-            font-size: 12px;
-            color: #8892b0;
-            margin-bottom: 6px;
-        }
-
+        .progress-container { margin-top: 16px; }
+        .progress-label { font-size: 12px; color: #8892b0; margin-bottom: 6px; }
         .progress-bar {
             height: 6px;
             background: #e8ecf1;
             border-radius: 10px;
             overflow: hidden;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #e94560, #ff6b81);
@@ -357,7 +275,6 @@
             flex-direction: column;
             gap: 10px;
         }
-
         .match-item {
             display: flex;
             justify-content: space-between;
@@ -365,40 +282,18 @@
             padding: 12px 0;
             border-bottom: 1px solid #f0f4f8;
         }
-
         .match-result {
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
         }
+        .match-result.win { background: #e6f7e6; color: #2ecc71; }
+        .match-result.loss { background: #fee; color: #e74c3c; }
+        .match-score { font-weight: 600; color: #1a1a2e; }
+        .match-date { font-size: 11px; color: #8892b0; }
 
-        .match-result.win {
-            background: #e6f7e6;
-            color: #2ecc71;
-        }
-
-        .match-result.loss {
-            background: #fee;
-            color: #e74c3c;
-        }
-
-        .match-score {
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .match-date {
-            font-size: 11px;
-            color: #8892b0;
-        }
-
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 30px;
-        }
-
+        .loading { text-align: center; padding: 30px; }
         .spinner {
             width: 32px;
             height: 32px;
@@ -408,39 +303,15 @@
             animation: spin 0.6s linear infinite;
             margin: 0 auto 12px;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #1a1a2e;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .two-col {
-                grid-template-columns: 1fr;
-            }
-            .main-content {
-                padding: 20px;
-            }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 768px) {
-            .top-navbar {
-                padding: 0 15px;
-            }
-            
+            .top-navbar { padding: 0 20px; }
             .nav-links {
                 position: fixed;
                 top: 70px;
@@ -451,59 +322,26 @@
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 transition: left 0.3s;
-                gap: 10px;
             }
-            
-            .nav-links.show {
-                left: 0;
-            }
-            
-            .nav-link {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .user-menu .rank-badge {
-                display: none;
-            }
-            
+            .nav-links.show { left: 0; }
+            .mobile-menu-btn { display: block; }
+            .auth-buttons .rank-badge { display: none; }
+            .main-content { padding: 20px; }
             .profile-info {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                margin-top: -40px;
             }
-            
-            .avatar {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .stats-grid {
-                gap: 12px;
-            }
-            
-            .stat-info h3 {
-                font-size: 20px;
-            }
-            
-            .stat-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
+            .avatar { width: 80px; height: 80px; }
+            .user-details { text-align: center; }
+            .stats-grid { gap: 12px; }
+            .stat-info h3 { font-size: 20px; }
+            .stat-icon { width: 40px; height: 40px; font-size: 18px; }
         }
-
         @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .welcome-section h1 {
-                font-size: 22px;
-            }
+            .stats-grid { grid-template-columns: 1fr; }
+            .welcome-section h1 { font-size: 22px; }
         }
     </style>
 </head>
@@ -514,56 +352,35 @@
             <div class="logo-icon">🏴‍☠️</div>
             <h2>POP<span>123</span></h2>
         </div>
-        
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         <div class="nav-links" id="navLinks">
-            <a href="dashboard.html" class="nav-link active">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </a>
-            <a href="leaderboard.html" class="nav-link">
-                <i class="fas fa-trophy"></i> Leaderboard
-            </a>
-            <a href="matches.html" class="nav-link">
-                <i class="fas fa-futbol"></i> Matches
-            </a>
-            <a href="#" class="nav-link">
-                <i class="fas fa-user"></i> Profile
-            </a>
-            <a href="#" class="nav-link">
-                <i class="fas fa-cog"></i> Settings
-            </a>
+            <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
+            <a href="#" class="nav-link"><i class="fas fa-user"></i> Profile</a>
         </div>
-        
-        <div class="user-menu">
-            <div class="rank-badge">
-                <i class="fas fa-crown"></i>
-                <span id="rankDisplay">Rank #1</span>
-            </div>
-            <button id="logoutBtn" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </button>
+        <div class="auth-buttons">
+            <div class="rank-badge"><i class="fas fa-crown"></i> <span id="rankDisplay">Rank #1</span></div>
+            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Welcome Section -->
         <div class="welcome-section">
-            <h1>Welcome back, <span id="playerName" style="color: #e94560;">Player</span>!</h1>
+            <h1>Welcome back, <span id="playerName">Player</span>!</h1>
             <p>Ready to conquer the pitch today?</p>
         </div>
 
-        <!-- Profile Section -->
+        <!-- Profile Section - Fixed Layout -->
         <div class="profile-section">
             <div class="cover-area">
                 <img id="coverPhoto" class="cover-image" src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=1200" alt="Cover">
             </div>
             <div class="profile-info">
-                <img id="profilePhoto" class="avatar" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=100" alt="Avatar">
+                <div class="avatar-wrapper">
+                    <img id="profilePhoto" class="avatar" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=110" alt="Avatar">
+                </div>
                 <div class="user-details">
                     <h2 id="displayName">Loading...</h2>
                     <p><i class="fas fa-envelope"></i> <span id="playerEmail">email@example.com</span></p>
@@ -574,105 +391,35 @@
 
         <!-- Stats Grid -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-futbol"></i></div>
-                <div class="stat-info">
-                    <h4>Total Matches</h4>
-                    <h3 id="totalMatches">0</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-trophy"></i></div>
-                <div class="stat-info">
-                    <h4>Wins</h4>
-                    <h3 id="wins">0</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-frown"></i></div>
-                <div class="stat-info">
-                    <h4>Losses</h4>
-                    <h3 id="losses">0</h3>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-star"></i></div>
-                <div class="stat-info">
-                    <h4>Points</h4>
-                    <h3 id="points">0</h3>
-                </div>
-            </div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-futbol"></i></div><div class="stat-info"><h4>Total Matches</h4><h3 id="totalMatches">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-trophy"></i></div><div class="stat-info"><h4>Wins</h4><h3 id="wins">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-frown"></i></div><div class="stat-info"><h4>Losses</h4><h3 id="losses">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-star"></i></div><div class="stat-info"><h4>Points</h4><h3 id="points">0</h3></div></div>
         </div>
 
         <!-- Two Column Layout -->
         <div class="two-col">
-            <!-- Goal Stats -->
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-chart-line"></i> Goal Statistics</h3>
-                    <i class="fas fa-futbol"></i>
-                </div>
-                <div class="info-row">
-                    <span>Goals For (GF)</span>
-                    <span id="gf">0</span>
-                </div>
-                <div class="info-row">
-                    <span>Goals Against (GA)</span>
-                    <span id="ga">0</span>
-                </div>
-                <div class="info-row">
-                    <span>Goal Difference (GD)</span>
-                    <span id="gd">0</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">Goal Ratio</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="goalProgress" style="width: 0%;"></div>
-                    </div>
-                </div>
+                <div class="card-header"><h3><i class="fas fa-chart-line"></i> Goal Statistics</h3><i class="fas fa-futbol"></i></div>
+                <div class="info-row"><span>Goals For (GF)</span><span id="gf">0</span></div>
+                <div class="info-row"><span>Goals Against (GA)</span><span id="ga">0</span></div>
+                <div class="info-row"><span>Goal Difference (GD)</span><span id="gd">0</span></div>
+                <div class="progress-container"><div class="progress-label">Goal Ratio</div><div class="progress-bar"><div class="progress-fill" id="goalProgress" style="width:0%"></div></div></div>
             </div>
-
-            <!-- Gaming Info -->
             <div class="card">
-                <div class="card-header">
-                    <h3><i class="fas fa-gamepad"></i> Gaming Information</h3>
-                    <i class="fas fa-edit"></i>
-                </div>
-                <div class="info-row">
-                    <span>Konami ID</span>
-                    <span id="konamiId">Not set</span>
-                </div>
-                <div class="info-row">
-                    <span>Device Name</span>
-                    <span id="deviceName">Not set</span>
-                </div>
-                <div class="info-row">
-                    <span>Phone Number</span>
-                    <span id="playerPhone">Not set</span>
-                </div>
-                <div class="info-row">
-                    <span>Facebook</span>
-                    <span id="fbLink">Not linked</span>
-                </div>
-                <div class="info-row">
-                    <span>Joined On</span>
-                    <span id="joinedDate">--</span>
-                </div>
+                <div class="card-header"><h3><i class="fas fa-gamepad"></i> Gaming Information</h3><i class="fas fa-edit"></i></div>
+                <div class="info-row"><span>Konami ID</span><span id="konamiId">Not set</span></div>
+                <div class="info-row"><span>Device Name</span><span id="deviceName">Not set</span></div>
+                <div class="info-row"><span>Phone Number</span><span id="playerPhone">Not set</span></div>
+                <div class="info-row"><span>Facebook</span><span id="fbLink">Not linked</span></div>
+                <div class="info-row"><span>Joined On</span><span id="joinedDate">--</span></div>
             </div>
         </div>
 
         <!-- Recent Matches -->
         <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-history"></i> Recent Matches</h3>
-                <a href="matches.html" style="color: #e94560; font-size: 12px;">View All →</a>
-            </div>
-            <div id="recentMatches" class="match-list">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading matches...</p>
-                </div>
-            </div>
+            <div class="card-header"><h3><i class="fas fa-history"></i> Recent Matches</h3><a href="matches.html" style="color:#e94560; font-size:12px;">View All →</a></div>
+            <div id="recentMatches" class="match-list"><div class="loading"><div class="spinner"></div><p>Loading matches...</p></div></div>
         </div>
     </main>
 
@@ -688,11 +435,8 @@
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
-        
         if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-            });
+            mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
         }
 
         async function checkSession() {
@@ -723,37 +467,46 @@
             }
 
             if (data) {
-                document.getElementById('playerName').innerText = data.player_name;
-                document.getElementById('displayName').innerText = data.player_name;
-                document.getElementById('playerEmail').innerText = data.email;
-                document.getElementById('wins').innerText = data.win || 0;
-                document.getElementById('losses').innerText = data.loss || 0;
-                document.getElementById('points').innerText = data.pts || 0;
-                document.getElementById('totalMatches').innerText = (data.win||0)+(data.loss||0)+(data.draw||0);
-                document.getElementById('gf').innerText = data.gf || 0;
-                document.getElementById('ga').innerText = data.ga || 0;
-                
-                let gd = (data.gf||0) - (data.ga||0);
-                document.getElementById('gd').innerHTML = gd >= 0 ? `+${gd}` : gd;
-                
-                let totalGoals = (data.gf||0)+(data.ga||0);
-                document.getElementById('goalProgress').style.width = totalGoals > 0 ? ((data.gf||0)/totalGoals)*100 + '%' : '0%';
-                
-                document.getElementById('konamiId').innerHTML = data.konami_user_id || '<span style="color:#8892b0;">Not set</span>';
-                document.getElementById('deviceName').innerHTML = data.device_name || '<span style="color:#8892b0;">Not set</span>';
-                document.getElementById('playerPhone').innerHTML = data.number || '<span style="color:#8892b0;">Not set</span>';
-                
-                if (data.fb_id_link) {
-                    document.getElementById('fbLink').innerHTML = `<a href="${data.fb_id_link}" target="_blank" style="color:#e94560;">View Profile</a>`;
-                }
-                
-                if (data.created_at) {
-                    document.getElementById('joinedDate').innerHTML = new Date(data.created_at).toLocaleDateString();
-                }
-                if (data.photo) document.getElementById('profilePhoto').src = data.photo;
-                if (data.cover_photo) document.getElementById('coverPhoto').src = data.cover_photo;
-                
+                updateUI(data);
                 await updatePlayerRank(data.player_name);
+            }
+        }
+
+        function updateUI(player) {
+            document.getElementById('playerName').innerText = player.player_name;
+            document.getElementById('displayName').innerText = player.player_name;
+            document.getElementById('playerEmail').innerText = player.email;
+            document.getElementById('wins').innerText = player.win || 0;
+            document.getElementById('losses').innerText = player.loss || 0;
+            document.getElementById('points').innerText = player.pts || 0;
+            document.getElementById('totalMatches').innerText = (player.win||0)+(player.loss||0)+(player.draw||0);
+            document.getElementById('gf').innerText = player.gf || 0;
+            document.getElementById('ga').innerText = player.ga || 0;
+            let gd = (player.gf||0) - (player.ga||0);
+            document.getElementById('gd').innerHTML = gd >= 0 ? `+${gd}` : gd;
+            let totalGoals = (player.gf||0)+(player.ga||0);
+            document.getElementById('goalProgress').style.width = totalGoals > 0 ? ((player.gf||0)/totalGoals)*100 + '%' : '0%';
+            
+            document.getElementById('konamiId').innerHTML = player.konami_user_id || '<span style="color:#8892b0;">Not set</span>';
+            document.getElementById('deviceName').innerHTML = player.device_name || '<span style="color:#8892b0;">Not set</span>';
+            document.getElementById('playerPhone').innerHTML = player.number || '<span style="color:#8892b0;">Not set</span>';
+            if (player.fb_id_link) {
+                document.getElementById('fbLink').innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#e94560;">View Profile</a>`;
+            }
+            if (player.created_at) {
+                document.getElementById('joinedDate').innerHTML = new Date(player.created_at).toLocaleDateString();
+            }
+            
+            // Profile Photo - Properly display
+            if (player.photo && player.photo !== 'null' && player.photo !== '') {
+                document.getElementById('profilePhoto').src = player.photo;
+            } else {
+                document.getElementById('profilePhoto').src = `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=110&name=${encodeURIComponent(player.player_name)}`;
+            }
+            
+            // Cover Photo
+            if (player.cover_photo && player.cover_photo !== 'null' && player.cover_photo !== '') {
+                document.getElementById('coverPhoto').src = player.cover_photo;
             }
         }
 
@@ -774,11 +527,7 @@
             }
             container.innerHTML = data.map(m => {
                 let isWin = m.winner_id === currentUser.id;
-                return `<div class="match-item">
-                    <span class="match-result ${isWin ? 'win' : 'loss'}">${isWin ? 'WIN' : 'LOSS'}</span>
-                    <span class="match-score">${m.player1_score||0} - ${m.player2_score||0}</span>
-                    <span class="match-date">${new Date(m.match_date).toLocaleDateString()}</span>
-                </div>`;
+                return `<div class="match-item"><span class="match-result ${isWin ? 'win' : 'loss'}">${isWin ? 'WIN' : 'LOSS'}</span><span class="match-score">${m.player1_score||0} - ${m.player2_score||0}</span><span class="match-date">${new Date(m.match_date).toLocaleDateString()}</span></div>`;
             }).join('');
         }
 
