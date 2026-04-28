@@ -16,7 +16,8 @@
                 <p>Become a legendary pirate of the pitch</p>
             </div>
             
-            <form id="signupForm" class="auth-form">
+            <form id="signupForm" class="auth-form" enctype="multipart/form-data">
+                <!-- Basic Info -->
                 <div class="form-row">
                     <div class="input-field">
                         <label>Player Name *</label>
@@ -53,6 +54,7 @@
                     </div>
                 </div>
                 
+                <!-- Social & Contact -->
                 <div class="form-row">
                     <div class="input-field">
                         <label>Facebook Profile Link</label>
@@ -71,6 +73,7 @@
                     </div>
                 </div>
                 
+                <!-- Gaming Info with Mobile Name Type -->
                 <div class="form-row">
                     <div class="input-field">
                         <label>Konami User ID</label>
@@ -81,34 +84,44 @@
                     </div>
                     
                     <div class="input-field">
-                        <label>Device Name</label>
+                        <label>Device / Mobile Name *</label>
                         <div class="input-wrapper">
-                            <span class="input-icon">💻</span>
-                            <select id="device_name">
-                                <option value="">Select Device</option>
-                                <option value="Mobile">📱 Mobile</option>
-                                <option value="PC">💻 PC</option>
-                                <option value="PlayStation">🎮 PlayStation</option>
-                                <option value="Xbox">🎮 Xbox</option>
-                            </select>
+                            <span class="input-icon">📱</span>
+                            <input type="text" id="device_name" placeholder="e.g., iPhone 14, Samsung S23, OnePlus 11" required>
                         </div>
+                        <small>Enter your device model name</small>
                     </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="input-field">
-                        <label>Profile Photo URL</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">🖼️</span>
-                            <input type="url" id="photo" placeholder="https://example.com/photo.jpg">
-                        </div>
-                    </div>
+                <!-- Photo Upload (Link না, সরাসরি আপলোড) -->
+                <div class="form-section">
+                    <h3>📸 Profile Images (Upload)</h3>
                     
-                    <div class="input-field">
-                        <label>Cover Photo URL</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">🌊</span>
-                            <input type="url" id="cover_photo" placeholder="https://example.com/cover.jpg">
+                    <div class="form-row">
+                        <div class="input-field">
+                            <label>Profile Photo</label>
+                            <div class="file-upload-wrapper">
+                                <div class="file-upload-box" id="profileUploadBox">
+                                    <span class="upload-icon">🖼️</span>
+                                    <p>Click or drag to upload</p>
+                                    <small>JPG, PNG, GIF (Max 2MB)</small>
+                                    <input type="file" id="profile_photo" accept="image/*" class="file-input">
+                                </div>
+                                <div id="profilePreview" class="image-preview"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Cover Photo</label>
+                            <div class="file-upload-wrapper">
+                                <div class="file-upload-box" id="coverUploadBox">
+                                    <span class="upload-icon">🌊</span>
+                                    <p>Click or drag to upload</p>
+                                    <small>JPG, PNG, GIF (Max 5MB)</small>
+                                    <input type="file" id="cover_photo" accept="image/*" class="file-input">
+                                </div>
+                                <div id="coverPreview" class="image-preview"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
