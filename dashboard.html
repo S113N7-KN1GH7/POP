@@ -1,6 +1,6 @@
 
 <!-- ============================================= -->
-<!-- DASHBOARD.HTML - Classic Clean Theme -->
+<!-- DASHBOARD.HTML - Classic Clean Theme with Top Navbar -->
 <!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -23,96 +23,111 @@
             color: #1a1a2e;
         }
 
-        /* Dashboard Layout */
-        .dashboard {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ========== SIDEBAR ========== */
-        .sidebar {
-            width: 260px;
+        /* ========== TOP NAVBAR ========== */
+        .top-navbar {
             background: #ffffff;
-            border-right: 1px solid #e8ecf1;
-            padding: 30px 20px;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
         }
 
         .logo-area {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e8ecf1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .logo-icon {
-            font-size: 40px;
-            margin-bottom: 8px;
+            font-size: 32px;
         }
 
         .logo-area h2 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: #1a1a2e;
         }
 
-        .logo-area p {
-            font-size: 10px;
-            color: #8892b0;
-            letter-spacing: 1px;
+        .logo-area span {
+            color: #e94560;
         }
 
-        /* Navigation */
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-bottom: 40px;
-        }
-
-        .nav-item {
+        /* Navigation Links */
+        .nav-links {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
             border-radius: 10px;
             color: #4a5568;
             text-decoration: none;
-            transition: all 0.2s;
             font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .nav-item i {
-            width: 20px;
-            font-size: 1rem;
+        .nav-link i {
+            font-size: 16px;
         }
 
-        .nav-item:hover {
+        .nav-link:hover {
             background: #f0f4f8;
             color: #e94560;
         }
 
-        .nav-item.active {
+        .nav-link.active {
             background: #e94560;
             color: #ffffff;
         }
 
-        /* Logout Button */
-        .logout-btn {
-            width: 100%;
-            padding: 12px 16px;
-            background: transparent;
-            border: 1px solid #e8ecf1;
-            border-radius: 10px;
-            color: #e94560;
+        /* User Menu */
+        .user-menu {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
+        }
+
+        .rank-badge {
+            background: #f0f4f8;
+            padding: 6px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rank-badge i {
+            color: #f5a623;
+            font-size: 16px;
+        }
+
+        .rank-badge span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #e8ecf1;
+            padding: 8px 16px;
+            border-radius: 10px;
+            color: #e94560;
             cursor: pointer;
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: 500;
+            transition: all 0.2s;
         }
 
         .logout-btn:hover {
@@ -122,58 +137,26 @@
 
         /* ========== MAIN CONTENT ========== */
         .main-content {
-            flex: 1;
-            margin-left: 260px;
             padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* Header */
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Welcome Section */
+        .welcome-section {
             margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
-        .welcome h1 {
-            font-size: 24px;
+        .welcome-section h1 {
+            font-size: 28px;
             font-weight: 600;
             color: #1a1a2e;
         }
 
-        .welcome p {
+        .welcome-section p {
             color: #8892b0;
             font-size: 14px;
-            margin-top: 4px;
-        }
-
-        .rank-card {
-            background: #ffffff;
-            padding: 10px 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
-        }
-
-        .rank-card i {
-            color: #f5a623;
-            font-size: 24px;
-        }
-
-        .rank-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .rank-card p {
-            font-size: 11px;
-            color: #8892b0;
+            margin-top: 5px;
         }
 
         /* Profile Section */
@@ -187,7 +170,7 @@
         }
 
         .cover-area {
-            height: 120px;
+            height: 140px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: relative;
         }
@@ -430,6 +413,16 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a1a2e;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -438,42 +431,65 @@
             .two-col {
                 grid-template-columns: 1fr;
             }
+            .main-content {
+                padding: 20px;
+            }
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 70px;
-                padding: 20px 10px;
+            .top-navbar {
+                padding: 0 15px;
             }
-            .logo-area h2, .logo-area p, .nav-item span, .logout-btn span {
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                gap: 10px;
+            }
+            
+            .nav-links.show {
+                left: 0;
+            }
+            
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .user-menu .rank-badge {
                 display: none;
             }
-            .nav-item {
-                justify-content: center;
-                padding: 12px;
-            }
-            .logout-btn {
-                justify-content: center;
-            }
-            .main-content {
-                margin-left: 70px;
-                padding: 20px;
-            }
+            
             .profile-info {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
+            
             .avatar {
                 width: 70px;
                 height: 70px;
             }
+            
             .stats-grid {
                 gap: 12px;
             }
+            
             .stat-info h3 {
                 font-size: 20px;
             }
+            
             .stat-icon {
                 width: 40px;
                 height: 40px;
@@ -482,191 +498,183 @@
         }
 
         @media (max-width: 480px) {
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+            .welcome-section h1 {
+                font-size: 22px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-area">
-                <div class="logo-icon">🏴‍☠️</div>
-                <h2>POP123</h2>
-                <p>PIRATES OF PITCH</p>
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="logo-area">
+            <div class="logo-icon">🏴‍☠️</div>
+            <h2>POP<span>123</span></h2>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="dashboard.html" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="leaderboard.html" class="nav-link">
+                <i class="fas fa-trophy"></i> Leaderboard
+            </a>
+            <a href="matches.html" class="nav-link">
+                <i class="fas fa-futbol"></i> Matches
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-user"></i> Profile
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </div>
+        
+        <div class="user-menu">
+            <div class="rank-badge">
+                <i class="fas fa-crown"></i>
+                <span id="rankDisplay">Rank #1</span>
             </div>
-            
-            <nav class="nav-menu">
-                <a href="dashboard.html" class="nav-item active">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="leaderboard.html" class="nav-item">
-                    <i class="fas fa-trophy"></i>
-                    <span>Leaderboard</span>
-                </a>
-                <a href="matches.html" class="nav-item">
-                    <i class="fas fa-futbol"></i>
-                    <span>Matches</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-user"></i>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-            </nav>
-            
             <button id="logoutBtn" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </button>
-        </aside>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <div class="page-header">
-                <div class="welcome">
-                    <h1>Welcome back, <span id="playerName">Player</span>!</h1>
-                    <p>Ready to play today?</p>
-                </div>
-                <div class="rank-card">
-                    <i class="fas fa-crown"></i>
-                    <div>
-                        <h3 id="playerRank">#1</h3>
-                        <p>Global Rank</p>
-                    </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1>Welcome back, <span id="playerName" style="color: #e94560;">Player</span>!</h1>
+            <p>Ready to conquer the pitch today?</p>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="cover-area">
+                <img id="coverPhoto" class="cover-image" src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=1200" alt="Cover">
+            </div>
+            <div class="profile-info">
+                <img id="profilePhoto" class="avatar" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=100" alt="Avatar">
+                <div class="user-details">
+                    <h2 id="displayName">Loading...</h2>
+                    <p><i class="fas fa-envelope"></i> <span id="playerEmail">email@example.com</span></p>
+                    <span class="user-badge"><i class="fas fa-skull-crossbones"></i> Pirate Legend</span>
                 </div>
             </div>
+        </div>
 
-            <!-- Profile Section -->
-            <div class="profile-section">
-                <div class="cover-area">
-                    <img id="coverPhoto" class="cover-image" src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=1200" alt="Cover">
-                </div>
-                <div class="profile-info">
-                    <img id="profilePhoto" class="avatar" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=100" alt="Avatar">
-                    <div class="user-details">
-                        <h2 id="displayName">Loading...</h2>
-                        <p><i class="fas fa-envelope"></i> <span id="playerEmail">email@example.com</span></p>
-                        <span class="user-badge"><i class="fas fa-skull-crossbones"></i> Pirate Legend</span>
-                    </div>
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-futbol"></i></div>
+                <div class="stat-info">
+                    <h4>Total Matches</h4>
+                    <h3 id="totalMatches">0</h3>
                 </div>
             </div>
-
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-futbol"></i></div>
-                    <div class="stat-info">
-                        <h4>Total Matches</h4>
-                        <h3 id="totalMatches">0</h3>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
-                    <div class="stat-info">
-                        <h4>Wins</h4>
-                        <h3 id="wins">0</h3>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-frown"></i></div>
-                    <div class="stat-info">
-                        <h4>Losses</h4>
-                        <h3 id="losses">0</h3>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-star"></i></div>
-                    <div class="stat-info">
-                        <h4>Points</h4>
-                        <h3 id="points">0</h3>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                <div class="stat-info">
+                    <h4>Wins</h4>
+                    <h3 id="wins">0</h3>
                 </div>
             </div>
-
-            <!-- Two Column Layout -->
-            <div class="two-col">
-                <!-- Goal Stats -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-chart-line"></i> Goal Statistics</h3>
-                        <i class="fas fa-futbol"></i>
-                    </div>
-                    <div class="info-row">
-                        <span>Goals For (GF)</span>
-                        <span id="gf">0</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Goals Against (GA)</span>
-                        <span id="ga">0</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Goal Difference (GD)</span>
-                        <span id="gd">0</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-label">Goal Ratio</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="goalProgress" style="width: 0%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Gaming Info -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-gamepad"></i> Gaming Info</h3>
-                        <i class="fas fa-edit"></i>
-                    </div>
-                    <div class="info-row">
-                        <span>Konami ID</span>
-                        <span id="konamiId">Not set</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Device Name</span>
-                        <span id="deviceName">Not set</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Phone Number</span>
-                        <span id="playerPhone">Not set</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Facebook</span>
-                        <span id="fbLink">Not linked</span>
-                    </div>
-                    <div class="info-row">
-                        <span>Joined On</span>
-                        <span id="joinedDate">--</span>
-                    </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-frown"></i></div>
+                <div class="stat-info">
+                    <h4>Losses</h4>
+                    <h3 id="losses">0</h3>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-info">
+                    <h4>Points</h4>
+                    <h3 id="points">0</h3>
+                </div>
+            </div>
+        </div>
 
-            <!-- Recent Matches -->
+        <!-- Two Column Layout -->
+        <div class="two-col">
+            <!-- Goal Stats -->
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-history"></i> Recent Matches</h3>
-                    <a href="matches.html" style="color: #e94560; font-size: 12px;">View All →</a>
+                    <h3><i class="fas fa-chart-line"></i> Goal Statistics</h3>
+                    <i class="fas fa-futbol"></i>
                 </div>
-                <div id="recentMatches" class="match-list">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Loading matches...</p>
+                <div class="info-row">
+                    <span>Goals For (GF)</span>
+                    <span id="gf">0</span>
+                </div>
+                <div class="info-row">
+                    <span>Goals Against (GA)</span>
+                    <span id="ga">0</span>
+                </div>
+                <div class="info-row">
+                    <span>Goal Difference (GD)</span>
+                    <span id="gd">0</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">Goal Ratio</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="goalProgress" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+
+            <!-- Gaming Info -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-gamepad"></i> Gaming Information</h3>
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="info-row">
+                    <span>Konami ID</span>
+                    <span id="konamiId">Not set</span>
+                </div>
+                <div class="info-row">
+                    <span>Device Name</span>
+                    <span id="deviceName">Not set</span>
+                </div>
+                <div class="info-row">
+                    <span>Phone Number</span>
+                    <span id="playerPhone">Not set</span>
+                </div>
+                <div class="info-row">
+                    <span>Facebook</span>
+                    <span id="fbLink">Not linked</span>
+                </div>
+                <div class="info-row">
+                    <span>Joined On</span>
+                    <span id="joinedDate">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Matches -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-history"></i> Recent Matches</h3>
+                <a href="matches.html" style="color: #e94560; font-size: 12px;">View All →</a>
+            </div>
+            <div id="recentMatches" class="match-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading matches...</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -676,6 +684,16 @@
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
         let currentUser = null;
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+        }
 
         async function checkSession() {
             const { data: { user }, error } = await supabase.auth.getUser();
@@ -743,7 +761,7 @@
             const { data } = await supabase.from('players').select('player_name').order('pts', { ascending: false });
             if (data) {
                 let rank = data.findIndex(p => p.player_name === playerName) + 1;
-                document.getElementById('playerRank').innerHTML = '#' + (rank || 1);
+                document.getElementById('rankDisplay').innerHTML = `Rank #${rank || 1}`;
             }
         }
 
