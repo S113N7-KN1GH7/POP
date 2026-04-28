@@ -1,6 +1,5 @@
 // =============================================
-// DASHBOARD.JS - POP123 Pirates of Pitch
-// Complete Dashboard JavaScript
+// DASHBOARD.JS - POP123 Pirates of Pitch (FIXED)
 // =============================================
 
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -82,19 +81,24 @@ class DashboardController {
         const { data: { user }, error } = await supabase.auth.getUser();
         
         if (error || !user) {
+            console.error('User load error:', error);
             SessionManager.redirectToLogin();
             return;
         }
         
         this.user = user;
+        console.log('User loaded:', user);
         
         // Update UI with user info
-        document.getElementById('playerName').innerText = user.user_metadata?.player_name || user.email.split('@')[0];
-        document.getElementById('displayName').innerText = user.user_metadata?.player_name || user.email.split('@')[0];
+        const playerName = user.user_metadata?.player_name || user.email.split('@')[0];
+        document.getElementById('playerName').innerText = playerName;
+        document.getElementById('displayName').innerText = playerName;
         document.getElementById('playerEmail').innerText = user.email;
     }
     
     async loadPlayerStats() {
+        console.log('Loading player stats for user ID:', this.user?.id);
+        
         const { data: player, error } = await supabase
             .from('players')
             .select('*')
@@ -103,16 +107,62 @@ class DashboardController {
         
         if (error) {
             console.error('Error loading player stats:', error);
+            console.log('Trying to create player profile...');
+            await this.createPlayerProfile();
             return;
         }
         
+        if (!player) {
+            console.log('No player data found, creating profile...');
+            await this.createPlayerProfile();
+            return;
+        }
+        
+        console.log('Player data loaded:', player);
         this.player = player;
         this.updateStatsUI(player);
         this.updateGamingInfoUI(player);
         await this.updatePlayerRank();
     }
     
+    async createPlayerProfile() {
+        const { data, error } = await supabase
+            .from('players')
+            .insert([{
+                id: this.user.id,
+                player_name: this.user.user_metadata?.player_name || this.user.email.split('@')[0],
+                email: this.user.email,
+                konami_user_id: null,
+                device_name: null,
+                number: null,
+                fb_id_link: null,
+                photo: null,
+                cover_photo: null,
+                win: 0,
+                loss: 0,
+                draw: 0,
+                gf: 0,
+                ga: 0,
+                pts: 0,
+                created_at: new Date(),
+                updated_at: new Date()
+            }])
+            .select()
+            .single();
+        
+        if (error) {
+            console.error('Error creating player profile:', error);
+        } else {
+            console.log('Player profile created:', data);
+            this.player = data;
+            this.updateStatsUI(data);
+            this.updateGamingInfoUI(data);
+        }
+    }
+    
     updateStatsUI(player) {
+        console.log('Updating stats UI with:', player);
+        
         // Basic stats
         document.getElementById('wins').innerText = player.win || 0;
         document.getElementById('losses').innerText = player.loss || 0;
@@ -124,84 +174,138 @@ class DashboardController {
         const ga = player.ga || 0;
         const gd = gf - ga;
         
-        document.getElementById('gf').innerText = gf;
-        document.getElementById('ga').innerText = ga;
-        
+        const gfElement = document.getElementById('gf');
+        const gaElement = document.getElementById('ga');
         const gdElement = document.getElementById('gd');
-        gdElement.innerText = gd >= 0 ? `+${gd}` : gd;
-        gdElement.className = `gd-value ${gd >= 0 ? 'positive' : 'negative'}`;
+        
+        if (gfElement) gfElement.innerText = gf;
+        if (gaElement) gaElement.innerText = ga;
+        if (gdElement) {
+            gdElement.innerText = gd >= 0 ? `+${gd}` : gd;
+            gdElement.className = `gd-value ${gd >= 0 ? 'positive' : 'negative'}`;
+        }
         
         // Total matches
         const totalMatches = (player.win || 0) + (player.loss || 0) + (player.draw || 0);
-        document.getElementById('totalMatches').innerText = totalMatches;
+        const totalMatchesElement = document.getElementById('totalMatches');
+        if (totalMatchesElement) totalMatchesElement.innerText = totalMatches;
         
         // Win rate
         const winRate = totalMatches > 0 ? ((player.win / totalMatches) * 100).toFixed(1) : 0;
-        document.getElementById('winRate').innerText = winRate + '%';
+        const winRateElement = document.getElementById('winRate');
+        if (winRateElement) winRateElement.innerText = winRate + '%';
         
-        // Goal progress (GF / (GF + GA) * 100)
+        // Goal progress
         const totalGoals = gf + ga;
         const goalProgress = totalGoals > 0 ? (gf / totalGoals) * 100 : 0;
-        document.getElementById('goalProgress').style.width = goalProgress + '%';
+        const goalProgressElement = document.getElementById('goalProgress');
+        if (goalProgressElement) goalProgressElement.style.width = goalProgress + '%';
         
         // Profile images
-        if (player.photo) {
-            document.getElementById('profilePhoto').src = player.photo;
+        const profilePhoto = document.getElementById('profilePhoto');
+        const coverPhoto = document.getElementById('coverPhoto');
+        
+        if (player.photo && profilePhoto) {
+            profilePhoto.src = player.photo;
         }
-        if (player.cover_photo) {
-            document.getElementById('coverPhoto').src = player.cover_photo;
-        } else {
-            document.getElementById('coverPhoto').src = 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200';
+        if (player.cover_photo && coverPhoto) {
+            coverPhoto.src = player.cover_photo;
         }
     }
     
     updateGamingInfoUI(player) {
-        if (player.konami_user_id) {
-            document.getElementById('konamiId').innerText = player.konami_user_id;
+        console.log('Updating gaming info UI with:', {
+            konami_user_id: player.konami_user_id,
+            device_name: player.device_name,
+            number: player.number,
+            fb_id_link: player.fb_id_link,
+            created_at: player.created_at
+        });
+        
+        // Konami ID
+        const konamiElement = document.getElementById('konamiId');
+        if (konamiElement) {
+            konamiElement.innerText = player.konami_user_id || 'Not set';
+            if (player.konami_user_id) {
+                konamiElement.style.color = '#66FCF1';
+            }
         }
-        if (player.device_name) {
-            document.getElementById('deviceName').innerText = player.device_name;
+        
+        // Device Name
+        const deviceElement = document.getElementById('deviceName');
+        if (deviceElement) {
+            deviceElement.innerText = player.device_name || 'Not set';
+            if (player.device_name) {
+                deviceElement.style.color = '#66FCF1';
+            }
         }
-        if (player.number) {
-            document.getElementById('playerPhone').innerText = player.number;
+        
+        // Phone Number
+        const phoneElement = document.getElementById('playerPhone');
+        if (phoneElement) {
+            phoneElement.innerText = player.number || 'Not set';
+            if (player.number) {
+                phoneElement.style.color = '#66FCF1';
+            }
         }
-        if (player.fb_id_link) {
-            document.getElementById('fbLink').innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#45A29E;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
+        
+        // Facebook Link
+        const fbElement = document.getElementById('fbLink');
+        if (fbElement) {
+            if (player.fb_id_link) {
+                fbElement.innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#45A29E;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
+            } else {
+                fbElement.innerText = 'Not linked';
+            }
         }
-        if (player.created_at) {
-            const date = new Date(player.created_at);
-            document.getElementById('joinedDate').innerText = date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+        
+        // Joined Date
+        const joinedElement = document.getElementById('joinedDate');
+        if (joinedElement) {
+            if (player.created_at) {
+                const date = new Date(player.created_at);
+                joinedElement.innerText = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } else {
+                joinedElement.innerText = 'Just joined!';
+            }
         }
     }
     
     async updatePlayerRank() {
+        if (!this.player) return;
+        
         const { data: ranked, error } = await supabase
             .from('players')
             .select('player_name, pts')
             .order('pts', { ascending: false });
         
-        if (!error && ranked) {
+        if (!error && ranked && ranked.length > 0) {
             const rank = ranked.findIndex(p => p.player_name === this.player.player_name) + 1;
             const rankNumber = rank > 0 ? rank : ranked.length + 1;
-            document.getElementById('playerRank').innerText = '#' + rankNumber;
+            const rankElement = document.getElementById('playerRank');
+            if (rankElement) rankElement.innerText = '#' + rankNumber;
             
             // Add rank badge color based on position
             const rankBadge = document.querySelector('.rank-badge');
-            if (rankNumber === 1) {
-                rankBadge.style.borderColor = '#FFD700';
-            } else if (rankNumber <= 3) {
-                rankBadge.style.borderColor = '#C0C0C0';
-            } else if (rankNumber <= 10) {
-                rankBadge.style.borderColor = '#CD7F32';
+            if (rankBadge) {
+                if (rankNumber === 1) {
+                    rankBadge.style.borderColor = '#FFD700';
+                } else if (rankNumber <= 3) {
+                    rankBadge.style.borderColor = '#C0C0C0';
+                } else if (rankNumber <= 10) {
+                    rankBadge.style.borderColor = '#CD7F32';
+                }
             }
         }
     }
     
     async loadRecentMatches() {
+        if (!this.user) return;
+        
         const { data: matches, error } = await supabase
             .from('matches')
             .select('*')
@@ -212,37 +316,41 @@ class DashboardController {
         const container = document.getElementById('recentMatches');
         
         if (error || !matches || matches.length === 0) {
-            container.innerHTML = `
-                <div class="loading">
-                    <i class="fas fa-futbol" style="font-size: 40px; opacity: 0.3;"></i>
-                    <p style="margin-top: 10px;">No matches played yet</p>
-                    <p style="font-size: 12px; color: #45A29E;">Start your journey today!</p>
-                </div>
-            `;
+            if (container) {
+                container.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-futbol" style="font-size: 40px; opacity: 0.3;"></i>
+                        <p style="margin-top: 10px;">No matches played yet</p>
+                        <p style="font-size: 12px; color: #45A29E;">Start your journey today!</p>
+                    </div>
+                `;
+            }
             return;
         }
         
-        container.innerHTML = matches.map(match => {
-            const isWinner = match.winner_id === this.user.id;
-            const player1Score = match.player1_score || 0;
-            const player2Score = match.player2_score || 0;
-            const score = `${player1Score} - ${player2Score}`;
-            const matchDate = new Date(match.match_date);
-            const timeAgo = this.getTimeAgo(matchDate);
-            
-            return `
-                <div class="match-item">
-                    <span class="match-result ${isWinner ? 'win' : 'loss'}">
-                        <i class="fas ${isWinner ? 'fa-trophy' : 'fa-skull'}"></i>
-                        ${isWinner ? 'VICTORY' : 'DEFEAT'}
-                    </span>
-                    <span class="match-score">${score}</span>
-                    <span class="match-date" title="${matchDate.toLocaleString()}">
-                        <i class="far fa-clock"></i> ${timeAgo}
-                    </span>
-                </div>
-            `;
-        }).join('');
+        if (container) {
+            container.innerHTML = matches.map(match => {
+                const isWinner = match.winner_id === this.user.id;
+                const player1Score = match.player1_score || 0;
+                const player2Score = match.player2_score || 0;
+                const score = `${player1Score} - ${player2Score}`;
+                const matchDate = new Date(match.match_date);
+                const timeAgo = this.getTimeAgo(matchDate);
+                
+                return `
+                    <div class="match-item">
+                        <span class="match-result ${isWinner ? 'win' : 'loss'}">
+                            <i class="fas ${isWinner ? 'fa-trophy' : 'fa-skull'}"></i>
+                            ${isWinner ? 'VICTORY' : 'DEFEAT'}
+                        </span>
+                        <span class="match-score">${score}</span>
+                        <span class="match-date" title="${matchDate.toLocaleString()}">
+                            <i class="far fa-clock"></i> ${timeAgo}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
     }
     
     getTimeAgo(date) {
@@ -285,12 +393,10 @@ class DashboardController {
     }
     
     showProfileModal() {
-        // You can implement a profile edit modal here
         alert('Profile edit feature coming soon!');
     }
     
     showSettingsModal() {
-        // You can implement settings modal here
         alert('Settings feature coming soon!');
     }
 }
@@ -301,10 +407,10 @@ class DashboardController {
 const dashboard = new DashboardController();
 dashboard.init();
 
-// =============================================
-// AUTO REFRESH DATA (Every 30 seconds)
-// =============================================
+// Auto refresh data every 30 seconds
 setInterval(async () => {
-    await dashboard.loadPlayerStats();
-    await dashboard.loadRecentMatches();
+    if (dashboard.user) {
+        await dashboard.loadPlayerStats();
+        await dashboard.loadRecentMatches();
+    }
 }, 30000);
