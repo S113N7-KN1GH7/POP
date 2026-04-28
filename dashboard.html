@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -730,7 +731,8 @@
         </main>
     </div>
 
-    <script type="module">
+    <script>
+        // dashboard.js - Complete Script
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
         // Supabase Configuration
@@ -753,6 +755,7 @@
             }
             
             currentUser = user;
+            console.log('User logged in:', currentUser.email);
             return true;
         }
 
@@ -760,7 +763,7 @@
         async function loadPlayerData() {
             if (!currentUser) return;
             
-            console.log('Loading player data for:', currentUser.id);
+            console.log('Loading player data for user ID:', currentUser.id);
             
             const { data, error } = await supabase
                 .from('players')
@@ -779,7 +782,7 @@
             
             if (data) {
                 playerData = data;
-                console.log('Player data loaded:', playerData);
+                console.log('Player data loaded successfully:', data);
                 updateAllUI(data);
                 await updatePlayerRank(data.player_name);
             }
@@ -789,34 +792,36 @@
         async function createPlayerProfile() {
             console.log('Creating new player profile...');
             
+            const newPlayer = {
+                id: currentUser.id,
+                player_name: currentUser.user_metadata?.player_name || currentUser.email.split('@')[0],
+                email: currentUser.email,
+                konami_user_id: null,
+                device_name: null,
+                number: null,
+                fb_id_link: null,
+                photo: null,
+                cover_photo: null,
+                win: 0,
+                loss: 0,
+                draw: 0,
+                gf: 0,
+                ga: 0,
+                pts: 0,
+                created_at: new Date(),
+                updated_at: new Date()
+            };
+            
             const { data, error } = await supabase
                 .from('players')
-                .insert([{
-                    id: currentUser.id,
-                    player_name: currentUser.user_metadata?.player_name || currentUser.email.split('@')[0],
-                    email: currentUser.email,
-                    konami_user_id: null,
-                    device_name: null,
-                    number: null,
-                    fb_id_link: null,
-                    photo: null,
-                    cover_photo: null,
-                    win: 0,
-                    loss: 0,
-                    draw: 0,
-                    gf: 0,
-                    ga: 0,
-                    pts: 0,
-                    created_at: new Date(),
-                    updated_at: new Date()
-                }])
+                .insert([newPlayer])
                 .select()
                 .single();
             
             if (error) {
                 console.error('Error creating profile:', error);
             } else {
-                console.log('Profile created:', data);
+                console.log('Profile created successfully:', data);
                 playerData = data;
                 updateAllUI(data);
             }
@@ -824,6 +829,8 @@
 
         // ========== UPDATE ALL UI ==========
         function updateAllUI(player) {
+            console.log('Updating UI with player data:', player);
+            
             // Basic info
             document.getElementById('playerName').innerText = player.player_name;
             document.getElementById('displayName').innerText = player.player_name;
@@ -859,31 +866,58 @@
             const goalProgress = totalGoals > 0 ? (gf / totalGoals) * 100 : 0;
             document.getElementById('goalProgress').style.width = goalProgress + '%';
             
-            // Gaming Info
-            document.getElementById('konamiId').innerHTML = player.konami_user_id || '<span style="color:#888;">Not set</span>';
-            document.getElementById('deviceName').innerHTML = player.device_name || '<span style="color:#888;">Not set</span>';
-            document.getElementById('playerPhone').innerHTML = player.number || '<span style="color:#888;">Not set</span>';
+            // Gaming Info - Show actual data from database
+            const konamiElement = document.getElementById('konamiId');
+            const deviceElement = document.getElementById('deviceName');
+            const phoneElement = document.getElementById('playerPhone');
+            const fbElement = document.getElementById('fbLink');
+            const joinedElement = document.getElementById('joinedDate');
             
-            if (player.fb_id_link) {
-                document.getElementById('fbLink').innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#45A29E;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
+            // Konami ID
+            if (player.konami_user_id && player.konami_user_id !== 'null') {
+                konamiElement.innerHTML = `<span style="color:#66FCF1;">${player.konami_user_id}</span>`;
             } else {
-                document.getElementById('fbLink').innerHTML = '<span style="color:#888;">Not linked</span>';
+                konamiElement.innerHTML = '<span style="color:#888;">Not set</span>';
             }
             
+            // Device Name
+            if (player.device_name && player.device_name !== 'null') {
+                deviceElement.innerHTML = `<span style="color:#66FCF1;">${player.device_name}</span>`;
+            } else {
+                deviceElement.innerHTML = '<span style="color:#888;">Not set</span>';
+            }
+            
+            // Phone Number
+            if (player.number && player.number !== 'null') {
+                phoneElement.innerHTML = `<span style="color:#66FCF1;">${player.number}</span>`;
+            } else {
+                phoneElement.innerHTML = '<span style="color:#888;">Not set</span>';
+            }
+            
+            // Facebook Link
+            if (player.fb_id_link && player.fb_id_link !== 'null') {
+                fbElement.innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#45A29E;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
+            } else {
+                fbElement.innerHTML = '<span style="color:#888;">Not linked</span>';
+            }
+            
+            // Joined Date
             if (player.created_at) {
                 const date = new Date(player.created_at);
-                document.getElementById('joinedDate').innerHTML = date.toLocaleDateString('en-US', {
+                joinedElement.innerHTML = `<span style="color:#66FCF1;">${date.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
-                });
+                })}</span>`;
+            } else {
+                joinedElement.innerHTML = '<span style="color:#888;">Just joined!</span>';
             }
             
             // Profile images
-            if (player.photo) {
+            if (player.photo && player.photo !== 'null') {
                 document.getElementById('profilePhoto').src = player.photo;
             }
-            if (player.cover_photo) {
+            if (player.cover_photo && player.cover_photo !== 'null') {
                 document.getElementById('coverPhoto').src = player.cover_photo;
             }
         }
@@ -895,9 +929,20 @@
                 .select('player_name, pts')
                 .order('pts', { ascending: false });
             
-            if (!error && data) {
+            if (!error && data && data.length > 0) {
                 const rank = data.findIndex(p => p.player_name === playerName) + 1;
-                document.getElementById('playerRank').innerText = '#' + (rank || data.length + 1);
+                const rankNumber = rank > 0 ? rank : data.length + 1;
+                document.getElementById('playerRank').innerText = '#' + rankNumber;
+                
+                // Add color based on rank
+                const rankBadge = document.querySelector('.rank-badge');
+                if (rankNumber === 1) {
+                    rankBadge.style.borderColor = '#FFD700';
+                } else if (rankNumber <= 3) {
+                    rankBadge.style.borderColor = '#C0C0C0';
+                } else if (rankNumber <= 10) {
+                    rankBadge.style.borderColor = '#CD7F32';
+                }
             }
         }
 
@@ -973,6 +1018,7 @@
             }
         }
         
+        // Start the app
         init();
     </script>
 </body>
