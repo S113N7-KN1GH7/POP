@@ -1,6 +1,3 @@
-<!-- ============================================= -->
-<!-- SIGNUP.HTML - Fixed Version -->
-<!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +21,7 @@
         }
 
         .signup-container {
-            max-width: 550px;
+            max-width: 600px;
             margin: 0 auto;
             background: #ffffff;
             border-radius: 24px;
@@ -61,8 +58,18 @@
             padding: 30px;
         }
 
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
         .input-group {
             margin-bottom: 20px;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
         }
 
         .input-group label {
@@ -76,6 +83,10 @@
         .input-group label i {
             color: #e94560;
             margin-right: 5px;
+        }
+
+        .input-group label .required {
+            color: #e74c3c;
         }
 
         .input-wrapper {
@@ -99,7 +110,8 @@
             font-size: 16px;
         }
 
-        .input-wrapper input {
+        .input-wrapper input,
+        .input-wrapper select {
             width: 100%;
             padding: 14px 12px;
             background: transparent;
@@ -109,12 +121,17 @@
             font-family: 'Inter', sans-serif;
         }
 
+        .input-wrapper select {
+            cursor: pointer;
+            color: #1a1a2e;
+        }
+
         /* Photo Upload */
         .photo-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
         .upload-area {
@@ -241,7 +258,13 @@
             to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 550px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .input-group.full-width {
+                grid-column: span 1;
+            }
             .photo-section {
                 grid-template-columns: 1fr;
             }
@@ -258,53 +281,87 @@
         
         <div class="signup-body">
             <form id="signupForm">
-                <div class="input-group">
-                    <label><i class="fas fa-user"></i> Player Name *</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-skull-crossbones"></i>
-                        <input type="text" id="player_name" placeholder="Enter your gaming name" required>
+                <div class="form-grid">
+                    <!-- Player Name -->
+                    <div class="input-group">
+                        <label><i class="fas fa-user"></i> Player Name <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-skull-crossbones"></i>
+                            <input type="text" id="player_name" placeholder="Enter your gaming name" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="input-group">
+                        <label><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label><i class="fas fa-lock"></i> Password <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Min 6 characters" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label><i class="fas fa-check-circle"></i> Confirm Password <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-check-circle"></i>
+                            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Konami User ID -->
+                    <div class="input-group">
+                        <label><i class="fas fa-id-card"></i> Konami User ID</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="konami_user_id" placeholder="eFootball/PES ID">
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Number -->
+                    <div class="input-group">
+                        <label><i class="fas fa-phone"></i> Phone Number</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="number" placeholder="+8801XXXXXXXXX">
+                        </div>
+                    </div>
+                    
+                    <!-- Device Name -->
+                    <div class="input-group">
+                        <label><i class="fas fa-mobile-alt"></i> Device Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-mobile-alt"></i>
+                            <input type="text" id="device_name" placeholder="e.g., iPhone 14, Samsung S23">
+                        </div>
+                    </div>
+                    
+                    <!-- Facebook Link -->
+                    <div class="input-group">
+                        <label><i class="fab fa-facebook"></i> Facebook Profile</label>
+                        <div class="input-wrapper">
+                            <i class="fab fa-facebook"></i>
+                            <input type="url" id="fb_id_link" placeholder="https://facebook.com/yourprofile">
+                        </div>
                     </div>
                 </div>
                 
-                <div class="input-group">
-                    <label><i class="fas fa-envelope"></i> Email Address *</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" placeholder="your@email.com" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label><i class="fas fa-lock"></i> Password *</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" placeholder="Min 6 characters" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label><i class="fas fa-check-circle"></i> Confirm Password *</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-check-circle"></i>
-                        <input type="password" id="confirmPassword" placeholder="Confirm password" required>
-                    </div>
-                </div>
-                
-                <div class="input-group">
-                    <label><i class="fas fa-mobile-alt"></i> Device Name (Optional)</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-mobile-alt"></i>
-                        <input type="text" id="device_name" placeholder="e.g., iPhone 14, Samsung S23">
-                    </div>
-                </div>
-                
-                <!-- Photo Upload -->
+                <!-- Photo Upload Section -->
                 <div class="photo-section">
                     <div class="upload-area" id="profileUploadBox">
                         <i class="fas fa-camera"></i>
                         <h4>Profile Photo</h4>
                         <p>Click to upload</p>
-                        <small>Max 2MB</small>
+                        <small>Max 2MB (JPG, PNG)</small>
                         <input type="file" id="profile_photo" accept="image/*" class="file-input">
                         <div id="profilePreview" class="preview-container"></div>
                     </div>
@@ -313,7 +370,7 @@
                         <i class="fas fa-image"></i>
                         <h4>Cover Photo</h4>
                         <p>Click to upload</p>
-                        <small>Max 2MB</small>
+                        <small>Max 2MB (JPG, PNG)</small>
                         <input type="file" id="cover_photo" accept="image/*" class="file-input">
                         <div id="coverPreview" class="preview-container"></div>
                     </div>
@@ -332,10 +389,12 @@
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
+        // Supabase Configuration
         const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
         const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+        // Variables
         let uploadedProfileUrl = null;
         let uploadedCoverUrl = null;
 
@@ -346,11 +405,11 @@
             const coverInput = document.getElementById('cover_photo');
             const coverBox = document.getElementById('coverUploadBox');
 
-            profileBox.addEventListener('click', () => profileInput.click());
-            coverBox.addEventListener('click', () => coverInput.click());
+            if (profileBox) profileBox.addEventListener('click', () => profileInput.click());
+            if (coverBox) coverBox.addEventListener('click', () => coverInput.click());
 
-            profileInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'profile'));
-            coverInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'cover'));
+            if (profileInput) profileInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'profile'));
+            if (coverInput) coverInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'cover'));
         }
 
         async function handleFileUpload(file, type) {
@@ -408,7 +467,7 @@
             }
         };
 
-        // Signup form submission
+        // Form submission
         const signupForm = document.getElementById('signupForm');
         const signupBtn = document.getElementById('signupBtn');
         const errorMsg = document.getElementById('errorMsg');
@@ -416,88 +475,101 @@
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            // Get all values
             const player_name = document.getElementById('player_name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            const konami_user_id = document.getElementById('konami_user_id').value || null;
+            const number = document.getElementById('number').value || null;
             const device_name = document.getElementById('device_name').value || null;
+            const fb_id_link = document.getElementById('fb_id_link').value || null;
             
+            // Validation
             errorMsg.innerText = '';
             
+            if (!player_name || player_name.length < 3) {
+                errorMsg.innerText = "❌ Player name must be at least 3 characters!";
+                return;
+            }
+            
+            if (!email || !email.includes('@')) {
+                errorMsg.innerText = "❌ Valid email required!";
+                return;
+            }
+            
+            if (!password || password.length < 6) {
+                errorMsg.innerText = "❌ Password must be at least 6 characters!";
+                return;
+            }
+            
             if (password !== confirmPassword) {
-                errorMsg.innerText = "Passwords don't match!";
-                return;
-            }
-            
-            if (password.length < 6) {
-                errorMsg.innerText = "Password must be at least 6 characters!";
-                return;
-            }
-            
-            if (player_name.length < 3) {
-                errorMsg.innerText = "Player name must be at least 3 characters!";
+                errorMsg.innerText = "❌ Passwords don't match!";
                 return;
             }
             
             signupBtn.disabled = true;
             signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
             
-            // Create auth user
-            const { data: authData, error: authError } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: {
-                    data: { 
-                        player_name: player_name, 
-                        device_name: device_name 
-                    }
-                }
-            });
-            
-            if (authError) {
-                errorMsg.innerText = authError.message;
-                signupBtn.disabled = false;
-                signupBtn.innerHTML = '🏴‍☠️ Register Now';
-                return;
-            }
-            
-            if (!authData.user) {
-                errorMsg.innerText = "User creation failed!";
-                signupBtn.disabled = false;
-                signupBtn.innerHTML = '🏴‍☠️ Register Now';
-                return;
-            }
-            
-            // Insert into players table
-            const { error: insertError } = await supabase
-                .from('players')
-                .insert({
-                    id: authData.user.id,
-                    player_name: player_name,
+            try {
+                // 1. Create Auth User (Password এখানে save হবে)
+                const { data: authData, error: authError } = await supabase.auth.signUp({
                     email: email,
-                    device_name: device_name,
-                    photo: uploadedProfileUrl,
-                    cover_photo: uploadedCoverUrl,
-                    win: 0,
-                    loss: 0,
-                    draw: 0,
-                    gf: 0,
-                    ga: 0,
-                    pts: 0
+                    password: password,
+                    options: {
+                        data: {
+                            player_name: player_name,
+                            device_name: device_name
+                        }
+                    }
                 });
-            
-            if (insertError) {
-                console.error('Insert error:', insertError);
-                errorMsg.innerText = "Profile creation failed: " + insertError.message;
+                
+                if (authError) throw authError;
+                
+                if (!authData.user) {
+                    throw new Error("User creation failed!");
+                }
+                
+                console.log("Auth user created:", authData.user.id);
+                
+                // 2. Insert into players table
+                const { error: insertError } = await supabase
+                    .from('players')
+                    .insert({
+                        id: authData.user.id,
+                        player_name: player_name,
+                        email: email,
+                        konami_user_id: konami_user_id,
+                        number: number,
+                        device_name: device_name,
+                        fb_id_link: fb_id_link,
+                        photo: uploadedProfileUrl,
+                        cover_photo: uploadedCoverUrl,
+                        win: 0,
+                        loss: 0,
+                        draw: 0,
+                        gf: 0,
+                        ga: 0,
+                        pts: 0,
+                        created_at: new Date(),
+                        updated_at: new Date()
+                    });
+                
+                if (insertError) throw insertError;
+                
+                console.log("Player data inserted successfully!");
+                alert('✅ Registration Successful! Please login.');
+                window.location.href = 'login.html';
+                
+            } catch (error) {
+                console.error("Signup error:", error);
+                errorMsg.innerText = "❌ " + (error.message || "Registration failed!");
                 signupBtn.disabled = false;
                 signupBtn.innerHTML = '🏴‍☠️ Register Now';
-                return;
             }
-            
-            alert('✅ Registration Successful! Please login.');
-            window.location.href = 'login.html';
         });
 
+        // Initialize
         setupFileUploads();
     </script>
 </body>
