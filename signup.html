@@ -1,548 +1,158 @@
-<!-- ============================================= -->
-<!-- SIGNUP.HTML - Complete Signup with Photo Upload -->
-<!-- ============================================= -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | POP123</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <title>Player Signup</title>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0B0C10 0%, #1A1A2E 100%);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
-        .signup-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            border: 1px solid rgba(69, 162, 158, 0.2);
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .signup-header {
-            background: linear-gradient(135deg, rgba(69, 162, 158, 0.2), rgba(102, 252, 241, 0.1));
-            padding: 30px;
-            text-align: center;
-            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
-        }
+    .card {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-        .signup-header .logo-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
-        }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        .signup-header h1 {
-            font-size: 28px;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, #fff, #66FCF1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+    }
 
-        .signup-header p {
-            color: #C5C6C7;
-            margin-top: 10px;
-        }
+    input:focus {
+      border: 2px solid #22c55e;
+    }
 
-        .signup-body {
-            padding: 40px;
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
+    button:hover {
+      background: #16a34a;
+    }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+    .link {
+      text-align: center;
+      margin-top: 10px;
+    }
 
-        .input-group.full-width {
-            grid-column: span 2;
-        }
-
-        .input-group label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #C5C6C7;
-        }
-
-        .input-group label i {
-            color: #45A29E;
-            margin-right: 8px;
-        }
-
-        .input-group label .required {
-            color: #ff4757;
-        }
-
-        .input-wrapper {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 0 15px;
-            border: 1px solid rgba(69, 162, 158, 0.2);
-            transition: all 0.3s;
-        }
-
-        .input-wrapper:focus-within {
-            border-color: #45A29E;
-            background: rgba(69, 162, 158, 0.05);
-        }
-
-        .input-wrapper i {
-            color: #45A29E;
-            font-size: 16px;
-        }
-
-        .input-wrapper input,
-        .input-wrapper select {
-            width: 100%;
-            padding: 14px 12px;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .input-wrapper select option {
-            background: #1A1A2E;
-        }
-
-        /* Photo Upload Styles */
-        .photo-upload-section {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: 10px;
-        }
-
-        .upload-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(69, 162, 158, 0.3);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .upload-box:hover {
-            border-color: #45A29E;
-            background: rgba(69, 162, 158, 0.05);
-        }
-
-        .upload-box.drag-over {
-            border-color: #66FCF1;
-            background: rgba(102, 252, 241, 0.1);
-        }
-
-        .upload-icon {
-            font-size: 40px;
-            color: #45A29E;
-            margin-bottom: 10px;
-        }
-
-        .upload-box h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .upload-box p {
-            font-size: 12px;
-            color: #C5C6C7;
-        }
-
-        .upload-box small {
-            font-size: 10px;
-            color: #888;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .image-preview {
-            margin-top: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .image-preview img {
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            object-fit: cover;
-            border: 2px solid #45A29E;
-        }
-
-        .remove-image {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ff4757;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            color: white;
-            font-size: 12px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #45A29E, #66FCF1);
-            border: none;
-            border-radius: 12px;
-            color: #0B0C10;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 30px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(69, 162, 158, 0.4);
-        }
-
-        .error-message {
-            color: #ff4757;
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .login-link a {
-            color: #45A29E;
-            text-decoration: none;
-        }
-
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .input-group.full-width {
-                grid-column: span 1;
-            }
-            .photo-upload-section {
-                grid-template-columns: 1fr;
-            }
-            .signup-body {
-                padding: 25px;
-            }
-        }
-    </style>
+    .link a {
+      color: #22c55e;
+      text-decoration: none;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="signup-container">
-        <div class="signup-header">
-            <div class="logo-icon">🏴‍☠️</div>
-            <h1>Join the Crew</h1>
-            <p>Become a legendary pirate of the pitch</p>
-        </div>
-        
-        <div class="signup-body">
-            <form id="signupForm" enctype="multipart/form-data">
-                <div class="form-grid">
-                    <!-- Basic Information -->
-                    <div class="input-group">
-                        <label><i class="fas fa-user"></i> Player Name <span class="required">*</span></label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-skull-crossbones"></i>
-                            <input type="text" id="player_name" placeholder="Enter your gaming name" required>
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="email" placeholder="your@email.com" required>
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label><i class="fas fa-lock"></i> Password <span class="required">*</span></label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="password" placeholder="Min 6 characters" required>
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label><i class="fas fa-check-circle"></i> Confirm Password <span class="required">*</span></label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-check-circle"></i>
-                            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
-                        </div>
-                    </div>
-                    
-                    <!-- Contact Information -->
-                    <div class="input-group">
-                        <label><i class="fab fa-facebook"></i> Facebook Profile Link</label>
-                        <div class="input-wrapper">
-                            <i class="fab fa-facebook"></i>
-                            <input type="url" id="fb_id_link" placeholder="https://facebook.com/yourprofile">
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label><i class="fas fa-phone"></i> Phone Number</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-phone"></i>
-                            <input type="text" id="number" placeholder="Your contact number">
-                        </div>
-                    </div>
-                    
-                    <!-- Gaming Information -->
-                    <div class="input-group">
-                        <label><i class="fas fa-id-card"></i> Konami User ID</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-id-card"></i>
-                            <input type="text" id="konami_user_id" placeholder="eFootball/PES ID">
-                        </div>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label><i class="fas fa-mobile-alt"></i> Device / Mobile Name</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-mobile-alt"></i>
-                            <input type="text" id="device_name" placeholder="e.g., iPhone 14, Samsung S23">
-                        </div>
-                    </div>
-                    
-                    <!-- Photo Upload Section -->
-                    <div class="photo-upload-section">
-                        <div class="upload-box" id="profileUploadBox">
-                            <div class="upload-icon"><i class="fas fa-camera"></i></div>
-                            <h4>Profile Photo</h4>
-                            <p>Click or drag to upload</p>
-                            <small>JPG, PNG, GIF (Max 2MB)</small>
-                            <input type="file" id="profile_photo" accept="image/*" class="file-input">
-                            <div id="profilePreview" class="image-preview"></div>
-                        </div>
-                        
-                        <div class="upload-box" id="coverUploadBox">
-                            <div class="upload-icon"><i class="fas fa-image"></i></div>
-                            <h4>Cover Photo</h4>
-                            <p>Click or drag to upload</p>
-                            <small>JPG, PNG, GIF (Max 5MB)</small>
-                            <input type="file" id="cover_photo" accept="image/*" class="file-input">
-                            <div id="coverPreview" class="image-preview"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit" class="submit-btn">🏴‍☠️ Register as Pirate</button>
-                <div id="errorMsg" class="error-message"></div>
-            </form>
-            
-            <div class="login-link">
-                <p>Already a pirate? <a href="login.html">Login Here</a></p>
-            </div>
-        </div>
-    </div>
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+<div class="card">
+  <h2>Player Signup</h2>
 
-        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
-        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  <input id="name" placeholder="Player Name">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <input id="fb" placeholder="Facebook Profile Link">
+  <input id="phone" placeholder="Phone Number">
+  <input id="konami" placeholder="Konami User ID">
+  <input id="device" placeholder="Device Name">
+  <input id="photo" placeholder="Photo URL">
+  <input id="cover" placeholder="Cover Photo URL">
 
-        let uploadedProfileUrl = null;
-        let uploadedCoverUrl = null;
+  <button onclick="signup()">Create Account</button>
 
-        // Setup file upload handlers
-        function setupFileUpload() {
-            const profileInput = document.getElementById('profile_photo');
-            const profileBox = document.getElementById('profileUploadBox');
-            const coverInput = document.getElementById('cover_photo');
-            const coverBox = document.getElementById('coverUploadBox');
+  <div class="link">
+    Already have account? <a href="login.html">Login</a>
+  </div>
+</div>
 
-            profileBox.addEventListener('click', () => profileInput.click());
-            coverBox.addEventListener('click', () => coverInput.click());
+<script>
+const supabase = window.supabase.createClient(
+  "https://uwybeitqpnaqmcmqwbkv.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g"
+);
 
-            profileInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'profile'));
-            coverInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'cover'));
+async function signup() {
 
-            // Drag and drop
-            setupDragDrop(profileBox, 'profile');
-            setupDragDrop(coverBox, 'cover');
-        }
+  const player_name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const fb = document.getElementById("fb").value || null;
+  const phone = document.getElementById("phone").value || null;
+  const konami = document.getElementById("konami").value || null;
+  const device = document.getElementById("device").value || null;
+  const photo = document.getElementById("photo").value || null;
+  const cover = document.getElementById("cover").value || null;
 
-        function setupDragDrop(box, type) {
-            box.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                box.classList.add('drag-over');
-            });
-            box.addEventListener('dragleave', () => box.classList.remove('drag-over'));
-            box.addEventListener('drop', (e) => {
-                e.preventDefault();
-                box.classList.remove('drag-over');
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    handleFileUpload(file, type);
-                }
-            });
-        }
+  if (!player_name || !email || !password) {
+    alert("Name, Email, Password required!");
+    return;
+  }
 
-        async function handleFileUpload(file, type) {
-            if (!file) return;
-            
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Image must be less than 5MB');
-                return;
-            }
-            
-            const previewDiv = document.getElementById(`${type}Preview`);
-            previewDiv.innerHTML = '<div class="spinner"></div>';
-            
-            const fileName = `${type}_${Date.now()}_${file.name}`;
-            
-            const { data, error } = await supabase.storage
-                .from('player-photos')
-                .upload(`temp/${fileName}`, file);
-            
-            if (error) {
-                alert('Upload failed: ' + error.message);
-                previewDiv.innerHTML = '';
-                return;
-            }
-            
-            const { data: publicUrl } = supabase.storage
-                .from('player-photos')
-                .getPublicUrl(`temp/${fileName}`);
-            
-            if (type === 'profile') uploadedProfileUrl = publicUrl.publicUrl;
-            else uploadedCoverUrl = publicUrl.publicUrl;
-            
-            previewDiv.innerHTML = `
-                <div class="image-preview">
-                    <img src="${publicUrl.publicUrl}" alt="${type} preview">
-                    <button class="remove-image" onclick="removeImage('${type}')">✕</button>
-                </div>
-            `;
-        }
+  // 🔐 Auth Signup
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password
+  });
 
-        window.removeImage = (type) => {
-            if (type === 'profile') {
-                uploadedProfileUrl = null;
-                document.getElementById('profilePreview').innerHTML = '';
-                document.getElementById('profile_photo').value = '';
-            } else {
-                uploadedCoverUrl = null;
-                document.getElementById('coverPreview').innerHTML = '';
-                document.getElementById('cover_photo').value = '';
-            }
-        };
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
-        // Signup form submission
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const player_name = document.getElementById('player_name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const fb_id_link = document.getElementById('fb_id_link').value || null;
-            const number = document.getElementById('number').value || null;
-            const konami_user_id = document.getElementById('konami_user_id').value || null;
-            const device_name = document.getElementById('device_name').value || null;
-            
-            if (password !== confirmPassword) {
-                document.getElementById('errorMsg').innerText = "❌ Passwords don't match!";
-                return;
-            }
-            
-            if (password.length < 6) {
-                document.getElementById('errorMsg').innerText = "❌ Password must be at least 6 characters!";
-                return;
-            }
-            
-            if (player_name.length < 3) {
-                document.getElementById('errorMsg').innerText = "❌ Player name must be at least 3 characters!";
-                return;
-            }
-            
-            const submitBtn = document.querySelector('.submit-btn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
-            submitBtn.disabled = true;
-            
-            const { data: authData, error: authError } = await supabase.auth.signUp({
-                email: email,
-                password: password,
-                options: { data: { player_name: player_name, device_name: device_name } }
-            });
-            
-            if (authError) {
-                document.getElementById('errorMsg').innerText = authError.message;
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            const { error: insertError } = await supabase
-                .from('players')
-                .insert([{
-                    id: authData.user.id,
-                    player_name: player_name,
-                    email: email,
-                    fb_id_link: fb_id_link,
-                    number: number,
-                    konami_user_id: konami_user_id,
-                    device_name: device_name,
-                    photo: uploadedProfileUrl,
-                    cover_photo: uploadedCoverUrl,
-                    win: 0, loss: 0, draw: 0, gf: 0, ga: 0, pts: 0
-                }]);
-            
-            if (insertError) {
-                document.getElementById('errorMsg').innerText = insertError.message;
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-            
-            alert('✅ Registration Successful! Please login.');
-            window.location.href = 'login.html';
-        });
+  const user = data.user;
 
-        setupFileUpload();
-    </script>
+  // 📦 Insert player
+  const { error: insertError } = await supabase.from("players").insert([
+    {
+      user_id: user.id,
+      player_name,
+      email,
+      fb_id_link: fb,
+      number: phone,
+      konami_user_id: konami,
+      device_name: device,
+      photo,
+      cover_photo: cover
+    }
+  ]);
+
+  if (insertError) {
+    alert(insertError.message);
+  } else {
+    alert("Signup Successful 🎉");
+    window.location.href = "login.html";
+  }
+}
+</script>
+
 </body>
 </html>
