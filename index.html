@@ -1,20 +1,594 @@
+
+<!-- ============================================= -->
+<!-- INDEX.HTML - Landing Page with Top Navbar -->
+<!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POP123 - Pirates of Pitch</title>
-    <link rel="stylesheet" href="style.css">
+    <title>POP123 | Pirates of Pitch - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+        }
+
+        /* ========== TOP NAVBAR ========== */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .logo-area h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .logo-area span {
+            color: #e94560;
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link i {
+            font-size: 16px;
+        }
+
+        .nav-link:hover {
+            background: #f0f4f8;
+            color: #e94560;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            background: transparent;
+            border: 1px solid #e8ecf1;
+            color: #4a5568;
+        }
+
+        .login-btn:hover {
+            border-color: #e94560;
+            color: #e94560;
+        }
+
+        .signup-btn {
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            background: #e94560;
+            color: #ffffff;
+        }
+
+        .signup-btn:hover {
+            background: #ff6b81;
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a1a2e;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 50px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f0f4f8;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #e94560;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: #e94560;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: #5a6e8a;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #8892b0;
+            margin-top: 4px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            padding: 12px 28px;
+            background: #e94560;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #ff6b81;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid #e8ecf1;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            border-color: #e94560;
+            color: #e94560;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: #ffffff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .floating-card i {
+            font-size: 20px;
+            color: #e94560;
+        }
+
+        .card-1 { top: 10%; left: -20px; animation-delay: 0s; }
+        .card-2 { bottom: 20%; right: -20px; animation-delay: 1s; }
+        .card-3 { top: 40%; right: 10%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            background: #f8fafc;
+            padding: 80px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            color: #8892b0;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #e8ecf1;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #f0f4f8;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .feature-icon i {
+            font-size: 28px;
+            color: #e94560;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #8892b0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #ffffff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #8892b0;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-section {
+                padding: 40px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .floating-card {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-navbar {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                gap: 10px;
+            }
+            
+            .nav-links.show {
+                left: 0;
+            }
+            
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 36px;
+            }
+            
+            .features-section {
+                padding: 40px 20px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-buttons .login-btn span,
+            .auth-buttons .signup-btn span {
+                display: none;
+            }
+            .auth-buttons .login-btn i,
+            .auth-buttons .signup-btn i {
+                margin: 0;
+            }
+            .hero-stats {
+                gap: 20px;
+            }
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>🏴‍☠️ POP123</h1>
-        <h2>Pirates of Pitch</h2>
-        <p>Join the ultimate cricket battle arena</p>
-        <div class="buttons">
-            <a href="login.html" class="btn">Login</a>
-            <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="logo-area">
+            <div class="logo-icon">🏴‍☠️</div>
+            <h2>POP<span>123</span></h2>
         </div>
-    </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-trophy"></i> Tournaments
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-users"></i> Community
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fas fa-info-circle"></i> About
+            </a>
+        </div>
+        
+        <div class="auth-buttons">
+            <a href="login.html" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> <span>Login</span>
+            </a>
+            <a href="signup.html" class="signup-btn">
+                <i class="fas fa-user-plus"></i> <span>Sign Up</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="badge">
+                <i class="fas fa-fire"></i> Official Gaming League
+            </div>
+            <h1 class="hero-title">
+                Pirates of <span>The Pitch</span>
+            </h1>
+            <p class="hero-desc">
+                Join the ultimate eFootball battle arena. Compete, conquer, and become 
+                the legendary pirate of the virtual pitch.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Players</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Matches Played</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Tournaments</div>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="signup.html" class="btn-primary">
+                    <i class="fas fa-skull-crossbones"></i> Join Now
+                </a>
+                <a href="login.html" class="btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=500" alt="Gaming">
+            <div class="floating-card card-1">
+                <i class="fas fa-trophy"></i>
+                <span>Champion's League</span>
+            </div>
+            <div class="floating-card card-2">
+                <i class="fas fa-futbol"></i>
+                <span>Live Matches</span>
+            </div>
+            <div class="floating-card card-3">
+                <i class="fas fa-chart-line"></i>
+                <span>Real-time Stats</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title">Why Choose POP123?</h2>
+        <p class="section-subtitle">The ultimate gaming experience awaits you</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Competitive Leagues</h3>
+                <p>Join ranked matches and climb the global leaderboard to prove your skills.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Real-time Statistics</h3>
+                <p>Track your performance with detailed stats including goals, wins, and rankings.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Active Community</h3>
+                <p>Connect with over 500+ active players from around the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 POP123 - Pirates of the Pitch. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+            });
+        });
+    </script>
 </body>
 </html>
