@@ -1,119 +1,903 @@
+```html
+<!-- ============================================= -->
+<!-- SIGNUP.HTML - Complete Signup Page with CSS & JS -->
+<!-- ============================================= -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Player Signup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | POP123 - Pirates of Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- ✅ Correct Supabase CDN -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0B0C10 0%, #1A1A2E 50%, #0F1419 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(69, 162, 158, 0.08), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    .card {
-      background: #1e293b;
-      padding: 30px;
-      border-radius: 12px;
-      width: 320px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%, rgba(102, 252, 241, 0.05), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: none;
-    }
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            background: rgba(69, 162, 158, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatParticle linear infinite;
+        }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #22c55e;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-    }
-  </style>
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Container */
+        .signup-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .signup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 60px;
+            animation: sway 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .signup-header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 36px;
+            background: linear-gradient(135deg, #FFFFFF, #66FCF1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-top: 10px;
+        }
+
+        .signup-header p {
+            color: #C5C6C7;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* Form Card */
+        .signup-card {
+            background: rgba(15, 20, 25, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(69, 162, 158, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
+        }
+
+        .step {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #C5C6C7;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            width: 30px;
+            height: 2px;
+            background: rgba(69, 162, 158, 0.3);
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #45A29E, #66FCF1);
+            color: #0B0C10;
+        }
+
+        .step.completed .step-number {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .step.completed .step-number::after {
+            content: '✓';
+        }
+
+        .step.completed .step-number span {
+            display: none;
+        }
+
+        /* Form Body */
+        .form-body {
+            padding: 40px;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-step.active-step {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        /* Input Groups */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #C5C6C7;
+        }
+
+        .input-group label i {
+            color: #45A29E;
+            margin-right: 8px;
+        }
+
+        .input-group label .required {
+            color: #ff4757;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 0 15px;
+            border: 1px solid rgba(69, 162, 158, 0.2);
+            transition: all 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #45A29E;
+            background: rgba(69, 162, 158, 0.1);
+            box-shadow: 0 0 0 3px rgba(69, 162, 158, 0.1);
+        }
+
+        .input-wrapper i {
+            color: #45A29E;
+            font-size: 16px;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            width: 100%;
+            padding: 14px 12px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-wrapper select option {
+            background: #1A1A2E;
+        }
+
+        /* Photo Upload */
+        .photo-section {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .upload-area {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(69, 162, 158, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #45A29E;
+            background: rgba(69, 162, 158, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .upload-area.drag-over {
+            border-color: #66FCF1;
+            background: rgba(102, 252, 241, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 45px;
+            color: #45A29E;
+            margin-bottom: 10px;
+        }
+
+        .upload-area h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .upload-area p {
+            font-size: 12px;
+            color: #C5C6C7;
+        }
+
+        .upload-area small {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .preview-container {
+            margin-top: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .preview-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #45A29E;
+        }
+
+        .remove-preview {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            color: white;
+            font-size: 11px;
+            transition: all 0.3s;
+        }
+
+        .remove-preview:hover {
+            transform: scale(1.1);
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.1);
+            color: #C5C6C7;
+        }
+
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        .btn-next, .btn-submit {
+            background: linear-gradient(135deg, #45A29E, #66FCF1);
+            color: #0B0C10;
+            flex: 1;
+        }
+
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(69, 162, 158, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Error & Success */
+        .error-message {
+            color: #ff4757;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-link a {
+            color: #45A29E;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .input-group.full-width {
+                grid-column: span 1;
+            }
+            .photo-section {
+                grid-template-columns: 1fr;
+            }
+            .progress-steps {
+                padding: 15px 20px;
+            }
+            .step span:last-child {
+                display: none;
+            }
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            .form-body {
+                padding: 25px;
+            }
+            .signup-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <div class="logo-icon">🏴‍☠️</div>
+            <h1>Join the Crew</h1>
+            <p>Become a legendary pirate of the pitch</p>
+        </div>
 
-<div class="card">
-  <h2>Signup</h2>
+        <div class="signup-card">
+            <div class="progress-steps">
+                <div class="step active" id="step1">
+                    <div class="step-number"><span>1</span></div>
+                    <span>Account Info</span>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-number"><span>2</span></div>
+                    <span>Gaming Info</span>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-number"><span>3</span></div>
+                    <span>Profile Photos</span>
+                </div>
+            </div>
 
-  <input id="name" placeholder="Name">
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+            <div class="form-body">
+                <form id="signupForm" enctype="multipart/form-data">
+                    <!-- Step 1: Account Information -->
+                    <div class="form-step active-step" id="step1Form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label><i class="fas fa-user"></i> Player Name <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-skull-crossbones"></i>
+                                    <input type="text" id="player_name" placeholder="Enter your gaming name" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="email" placeholder="your@email.com" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-lock"></i> Password <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="password" placeholder="Min 6 characters" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-check-circle"></i> Confirm Password <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-check-circle"></i>
+                                    <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+                                </div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label><i class="fab fa-facebook"></i> Facebook Profile Link (Optional)</label>
+                                <div class="input-wrapper">
+                                    <i class="fab fa-facebook"></i>
+                                    <input type="url" id="fb_id_link" placeholder="https://facebook.com/yourprofile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-  <button onclick="signup()">Create Account</button>
-</div>
+                    <!-- Step 2: Gaming Information -->
+                    <div class="form-step" id="step2Form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label><i class="fas fa-id-card"></i> Konami User ID</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-id-card"></i>
+                                    <input type="text" id="konami_user_id" placeholder="eFootball/PES ID">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-mobile-alt"></i> Device / Mobile Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <input type="text" id="device_name" placeholder="e.g., iPhone 14, Samsung S23, OnePlus 11">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-phone"></i> Phone Number</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-phone"></i>
+                                    <input type="tel" id="number" placeholder="Your contact number">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label><i class="fas fa-globe"></i> Country (Optional)</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-globe"></i>
+                                    <select id="country">
+                                        <option value="">Select Country</option>
+                                        <option value="Bangladesh">🇧🇩 Bangladesh</option>
+                                        <option value="India">🇮🇳 India</option>
+                                        <option value="Pakistan">🇵🇰 Pakistan</option>
+                                        <option value="USA">🇺🇸 USA</option>
+                                        <option value="UK">🇬🇧 UK</option>
+                                        <option value="UAE">🇦🇪 UAE</option>
+                                        <option value="Other">🌍 Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<script>
-const supabase = window.supabase.createClient(
-  "https://uwybeitqpnaqmcmqwbkv.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g"
-);
+                    <!-- Step 3: Profile Photos -->
+                    <div class="form-step" id="step3Form">
+                        <div class="photo-section">
+                            <div class="upload-area" id="profileUploadBox">
+                                <div class="upload-icon"><i class="fas fa-camera"></i></div>
+                                <h4>Profile Photo</h4>
+                                <p>Click or drag to upload</p>
+                                <small>JPG, PNG, GIF (Max 2MB)</small>
+                                <input type="file" id="profile_photo" accept="image/*" class="file-input">
+                                <div id="profilePreview" class="preview-container"></div>
+                            </div>
+                            <div class="upload-area" id="coverUploadBox">
+                                <div class="upload-icon"><i class="fas fa-image"></i></div>
+                                <h4>Cover Photo</h4>
+                                <p>Click or drag to upload</p>
+                                <small>JPG, PNG, GIF (Max 5MB)</small>
+                                <input type="file" id="cover_photo" accept="image/*" class="file-input">
+                                <div id="coverPreview" class="preview-container"></div>
+                            </div>
+                        </div>
+                    </div>
 
-async function signup() {
+                    <div class="button-group">
+                        <button type="button" class="btn btn-prev" id="prevBtn" style="display: none;">← Previous</button>
+                        <button type="button" class="btn btn-next" id="nextBtn">Next →</button>
+                        <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">🏴‍☠️ Register Now</button>
+                    </div>
+                    <div id="errorMsg" class="error-message"></div>
+                </form>
 
-  console.log("Signup clicked");
+                <div class="login-link">
+                    <p>Already a pirate? <a href="login.html">Login Here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  const player_name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  if (!player_name || !email || !password) {
-    alert("Fill all fields");
-    return;
-  }
+        // Supabase Configuration
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  // 🔐 Auth signup
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password
-  });
+        // Variables
+        let currentStep = 1;
+        let uploadedProfileUrl = null;
+        let uploadedCoverUrl = null;
 
-  console.log("Auth:", data, error);
+        // Step navigation elements
+        const step1Form = document.getElementById('step1Form');
+        const step2Form = document.getElementById('step2Form');
+        const step3Form = document.getElementById('step3Form');
+        const step1Indicator = document.getElementById('step1');
+        const step2Indicator = document.getElementById('step2');
+        const step3Indicator = document.getElementById('step3');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
+        // Show step function
+        function showStep(step) {
+            step1Form.classList.remove('active-step');
+            step2Form.classList.remove('active-step');
+            step3Form.classList.remove('active-step');
+            
+            step1Indicator.classList.remove('active', 'completed');
+            step2Indicator.classList.remove('active', 'completed');
+            step3Indicator.classList.remove('active', 'completed');
+            
+            if (step === 1) {
+                step1Form.classList.add('active-step');
+                step1Indicator.classList.add('active');
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            } else if (step === 2) {
+                step2Form.classList.add('active-step');
+                step2Indicator.classList.add('active');
+                step1Indicator.classList.add('completed');
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            } else if (step === 3) {
+                step3Form.classList.add('active-step');
+                step3Indicator.classList.add('active');
+                step1Indicator.classList.add('completed');
+                step2Indicator.classList.add('completed');
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            }
+            currentStep = step;
+        }
 
-  // ⚠️ Email confirm ON থাকলে user null হবে
-  if (!data.user) {
-    alert("Check your email to confirm account");
-    return;
-  }
+        // Next button click
+        nextBtn.addEventListener('click', () => {
+            if (currentStep === 1) {
+                const playerName = document.getElementById('player_name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!playerName || playerName.length < 3) {
+                    document.getElementById('errorMsg').innerText = "❌ Player name must be at least 3 characters!";
+                    return;
+                }
+                if (!email || !email.includes('@')) {
+                    document.getElementById('errorMsg').innerText = "❌ Valid email required!";
+                    return;
+                }
+                if (!password || password.length < 6) {
+                    document.getElementById('errorMsg').innerText = "❌ Password must be at least 6 characters!";
+                    return;
+                }
+                if (password !== confirmPassword) {
+                    document.getElementById('errorMsg').innerText = "❌ Passwords don't match!";
+                    return;
+                }
+                document.getElementById('errorMsg').innerText = "";
+                showStep(2);
+            } else if (currentStep === 2) {
+                showStep(3);
+            }
+        });
 
-  // 📦 Insert player
-  const { error: insertError } = await supabase.from("players").insert([
-    {
-      user_id: data.user.id,
-      player_name,
-      email
-    }
-  ]);
+        // Previous button click
+        prevBtn.addEventListener('click', () => {
+            if (currentStep === 2) showStep(1);
+            else if (currentStep === 3) showStep(2);
+        });
 
-  console.log("Insert:", insertError);
+        // File upload setup
+        function setupFileUpload() {
+            const profileInput = document.getElementById('profile_photo');
+            const profileBox = document.getElementById('profileUploadBox');
+            const coverInput = document.getElementById('cover_photo');
+            const coverBox = document.getElementById('coverUploadBox');
 
-  if (insertError) {
-    alert(insertError.message);
-  } else {
-    alert("Signup Success 🎉");
-  }
-}
-</script>
+            profileBox.addEventListener('click', () => profileInput.click());
+            coverBox.addEventListener('click', () => coverInput.click());
 
+            profileInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'profile'));
+            coverInput.addEventListener('change', (e) => handleFileUpload(e.target.files[0], 'cover'));
+
+            // Drag and drop
+            setupDragDrop(profileBox, 'profile');
+            setupDragDrop(coverBox, 'cover');
+        }
+
+        function setupDragDrop(box, type) {
+            box.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                box.classList.add('drag-over');
+            });
+            box.addEventListener('dragleave', () => {
+                box.classList.remove('drag-over');
+            });
+            box.addEventListener('drop', async (e) => {
+                e.preventDefault();
+                box.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    await handleFileUpload(file, type);
+                }
+            });
+        }
+
+        async function handleFileUpload(file, type) {
+            if (!file) return;
+            
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image must be less than 5MB');
+                return;
+            }
+            
+            const previewDiv = document.getElementById(`${type}Preview`);
+            previewDiv.innerHTML = '<div class="spinner"></div>';
+            
+            const fileName = `${type}_${Date.now()}_${file.name}`;
+            
+            const { data, error } = await supabase.storage
+                .from('player-photos')
+                .upload(`temp/${fileName}`, file);
+            
+            if (error) {
+                alert('Upload failed: ' + error.message);
+                previewDiv.innerHTML = '';
+                return;
+            }
+            
+            const { data: publicUrlData } = supabase.storage
+                .from('player-photos')
+                .getPublicUrl(`temp/${fileName}`);
+            
+            const imageUrl = publicUrlData.publicUrl;
+            
+            if (type === 'profile') {
+                uploadedProfileUrl = imageUrl;
+            } else {
+                uploadedCoverUrl = imageUrl;
+            }
+            
+            previewDiv.innerHTML = `
+                <div class="preview-container">
+                    <img src="${imageUrl}" alt="${type} preview">
+                    <button type="button" class="remove-preview" onclick="window.removeImage('${type}')">✕</button>
+                </div>
+            `;
+        }
+
+        window.removeImage = (type) => {
+            if (type === 'profile') {
+                uploadedProfileUrl = null;
+                document.getElementById('profilePreview').innerHTML = '';
+                document.getElementById('profile_photo').value = '';
+            } else {
+                uploadedCoverUrl = null;
+                document.getElementById('coverPreview').innerHTML = '';
+                document.getElementById('cover_photo').value = '';
+            }
+        };
+
+        // Create particles
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = Math.random() * 4 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 10 + 8 + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const player_name = document.getElementById('player_name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const fb_id_link = document.getElementById('fb_id_link').value || null;
+            const number = document.getElementById('number').value || null;
+            const konami_user_id = document.getElementById('konami_user_id').value || null;
+            const device_name = document.getElementById('device_name').value || null;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
+            
+            // Create auth user
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        player_name: player_name,
+                        device_name: device_name
+                    }
+                }
+            });
+            
+            if (authError) {
+                document.getElementById('errorMsg').innerText = authError.message;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🏴‍☠️ Register Now';
+                return;
+            }
+            
+            // Insert into players table
+            const { error: insertError } = await supabase
+                .from('players')
+                .insert([{
+                    id: authData.user.id,
+                    player_name: player_name,
+                    email: email,
+                    fb_id_link: fb_id_link,
+                    number: number,
+                    konami_user_id: konami_user_id,
+                    device_name: device_name,
+                    photo: uploadedProfileUrl,
+                    cover_photo: uploadedCoverUrl,
+                    win: 0,
+                    loss: 0,
+                    draw: 0,
+                    gf: 0,
+                    ga: 0,
+                    pts: 0,
+                    created_at: new Date(),
+                    updated_at: new Date()
+                }]);
+            
+            if (insertError) {
+                document.getElementById('errorMsg').innerText = insertError.message;
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🏴‍☠️ Register Now';
+                return;
+            }
+            
+            alert('✅ Registration Successful! Please login to continue.');
+            window.location.href = 'login.html';
+        });
+
+        // Initialize
+        createParticles();
+        setupFileUpload();
+        showStep(1);
+    </script>
 </body>
 </html>
+```
