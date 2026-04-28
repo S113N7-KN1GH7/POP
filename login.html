@@ -1,59 +1,298 @@
+<!-- ============================================= -->
+<!-- LOGIN.HTML - Login Page -->
+<!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | POP123</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0B0C10 0%, #1A1A2E 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(69, 162, 158, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(69, 162, 158, 0.1), rgba(102, 252, 241, 0.05));
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .login-left h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .login-left p {
+            color: #C5C6C7;
+            margin-bottom: 30px;
+        }
+
+        .login-left .quote {
+            font-style: italic;
+            padding: 20px;
+            border-left: 3px solid #45A29E;
+            background: rgba(69, 162, 158, 0.1);
+            border-radius: 10px;
+        }
+
+        .login-right {
+            flex: 1;
+            padding: 50px;
+        }
+
+        .logo-area {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #66FCF1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-title h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .form-title p {
+            color: #C5C6C7;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #C5C6C7;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 0 15px;
+            border: 1px solid rgba(69, 162, 158, 0.2);
+            transition: all 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #45A29E;
+            background: rgba(69, 162, 158, 0.05);
+        }
+
+        .input-wrapper i {
+            color: #45A29E;
+            font-size: 18px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 12px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #C5C6C7;
+        }
+
+        .forgot-link {
+            color: #45A29E;
+            text-decoration: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #45A29E, #66FCF1);
+            border: none;
+            border-radius: 12px;
+            color: #0B0C10;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(69, 162, 158, 0.4);
+        }
+
+        .error-message {
+            color: #ff4757;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .signup-link a {
+            color: #45A29E;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .login-left { display: none; }
+            .login-right { padding: 30px; }
+        }
+    </style>
 </head>
-<body class="auth-page">
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <div class="auth-logo">🏴‍☠️</div>
-                <h2>Welcome Back, Pirate!</h2>
-                <p>Login to continue your journey</p>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <h2>Welcome Back! <span style="color: #45A29E;">🏴‍☠️</span></h2>
+            <p>Login to continue your pirate journey</p>
+            <div class="quote">
+                <i class="fas fa-quote-left" style="color: #45A29E; margin-right: 10px;"></i>
+                The sea is calling, captain. Ready your crew for battle!
             </div>
-            
-            <form id="loginForm" class="auth-form">
-                <div class="input-field">
+        </div>
+        <div class="login-right">
+            <div class="logo-area">
+                <div class="logo-icon">🏴‍☠️</div>
+                <div class="logo-text">POP123</div>
+            </div>
+            <div class="form-title">
+                <h3>Login to Account</h3>
+                <p>Enter your credentials to access your pirate profile</p>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
                     <label>Email Address</label>
                     <div class="input-wrapper">
-                        <span class="input-icon">📧</span>
+                        <i class="fas fa-envelope"></i>
                         <input type="email" id="email" placeholder="captain@pop123.com" required>
                     </div>
                 </div>
-                
-                <div class="input-field">
+                <div class="input-group">
                     <label>Password</label>
                     <div class="input-wrapper">
-                        <span class="input-icon">🔒</span>
+                        <i class="fas fa-lock"></i>
                         <input type="password" id="password" placeholder="Enter your password" required>
                     </div>
                 </div>
-                
                 <div class="form-options">
                     <label class="checkbox">
                         <input type="checkbox"> Remember me
                     </label>
                     <a href="#" class="forgot-link">Forgot Password?</a>
                 </div>
-                
-                <button type="submit" class="auth-btn">
-                    <span>⚡</span> Login to Dashboard
-                </button>
-                
+                <button type="submit" class="login-btn">Login to Dashboard</button>
                 <div id="errorMsg" class="error-message"></div>
             </form>
-            
-            <div class="auth-footer">
-                <p>New to POP123? <a href="signup.html">Create an Account</a></p>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="signup.html">Create Account</a></p>
             </div>
         </div>
-        
-        <div class="auth-bg-pattern"></div>
     </div>
-    <script type="module" src="script.js"></script>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const submitBtn = document.querySelector('.login-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            submitBtn.disabled = true;
+            
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            
+            if (error) {
+                document.getElementById('errorMsg').innerText = error.message;
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            } else {
+                localStorage.setItem('pop123_user', JSON.stringify(data.user));
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
 </body>
 </html>
