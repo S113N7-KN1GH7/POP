@@ -1,23 +1,244 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-// ============ YOUR SUPABASE CONFIGURATION ============
+// Supabase Configuration
 const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// ============ CHECK IF USER IS LOGGED IN ============
-async function checkAuth() {
-    const { data: { user }, error } = await supabase.auth.getUser();
+// Global variables for uploaded images
+let uploadedProfileUrl = null;
+let uploadedCoverUrl = null;
+
+// ============ FILE UPLOAD HANDLERS ============
+function setupFileUpload() {
+    // Profile Photo Upload
+    const profileInput = document.getElementById('profile_photo');
+    const profileBox = document.getElementById('profileUploadBox');
     
-    if (error || !user) {
-        const currentPage = window.location.pathname;
-        if (!currentPage.includes('login.html') && !currentPage.includes('signup.html') && !currentPage.includes('index.html')) {
-            window.location.href = 'login.html';
-        }
-        return null;
+    if (profileInput) {
+        profileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                await uploadImage(file, 'profile');
+            }
+        });
+        
+        // Drag and drop for profile
+        profileBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            profileBox.classList.add('drag-over');
+        });
+        
+        profileBox.addEventListener('dragleave', () => {
+            profileBox.classList.remove('drag-over');
+        });
+        
+        profileBox.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            profileBox.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                await uploadImage(file, 'profile');
+            }
+        });
     }
-    return user;
+    
+    // Cover Photo Upload
+    const coverInput = document.getElementById('cover_photo');
+    const coverBox = document.getElementById('coverUploadBox');
+    
+    if (coverInput) {
+        coverInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                await uploadImage(file, 'cover');
+            }
+        });
+        
+        coverBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            coverBox.classList.add('drag-over');
+        });
+        
+        coverBox.addEventListener('dragleave', () => {
+            coverBox.classList.remove('drag-over');
+        });
+        
+        coverBox.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            coverBox.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                await uploadImage(file, 'cover');
+            }
+        });
+    }
+}
+
+async function uploadImage(file, type) {
+    // Check file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+        showError('Image must be less than 5MB');
+        return;
+    }
+    
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+        showError('Please upload an image file');
+        return;
+    }
+    
+    // Show loading
+    const previewDiv = document.getElementById(`${type}Preview`);
+    previewDiv.innerHTML = '<div class="spinner"></div>';
+    
+    try {
+        // Create unique file name
+        const timestamp = Date.now();
+        const fileName = `${type}_${timestamp}_${file.name}`;
+        
+        // Upload to Supabase Storage
+        const { data, error } = await supabase.storage
+            .from('player-photos')
+            .upload(`temp/${fileName}`, file);
+        
+        if (error) throw error;
+        
+        // Get public URL
+        const { data: publicUrl } = supabase.storage
+            .from('player-photos')
+            .getPublicUrl(`temp/${fileName}`);
+        
+        const imageUrl = publicUrl.publicUrl;
+        
+        // Save URL based on type
+        if (type === 'profile') {
+            uploadedProfileUrl = imageUrl;
+        } else {
+            uploadedCoverUrl = imageUrl;
+        }
+        
+        // Show preview
+        previewDiv.innerHTML = `
+            <img src="${imageUrl}" alt="${type} preview">
+            <div class="preview-actions">
+                <button onclick="removeImage('${type}')">Remove</button>
+            </div>
+        `;
+        
+    } catch (error) {
+        console.error('Upload error:', error);
+        showError('Failed to upload image. Please try again.');
+        previewDiv.innerHTML = '';
+    }
+}
+
+window.removeImage = (type) => {
+    if (type === 'profile') {
+        uploadedProfileUrl = null;
+        document.getElementById('profilePreview').innerHTML = '';
+        document.getElementById('profile_photo').value = '';
+    } else {
+        uploadedCoverUrl = null;
+        document.getElementById('coverPreview').innerHTML = '';
+        document.getElementById('cover_photo').value = '';
+    }
+};
+
+// ============ SIGNUP FUNCTION ============
+if (document.getElementById('signupForm')) {
+    setupFileUpload();
+    
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form values
+        const player_name = document.getElementById('player_name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const fb_id_link = document.getElementById('fb_id_link').value || null;
+        const number = document.getElementById('number').value || null;
+        const konami_user_id = document.getElementById('konami_user_id').value || null;
+        const device_name = document.getElementById('device_name').value || null;
+        
+        // Validation
+        if (password !== confirmPassword) {
+            showError("❌ Passwords don't match!");
+            return;
+        }
+        
+        if (password.length < 6) {
+            showError("❌ Password must be at least 6 characters!");
+            return;
+        }
+        
+        if (player_name.length < 3) {
+            showError("❌ Player name must be at least 3 characters!");
+            return;
+        }
+        
+        if (!device_name) {
+            showError("❌ Please enter your device/mobile name!");
+            return;
+        }
+        
+        const submitBtn = document.querySelector('.auth-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
+        submitBtn.disabled = true;
+        
+        try {
+            // 1. Create Auth User
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        player_name: player_name,
+                        device_name: device_name
+                    }
+                }
+            });
+            
+            if (authError) throw authError;
+            
+            // 2. Insert into players table
+            const { error: insertError } = await supabase
+                .from('players')
+                .insert([{
+                    id: authData.user.id,
+                    player_name: player_name,
+                    email: email,
+                    fb_id_link: fb_id_link,
+                    photo: uploadedProfileUrl,
+                    cover_photo: uploadedCoverUrl,
+                    number: number,
+                    konami_user_id: konami_user_id,
+                    device_name: device_name,
+                    win: 0,
+                    loss: 0,
+                    draw: 0,
+                    gf: 0,
+                    ga: 0,
+                    pts: 0,
+                    created_at: new Date(),
+                    updated_at: new Date()
+                }]);
+            
+            if (insertError) throw insertError;
+            
+            alert('✅ Registration Successful! Please login.');
+            window.location.href = 'login.html';
+            
+        } catch (error) {
+            console.error('Signup error:', error);
+            showError(error.message || "Registration failed. Please try again.");
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
 }
 
 // ============ LOGIN FUNCTION ============
@@ -28,9 +249,9 @@ if (document.getElementById('loginForm')) {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         
-        const submitBtn = document.querySelector('#loginForm button');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = 'Logging in...';
+        const submitBtn = document.querySelector('.auth-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span class="spinner"></span> Logging in...';
         submitBtn.disabled = true;
         
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -39,8 +260,8 @@ if (document.getElementById('loginForm')) {
         });
         
         if (error) {
-            document.getElementById('errorMsg').innerText = error.message;
-            submitBtn.innerText = originalText;
+            showError(error.message);
+            submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         } else {
             localStorage.setItem('pop123_user', JSON.stringify(data.user));
@@ -49,75 +270,7 @@ if (document.getElementById('loginForm')) {
     });
 }
 
-// ============ SIGNUP FUNCTION ============
-if (document.getElementById('signupForm')) {
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        if (password !== confirmPassword) {
-            document.getElementById('errorMsg').innerText = "❌ Passwords don't match!";
-            return;
-        }
-        
-        if (password.length < 6) {
-            document.getElementById('errorMsg').innerText = "❌ Password must be at least 6 characters!";
-            return;
-        }
-        
-        if (username.length < 3) {
-            document.getElementById('errorMsg').innerText = "❌ Username must be at least 3 characters!";
-            return;
-        }
-        
-        const submitBtn = document.querySelector('#signupForm button');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = 'Creating account...';
-        submitBtn.disabled = true;
-        
-        const { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    username: username
-                }
-            }
-        });
-        
-        if (error) {
-            document.getElementById('errorMsg').innerText = "❌ " + error.message;
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-        } else {
-            const { error: profileError } = await supabase
-                .from('players')
-                .insert([{ 
-                    id: data.user.id,
-                    email: email, 
-                    username: username,
-                    total_matches: 0,
-                    wins: 0,
-                    points: 0,
-                    created_at: new Date()
-                }]);
-            
-            if (profileError) {
-                console.error('Profile error:', profileError);
-                document.getElementById('errorMsg').innerText = "❌ Account created but profile setup failed. Please try logging in.";
-            } else {
-                alert('✅ Account created successfully! Please login.');
-                window.location.href = 'login.html';
-            }
-        }
-    });
-}
-
-// ============ DASHBOARD FUNCTIONS ============
+// ============ DASHBOARD FUNCTION ============
 if (window.location.pathname.includes('dashboard.html')) {
     loadDashboard();
 }
@@ -130,141 +283,61 @@ async function loadDashboard() {
         return;
     }
     
-    if (document.getElementById('userEmail')) {
-        document.getElementById('userEmail').innerText = user.email;
-    }
-    
-    let { data: player, error: playerError } = await supabase
+    const { data: player, error: playerError } = await supabase
         .from('players')
         .select('*')
         .eq('id', user.id)
         .single();
     
     if (playerError && playerError.code === 'PGRST116') {
-        const { error: insertError } = await supabase
-            .from('players')
-            .insert([{
-                id: user.id,
-                email: user.email,
-                username: user.user_metadata?.username || user.email.split('@')[0],
-                total_matches: 0,
-                wins: 0,
-                points: 0
-            }]);
-        
-        if (!insertError) {
-            const { data: newPlayer } = await supabase
-                .from('players')
-                .select('*')
-                .eq('id', user.id)
-                .single();
-            player = newPlayer;
-        }
+        await supabase.from('players').insert([{
+            id: user.id,
+            player_name: user.user_metadata?.player_name || 'Pirate',
+            email: user.email,
+            device_name: user.user_metadata?.device_name || 'Not specified',
+            win: 0, loss: 0, draw: 0, gf: 0, ga: 0, pts: 0
+        }]);
+        loadDashboard();
+        return;
     }
     
     if (player) {
-        if (document.getElementById('username')) document.getElementById('username').innerText = player.username;
-        if (document.getElementById('totalMatches')) document.getElementById('totalMatches').innerText = player.total_matches || 0;
-        if (document.getElementById('wins')) document.getElementById('wins').innerText = player.wins || 0;
-        if (document.getElementById('points')) document.getElementById('points').innerText = player.points || 0;
+        document.getElementById('playerName').innerText = player.player_name;
+        document.getElementById('playerEmail').innerText = player.email;
+        document.getElementById('wins').innerText = player.win || 0;
+        document.getElementById('losses').innerText = player.loss || 0;
+        document.getElementById('draws').innerText = player.draw || 0;
+        document.getElementById('points').innerText = player.pts || 0;
+        document.getElementById('gf').innerText = player.gf || 0;
+        document.getElementById('ga').innerText = player.ga || 0;
         
-        const winRate = player.total_matches > 0 
-            ? ((player.wins / player.total_matches) * 100).toFixed(1) 
-            : 0;
-        if (document.getElementById('winRate')) document.getElementById('winRate').innerText = winRate + '%';
-    }
-}
-
-// ============ LEADERBOARD FUNCTION ============
-if (window.location.pathname.includes('leaderboard.html')) {
-    loadLeaderboard();
-}
-
-async function loadLeaderboard() {
-    const { data: players, error } = await supabase
-        .from('players')
-        .select('username, points, wins, total_matches')
-        .order('points', { ascending: false })
-        .limit(20);
-    
-    if (error) {
-        console.error('Leaderboard error:', error);
-        return;
-    }
-    
-    const tbody = document.getElementById('leaderboardBody');
-    if (tbody) {
-        tbody.innerHTML = '';
-        players.forEach((player, index) => {
-            const row = tbody.insertRow();
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>🏴‍☠️ ${player.username}</td>
-                <td>${player.points || 0}</td>
-                <td>${player.wins || 0}</td>
-                <td>${player.total_matches || 0}</td>
-            `;
-        });
-    }
-}
-
-// ============ MATCH HISTORY FUNCTION ============
-if (window.location.pathname.includes('matches.html')) {
-    loadMatchHistory();
-}
-
-async function loadMatchHistory() {
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-        window.location.href = 'login.html';
-        return;
-    }
-    
-    const { data: matches, error } = await supabase
-        .from('matches')
-        .select(`
-            *,
-            player1:players!matches_player1_id_fkey(username),
-            player2:players!matches_player2_id_fkey(username),
-            winner:players!matches_winner_id_fkey(username)
-        `)
-        .or(`player1_id.eq.${user.id},player2_id.eq.${user.id}`)
-        .order('match_date', { ascending: false })
-        .limit(20);
-    
-    if (error) {
-        console.error('Matches error:', error);
-        return;
-    }
-    
-    const container = document.getElementById('matchesList');
-    if (container && matches) {
-        container.innerHTML = '';
-        matches.forEach(match => {
-            const isWinner = match.winner_id === user.id;
-            const result = isWinner ? '✅ Won' : '❌ Lost';
-            const opponent = match.player1_id === user.id ? match.player2?.username : match.player1?.username;
-            
-            const matchCard = document.createElement('div');
-            matchCard.className = 'match-card';
-            matchCard.innerHTML = `
-                <div class="match-result ${isWinner ? 'win' : 'loss'}">${result}</div>
-                <div class="match-details">
-                    <span>vs <strong>${opponent || 'Unknown'}</strong></span>
-                    <span class="match-date">${new Date(match.match_date).toLocaleDateString()}</span>
-                </div>
-            `;
-            container.appendChild(matchCard);
-        });
+        const gd = (player.gf || 0) - (player.ga || 0);
+        const gdElement = document.getElementById('gd');
+        gdElement.innerText = gd;
+        gdElement.classList.add(gd >= 0 ? 'positive' : 'negative');
         
-        if (matches.length === 0) {
-            container.innerHTML = '<p class="no-matches">No matches played yet. Start your journey!</p>';
+        const totalMatches = (player.win || 0) + (player.loss || 0) + (player.draw || 0);
+        document.getElementById('totalMatches').innerText = totalMatches;
+        
+        if (player.konami_user_id) {
+            document.getElementById('konamiId').innerText = player.konami_user_id;
+        }
+        if (player.device_name) {
+            document.getElementById('deviceName').innerText = player.device_name;
+        }
+        if (player.number) {
+            document.getElementById('playerPhone').innerText = player.number;
+        }
+        if (player.photo) {
+            document.getElementById('profilePhoto').src = player.photo;
+        }
+        if (player.cover_photo) {
+            document.getElementById('coverPhoto').src = player.cover_photo;
         }
     }
 }
 
-// ============ LOGOUT FUNCTION ============
+// ============ LOGOUT ============
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
@@ -272,4 +345,12 @@ if (logoutBtn) {
         localStorage.removeItem('pop123_user');
         window.location.href = 'index.html';
     });
+}
+
+function showError(message) {
+    const errorDiv = document.getElementById('errorMsg');
+    if (errorDiv) {
+        errorDiv.innerText = message;
+        setTimeout(() => { errorDiv.innerText = ''; }, 5000);
+    }
 }
