@@ -1,11 +1,14 @@
 
+<!-- ============================================= -->
+<!-- DASHBOARD.HTML - Classic Premium Theme -->
+<!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POP123 | Pirate Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Dashboard | POP123 - Pirates of Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -15,26 +18,29 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #0B0C10;
-            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
             overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1F2833;
+            background: #1a1a1a;
         }
         ::-webkit-scrollbar-thumb {
-            background: #45A29E;
+            background: #e94560;
             border-radius: 10px;
         }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff6b81;
+        }
 
-        /* Dashboard Container */
-        .dashboard {
+        /* Dashboard Wrapper */
+        .dashboard-wrapper {
             display: flex;
             min-height: 100vh;
         }
@@ -42,44 +48,56 @@
         /* ========== SIDEBAR ========== */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #0F1419 0%, #0B0C10 100%);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(69, 162, 158, 0.2);
+            background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+            border-right: 1px solid rgba(233, 69, 96, 0.2);
             padding: 30px 20px;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            transition: all 0.3s ease;
             z-index: 100;
         }
 
-        .logo-area {
+        .sidebar-logo {
             text-align: center;
             margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 2px solid rgba(69, 162, 158, 0.3);
+            border-bottom: 2px solid rgba(233, 69, 96, 0.3);
         }
 
-        .logo {
+        .logo-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .sidebar-logo h2 {
             font-family: 'Orbitron', monospace;
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #45A29E, #66FCF1);
+            font-size: 24px;
+            background: linear-gradient(135deg, #fff, #e94560);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .logo-sub {
+        .sidebar-logo p {
             font-size: 10px;
-            color: #45A29E;
+            color: #e94560;
             letter-spacing: 2px;
             margin-top: 5px;
         }
 
+        /* Navigation */
         .nav-menu {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 40px;
         }
 
         .nav-item {
@@ -88,7 +106,7 @@
             gap: 12px;
             padding: 12px 20px;
             border-radius: 12px;
-            color: #C5C6C7;
+            color: #aaa;
             text-decoration: none;
             transition: all 0.3s ease;
             font-weight: 500;
@@ -100,35 +118,36 @@
         }
 
         .nav-item:hover {
-            background: rgba(69, 162, 158, 0.1);
-            color: #66FCF1;
+            background: rgba(233, 69, 96, 0.1);
+            color: #e94560;
             transform: translateX(5px);
         }
 
         .nav-item.active {
-            background: linear-gradient(135deg, rgba(69, 162, 158, 0.2), rgba(102, 252, 241, 0.1));
-            color: #66FCF1;
-            border-left: 3px solid #45A29E;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2), rgba(255, 107, 129, 0.1));
+            color: #e94560;
+            border-left: 3px solid #e94560;
         }
 
+        /* Logout Button */
         .logout-btn {
-            margin-top: 40px;
+            width: 100%;
             padding: 12px 20px;
-            background: rgba(255, 71, 87, 0.1);
-            border: 1px solid rgba(255, 71, 87, 0.3);
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid rgba(233, 69, 96, 0.3);
             border-radius: 12px;
-            color: #FF4757;
+            color: #e94560;
             display: flex;
             align-items: center;
             gap: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 100%;
             font-weight: 600;
+            font-size: 14px;
         }
 
         .logout-btn:hover {
-            background: rgba(255, 71, 87, 0.2);
+            background: rgba(233, 69, 96, 0.2);
             transform: translateX(5px);
         }
 
@@ -139,8 +158,8 @@
             padding: 30px 40px;
         }
 
-        /* Top Header */
-        .top-header {
+        /* Top Bar */
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -149,117 +168,95 @@
             gap: 20px;
         }
 
-        .greeting h1 {
+        .welcome h1 {
             font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(135deg, #FFFFFF, #66FCF1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
-        .greeting p {
-            color: #C5C6C7;
+        .welcome h1 span {
+            color: #e94560;
+        }
+
+        .welcome p {
+            color: #aaa;
             font-size: 14px;
             margin-top: 5px;
         }
 
-        .rank-badge {
-            background: linear-gradient(135deg, #1F2833, #0B0C10);
-            padding: 10px 25px;
+        .rank-card {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            padding: 12px 25px;
             border-radius: 50px;
-            border: 1px solid rgba(69, 162, 158, 0.5);
+            border: 1px solid rgba(233, 69, 96, 0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .rank-badge i {
-            color: #FFD700;
-            font-size: 24px;
+        .rank-card i {
+            color: #ffd700;
+            font-size: 28px;
         }
 
-        .rank-badge span {
+        .rank-card h3 {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 18px;
         }
 
-        .rank-badge small {
-            color: #C5C6C7;
-            font-size: 12px;
+        .rank-card p {
+            font-size: 11px;
+            color: #aaa;
         }
 
-        /* Profile Cover */
-        .profile-cover {
-            position: relative;
+        /* Profile Banner */
+        .profile-banner {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
             border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 60px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .cover-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            filter: brightness(0.8);
-        }
-
-        .profile-info {
-            position: absolute;
-            bottom: -50px;
-            left: 40px;
-            display: flex;
-            align-items: flex-end;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .avatar-frame {
+            margin-bottom: 40px;
             position: relative;
+            border: 1px solid rgba(233, 69, 96, 0.2);
         }
 
-        .avatar {
+        .banner-cover {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .profile-card {
+            position: relative;
+            padding: 0 30px 30px 30px;
+            margin-top: -60px;
+        }
+
+        .profile-avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            border: 4px solid #45A29E;
+            border: 4px solid #e94560;
             object-fit: cover;
-            background: #0B0C10;
+            background: #0a0a0a;
         }
 
-        .online-dot {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 18px;
-            height: 18px;
-            background: #2ecc71;
-            border-radius: 50%;
-            border: 2px solid #0B0C10;
-            animation: pulse 2s infinite;
+        .profile-info {
+            margin-top: 15px;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
-        }
-
-        .player-details h2 {
+        .profile-info h2 {
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 5px;
         }
 
-        .player-details p {
-            color: #C5C6C7;
-            font-size: 14px;
+        .profile-info p {
+            color: #aaa;
+            margin-top: 5px;
         }
 
-        .player-badge {
+        .profile-badge {
             display: inline-block;
-            background: rgba(69, 162, 158, 0.2);
+            background: rgba(233, 69, 96, 0.2);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 12px;
@@ -269,128 +266,91 @@
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(31, 40, 51, 0.8), rgba(11, 12, 16, 0.8));
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
             border-radius: 16px;
             padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid rgba(69, 162, 158, 0.2);
+            text-align: center;
+            border: 1px solid rgba(233, 69, 96, 0.2);
             transition: all 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            border-color: #45A29E;
-            box-shadow: 0 5px 20px rgba(69, 162, 158, 0.2);
+            border-color: #e94560;
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.1);
         }
 
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(69, 162, 158, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
+        .stat-card i {
+            font-size: 40px;
+            color: #e94560;
+            margin-bottom: 10px;
         }
 
-        .stat-info h4 {
-            font-size: 12px;
-            color: #C5C6C7;
-            margin-bottom: 5px;
-        }
-
-        .stat-info p {
-            font-size: 28px;
+        .stat-card h3 {
+            font-size: 32px;
             font-weight: 700;
             font-family: 'Orbitron', monospace;
         }
 
-        .stat-card.win .stat-info p { color: #2ecc71; }
-        .stat-card.loss .stat-info p { color: #e74c3c; }
-        .stat-card.draw .stat-info p { color: #f39c12; }
-        .stat-card.points .stat-info p { color: #66FCF1; }
+        .stat-card p {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 5px;
+        }
 
-        /* Info Cards */
-        .info-cards {
+        /* Two Column Layout */
+        .two-columns {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .card {
-            background: linear-gradient(135deg, rgba(31, 40, 51, 0.6), rgba(11, 12, 16, 0.6));
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+        .info-card {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            border-radius: 16px;
             padding: 25px;
-            border: 1px solid rgba(69, 162, 158, 0.2);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(233, 69, 96, 0.2);
         }
 
-        .card:hover {
-            border-color: rgba(69, 162, 158, 0.4);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .info-card h3 {
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(69, 162, 158, 0.2);
-        }
-
-        .card-header h3 {
+            border-bottom: 1px solid rgba(233, 69, 96, 0.2);
             font-size: 18px;
-            font-weight: 600;
         }
 
-        .card-header i {
-            color: #45A29E;
-            font-size: 20px;
+        .info-card h3 i {
+            color: #e94560;
+            margin-right: 10px;
         }
 
-        .info-item {
+        .info-row {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .info-item span:first-child {
-            color: #C5C6C7;
+        .info-row span:first-child {
+            color: #aaa;
             font-size: 14px;
         }
 
-        .info-item span:last-child {
+        .info-row span:last-child {
             font-weight: 600;
-            color: #66FCF1;
+            color: #e94560;
         }
-
-        .info-item .positive {
-            color: #2ecc71;
-        }
-
-        .info-item .negative {
-            color: #e74c3c;
-        }
-
-        .gd-value.positive { color: #2ecc71; }
-        .gd-value.negative { color: #e74c3c; }
 
         /* Progress Bar */
         .progress-bar {
-            margin-top: 20px;
+            margin-top: 15px;
             height: 8px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
@@ -399,32 +359,48 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #45A29E, #66FCF1);
+            background: linear-gradient(90deg, #e94560, #ff6b81);
             border-radius: 10px;
             transition: width 0.5s ease;
         }
 
-        /* Match List */
+        /* Recent Matches */
+        .matches-card {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        .matches-card h3 {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        .matches-card h3 i {
+            color: #e94560;
+            margin-right: 10px;
+        }
+
         .match-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            max-height: 250px;
-            overflow-y: auto;
         }
 
         .match-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            transition: all 0.3s;
         }
 
         .match-item:hover {
-            background: rgba(69, 162, 158, 0.1);
+            background: rgba(233, 69, 96, 0.1);
             transform: translateX(5px);
         }
 
@@ -448,26 +424,25 @@
         .match-score {
             font-weight: 700;
             font-family: 'Orbitron', monospace;
-            color: #66FCF1;
+            color: #e94560;
         }
 
         .match-date {
             font-size: 11px;
-            color: #C5C6C7;
+            color: #aaa;
         }
 
         /* Loading */
         .loading {
             text-align: center;
             padding: 40px;
-            color: #C5C6C7;
         }
 
         .spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(69, 162, 158, 0.3);
-            border-top-color: #45A29E;
+            border: 3px solid rgba(233, 69, 96, 0.3);
+            border-top-color: #e94560;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
@@ -477,18 +452,13 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Full Width */
-        .full-width {
-            grid-column: span 2;
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
-            .info-cards {
-                grid-template-columns: 1fr;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .full-width {
-                grid-column: span 1;
+            .two-columns {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -497,7 +467,7 @@
                 width: 80px;
                 padding: 20px 10px;
             }
-            .logo-area .logo, .logo-sub, .nav-item span, .logout-btn span {
+            .sidebar-logo h2, .sidebar-logo p, .nav-item span, .logout-btn span {
                 display: none;
             }
             .nav-item {
@@ -506,7 +476,6 @@
             }
             .nav-item i {
                 margin: 0;
-                font-size: 1.4rem;
             }
             .logout-btn {
                 justify-content: center;
@@ -515,42 +484,43 @@
                 margin-left: 80px;
                 padding: 20px;
             }
-            .profile-info {
-                left: 20px;
-                bottom: -30px;
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
             }
-            .avatar {
-                width: 70px;
-                height: 70px;
+            .profile-card {
+                padding: 0 20px 20px 20px;
             }
-            .player-details h2 {
-                font-size: 18px;
+            .profile-info h2 {
+                font-size: 20px;
             }
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
-            .stat-card {
-                padding: 12px;
+            .stat-card h3 {
+                font-size: 24px;
             }
-            .stat-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
             }
-            .stat-info p {
-                font-size: 20px;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard">
+    <div class="dashboard-wrapper">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="logo-area">
-                <div class="logo">POP123</div>
-                <div class="logo-sub">PIRATES OF THE PITCH</div>
+            <div class="sidebar-logo">
+                <div class="logo-icon">🏴‍☠️</div>
+                <h2>POP123</h2>
+                <p>PIRATES OF THE PITCH</p>
             </div>
             
             <nav class="nav-menu">
@@ -584,33 +554,30 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Header -->
-            <div class="top-header">
-                <div class="greeting">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="welcome">
                     <h1>Welcome back, <span id="playerName">Captain</span>!</h1>
                     <p>Ready to conquer the pitch today?</p>
                 </div>
-                <div class="rank-badge">
+                <div class="rank-card">
                     <i class="fas fa-crown"></i>
                     <div>
-                        <div>Rank <span id="playerRank">#1</span></div>
-                        <small>Global Standing</small>
+                        <h3 id="playerRank">#1</h3>
+                        <p>Global Rank</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Profile Cover -->
-            <div class="profile-cover">
-                <img id="coverPhoto" class="cover-image" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200" alt="Cover">
-                <div class="profile-info">
-                    <div class="avatar-frame">
-                        <img id="profilePhoto" class="avatar" src="https://ui-avatars.com/api/?background=45A29E&color=fff&bold=true&size=120" alt="Avatar">
-                        <div class="online-dot"></div>
-                    </div>
-                    <div class="player-details">
+            <!-- Profile Banner -->
+            <div class="profile-banner">
+                <img id="coverPhoto" class="banner-cover" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200" alt="Cover">
+                <div class="profile-card">
+                    <img id="profilePhoto" class="profile-avatar" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=120" alt="Avatar">
+                    <div class="profile-info">
                         <h2 id="displayName">Loading...</h2>
                         <p><i class="fas fa-envelope"></i> <span id="playerEmail">loading@pop123.com</span></p>
-                        <span class="player-badge"><i class="fas fa-skull-crossbones"></i> Pirate Legend</span>
+                        <span class="profile-badge"><i class="fas fa-skull-crossbones"></i> Pirate Legend</span>
                     </div>
                 </div>
             </div>
@@ -618,68 +585,43 @@
             <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-futbol"></i></div>
-                    <div class="stat-info">
-                        <h4>Total Matches</h4>
-                        <p id="totalMatches">0</p>
-                    </div>
-                </div>
-                <div class="stat-card win">
-                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
-                    <div class="stat-info">
-                        <h4>Wins</h4>
-                        <p id="wins">0</p>
-                    </div>
-                </div>
-                <div class="stat-card loss">
-                    <div class="stat-icon"><i class="fas fa-frown"></i></div>
-                    <div class="stat-info">
-                        <h4>Losses</h4>
-                        <p id="losses">0</p>
-                    </div>
-                </div>
-                <div class="stat-card draw">
-                    <div class="stat-icon"><i class="fas fa-handshake"></i></div>
-                    <div class="stat-info">
-                        <h4>Draws</h4>
-                        <p id="draws">0</p>
-                    </div>
+                    <i class="fas fa-futbol"></i>
+                    <h3 id="totalMatches">0</h3>
+                    <p>Total Matches</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="stat-info">
-                        <h4>Win Rate</h4>
-                        <p id="winRate">0%</p>
-                    </div>
+                    <i class="fas fa-trophy"></i>
+                    <h3 id="wins">0</h3>
+                    <p>Wins</p>
                 </div>
-                <div class="stat-card points">
-                    <div class="stat-icon"><i class="fas fa-star"></i></div>
-                    <div class="stat-info">
-                        <h4>Points</h4>
-                        <p id="points">0</p>
-                    </div>
+                <div class="stat-card">
+                    <i class="fas fa-frown"></i>
+                    <h3 id="losses">0</h3>
+                    <p>Losses</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <h3 id="points">0</h3>
+                    <p>Points</p>
                 </div>
             </div>
 
-            <!-- Info Cards -->
-            <div class="info-cards">
+            <!-- Two Columns -->
+            <div class="two-columns">
                 <!-- Goal Statistics -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-chart-simple"></i> Goal Statistics</h3>
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="info-item">
+                <div class="info-card">
+                    <h3><i class="fas fa-chart-line"></i> Goal Statistics</h3>
+                    <div class="info-row">
                         <span><i class="fas fa-futbol"></i> Goals For (GF)</span>
-                        <span id="gf" class="positive">0</span>
+                        <span id="gf">0</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fas fa-shield-alt"></i> Goals Against (GA)</span>
-                        <span id="ga" class="negative">0</span>
+                        <span id="ga">0</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fas fa-balance-scale"></i> Goal Difference (GD)</span>
-                        <span id="gd" class="gd-value">0</span>
+                        <span id="gd">0</span>
                     </div>
                     <div class="progress-bar">
                         <div class="progress-fill" id="goalProgress" style="width: 0%;"></div>
@@ -687,28 +629,25 @@
                 </div>
 
                 <!-- Gaming Information -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-gamepad"></i> Gaming Information</h3>
-                        <i class="fas fa-edit" style="cursor: pointer;" onclick="alert('Edit feature coming soon!')"></i>
-                    </div>
-                    <div class="info-item">
+                <div class="info-card">
+                    <h3><i class="fas fa-gamepad"></i> Gaming Information</h3>
+                    <div class="info-row">
                         <span><i class="fas fa-id-card"></i> Konami ID</span>
                         <span id="konamiId">Not set</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fas fa-mobile-alt"></i> Device Name</span>
                         <span id="deviceName">Not set</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fas fa-phone"></i> Phone Number</span>
                         <span id="playerPhone">Not set</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fab fa-facebook"></i> Facebook</span>
                         <span id="fbLink">Not linked</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-row">
                         <span><i class="fas fa-calendar-alt"></i> Joined</span>
                         <span id="joinedDate">Loading...</span>
                     </div>
@@ -716,11 +655,8 @@
             </div>
 
             <!-- Recent Matches -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <h3><i class="fas fa-history"></i> Recent Matches</h3>
-                    <a href="matches.html" style="color: #45A29E; font-size: 12px;">View All <i class="fas fa-arrow-right"></i></a>
-                </div>
+            <div class="matches-card">
+                <h3><i class="fas fa-history"></i> Recent Matches</h3>
                 <div id="recentMatches" class="match-list">
                     <div class="loading">
                         <div class="spinner"></div>
@@ -731,251 +667,151 @@
         </main>
     </div>
 
-    <script>
-        // dashboard.js - Complete Script
+    <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
         // Supabase Configuration
         const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
         const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
-
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-        // Global variables
         let currentUser = null;
-        let playerData = null;
 
         // ========== CHECK SESSION ==========
         async function checkSession() {
             const { data: { user }, error } = await supabase.auth.getUser();
-            
             if (error || !user) {
                 window.location.href = 'login.html';
                 return false;
             }
-            
             currentUser = user;
-            console.log('User logged in:', currentUser.email);
             return true;
         }
 
         // ========== LOAD PLAYER DATA ==========
         async function loadPlayerData() {
-            if (!currentUser) return;
-            
-            console.log('Loading player data for user ID:', currentUser.id);
-            
             const { data, error } = await supabase
                 .from('players')
                 .select('*')
                 .eq('id', currentUser.id)
                 .single();
-            
-            if (error) {
-                console.error('Error loading player:', error);
-                // Try to create profile if doesn't exist
-                if (error.code === 'PGRST116') {
-                    await createPlayerProfile();
-                }
-                return;
+
+            if (error && error.code === 'PGRST116') {
+                // Create profile if not exists
+                await supabase.from('players').insert([{
+                    id: currentUser.id,
+                    player_name: currentUser.user_metadata?.player_name || currentUser.email.split('@')[0],
+                    email: currentUser.email,
+                    win: 0, loss: 0, draw: 0, gf: 0, ga: 0, pts: 0
+                }]);
+                return loadPlayerData();
             }
-            
+
             if (data) {
-                playerData = data;
-                console.log('Player data loaded successfully:', data);
-                updateAllUI(data);
+                updateUI(data);
                 await updatePlayerRank(data.player_name);
             }
         }
 
-        // ========== CREATE PLAYER PROFILE ==========
-        async function createPlayerProfile() {
-            console.log('Creating new player profile...');
-            
-            const newPlayer = {
-                id: currentUser.id,
-                player_name: currentUser.user_metadata?.player_name || currentUser.email.split('@')[0],
-                email: currentUser.email,
-                konami_user_id: null,
-                device_name: null,
-                number: null,
-                fb_id_link: null,
-                photo: null,
-                cover_photo: null,
-                win: 0,
-                loss: 0,
-                draw: 0,
-                gf: 0,
-                ga: 0,
-                pts: 0,
-                created_at: new Date(),
-                updated_at: new Date()
-            };
-            
-            const { data, error } = await supabase
-                .from('players')
-                .insert([newPlayer])
-                .select()
-                .single();
-            
-            if (error) {
-                console.error('Error creating profile:', error);
-            } else {
-                console.log('Profile created successfully:', data);
-                playerData = data;
-                updateAllUI(data);
-            }
-        }
-
-        // ========== UPDATE ALL UI ==========
-        function updateAllUI(player) {
-            console.log('Updating UI with player data:', player);
-            
-            // Basic info
+        // ========== UPDATE UI ==========
+        function updateUI(player) {
+            // Basic Info
             document.getElementById('playerName').innerText = player.player_name;
             document.getElementById('displayName').innerText = player.player_name;
             document.getElementById('playerEmail').innerText = player.email;
-            
+
             // Stats
-            document.getElementById('wins').innerText = player.win || 0;
-            document.getElementById('losses').innerText = player.loss || 0;
-            document.getElementById('draws').innerText = player.draw || 0;
-            document.getElementById('points').innerText = player.pts || 0;
-            
-            // Goals
+            const wins = player.win || 0;
+            const losses = player.loss || 0;
+            const draws = player.draw || 0;
+            const points = player.pts || 0;
             const gf = player.gf || 0;
             const ga = player.ga || 0;
+            const totalMatches = wins + losses + draws;
+            const winRate = totalMatches > 0 ? ((wins / totalMatches) * 100).toFixed(1) : 0;
             const gd = gf - ga;
-            
+
+            document.getElementById('totalMatches').innerText = totalMatches;
+            document.getElementById('wins').innerText = wins;
+            document.getElementById('losses').innerText = losses;
+            document.getElementById('points').innerText = points;
             document.getElementById('gf').innerText = gf;
             document.getElementById('ga').innerText = ga;
-            
-            const gdElement = document.getElementById('gd');
-            gdElement.innerText = gd >= 0 ? `+${gd}` : gd;
-            gdElement.className = `gd-value ${gd >= 0 ? 'positive' : 'negative'}`;
-            
-            // Total matches & win rate
-            const totalMatches = (player.win || 0) + (player.loss || 0) + (player.draw || 0);
-            document.getElementById('totalMatches').innerText = totalMatches;
-            
-            const winRate = totalMatches > 0 ? ((player.win / totalMatches) * 100).toFixed(1) : 0;
-            document.getElementById('winRate').innerText = winRate + '%';
-            
-            // Goal progress
+            document.getElementById('gd').innerHTML = gd >= 0 ? `+${gd}` : gd;
+
+            // Goal Progress
             const totalGoals = gf + ga;
             const goalProgress = totalGoals > 0 ? (gf / totalGoals) * 100 : 0;
             document.getElementById('goalProgress').style.width = goalProgress + '%';
+
+            // Gaming Info
+            document.getElementById('konamiId').innerHTML = player.konami_user_id || '<span style="color:#888;">Not set</span>';
+            document.getElementById('deviceName').innerHTML = player.device_name || '<span style="color:#888;">Not set</span>';
+            document.getElementById('playerPhone').innerHTML = player.number || '<span style="color:#888;">Not set</span>';
             
-            // Gaming Info - Show actual data from database
-            const konamiElement = document.getElementById('konamiId');
-            const deviceElement = document.getElementById('deviceName');
-            const phoneElement = document.getElementById('playerPhone');
-            const fbElement = document.getElementById('fbLink');
-            const joinedElement = document.getElementById('joinedDate');
-            
-            // Konami ID
-            if (player.konami_user_id && player.konami_user_id !== 'null') {
-                konamiElement.innerHTML = `<span style="color:#66FCF1;">${player.konami_user_id}</span>`;
+            if (player.fb_id_link) {
+                document.getElementById('fbLink').innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#e94560;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
             } else {
-                konamiElement.innerHTML = '<span style="color:#888;">Not set</span>';
+                document.getElementById('fbLink').innerHTML = '<span style="color:#888;">Not linked</span>';
             }
-            
-            // Device Name
-            if (player.device_name && player.device_name !== 'null') {
-                deviceElement.innerHTML = `<span style="color:#66FCF1;">${player.device_name}</span>`;
-            } else {
-                deviceElement.innerHTML = '<span style="color:#888;">Not set</span>';
-            }
-            
-            // Phone Number
-            if (player.number && player.number !== 'null') {
-                phoneElement.innerHTML = `<span style="color:#66FCF1;">${player.number}</span>`;
-            } else {
-                phoneElement.innerHTML = '<span style="color:#888;">Not set</span>';
-            }
-            
-            // Facebook Link
-            if (player.fb_id_link && player.fb_id_link !== 'null') {
-                fbElement.innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#45A29E;">View Profile <i class="fas fa-external-link-alt"></i></a>`;
-            } else {
-                fbElement.innerHTML = '<span style="color:#888;">Not linked</span>';
-            }
-            
-            // Joined Date
+
             if (player.created_at) {
                 const date = new Date(player.created_at);
-                joinedElement.innerHTML = `<span style="color:#66FCF1;">${date.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                })}</span>`;
-            } else {
-                joinedElement.innerHTML = '<span style="color:#888;">Just joined!</span>';
+                document.getElementById('joinedDate').innerHTML = date.toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
             }
-            
-            // Profile images
-            if (player.photo && player.photo !== 'null') {
+
+            // Profile Images
+            if (player.photo) {
                 document.getElementById('profilePhoto').src = player.photo;
             }
-            if (player.cover_photo && player.cover_photo !== 'null') {
+            if (player.cover_photo) {
                 document.getElementById('coverPhoto').src = player.cover_photo;
             }
         }
 
-        // ========== UPDATE PLAYER RANK ==========
+        // ========== UPDATE RANK ==========
         async function updatePlayerRank(playerName) {
             const { data, error } = await supabase
                 .from('players')
                 .select('player_name, pts')
                 .order('pts', { ascending: false });
-            
-            if (!error && data && data.length > 0) {
+
+            if (!error && data) {
                 const rank = data.findIndex(p => p.player_name === playerName) + 1;
-                const rankNumber = rank > 0 ? rank : data.length + 1;
-                document.getElementById('playerRank').innerText = '#' + rankNumber;
-                
-                // Add color based on rank
-                const rankBadge = document.querySelector('.rank-badge');
-                if (rankNumber === 1) {
-                    rankBadge.style.borderColor = '#FFD700';
-                } else if (rankNumber <= 3) {
-                    rankBadge.style.borderColor = '#C0C0C0';
-                } else if (rankNumber <= 10) {
-                    rankBadge.style.borderColor = '#CD7F32';
-                }
+                document.getElementById('playerRank').innerText = '#' + (rank || 1);
             }
         }
 
         // ========== LOAD RECENT MATCHES ==========
         async function loadRecentMatches() {
-            if (!currentUser) return;
-            
             const { data, error } = await supabase
                 .from('matches')
                 .select('*')
                 .or(`player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`)
                 .order('match_date', { ascending: false })
-                .limit(10);
-            
+                .limit(8);
+
             const container = document.getElementById('recentMatches');
-            
+
             if (error || !data || data.length === 0) {
                 container.innerHTML = `
                     <div class="loading">
                         <i class="fas fa-futbol" style="font-size: 40px; opacity: 0.3;"></i>
                         <p style="margin-top: 10px;">No matches played yet</p>
-                        <p style="font-size: 12px; color: #45A29E;">Start your journey today!</p>
+                        <p style="font-size: 12px; color: #e94560;">Start your journey today!</p>
                     </div>
                 `;
                 return;
             }
-            
+
             container.innerHTML = data.map(match => {
                 const isWinner = match.winner_id === currentUser.id;
                 const score = `${match.player1_score || 0} - ${match.player2_score || 0}`;
                 const matchDate = new Date(match.match_date);
                 const timeAgo = getTimeAgo(matchDate);
-                
+
                 return `
                     <div class="match-item">
                         <span class="match-result ${isWinner ? 'win' : 'loss'}">
@@ -989,7 +825,7 @@
             }).join('');
         }
 
-        // ========== TIME AGO FUNCTION ==========
+        // ========== TIME AGO ==========
         function getTimeAgo(date) {
             const seconds = Math.floor((new Date() - date) / 1000);
             if (seconds < 60) return 'just now';
@@ -1009,7 +845,7 @@
             window.location.href = 'index.html';
         });
 
-        // ========== INITIALIZE ==========
+        // ========== INIT ==========
         async function init() {
             const sessionValid = await checkSession();
             if (sessionValid) {
@@ -1017,8 +853,7 @@
                 await loadRecentMatches();
             }
         }
-        
-        // Start the app
+
         init();
     </script>
 </body>
