@@ -1,6 +1,5 @@
-
 <!-- ============================================= -->
-<!-- SIGNUP.HTML - Clean Signup Page -->
+<!-- SIGNUP.HTML - Fixed Version -->
 <!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -100,8 +99,7 @@
             font-size: 16px;
         }
 
-        .input-wrapper input,
-        .input-wrapper select {
+        .input-wrapper input {
             width: 100%;
             padding: 14px 12px;
             background: transparent;
@@ -109,15 +107,6 @@
             font-size: 14px;
             outline: none;
             font-family: 'Inter', sans-serif;
-        }
-
-        .input-wrapper select {
-            cursor: pointer;
-            color: #1a1a2e;
-        }
-
-        .input-wrapper select option {
-            color: #1a1a2e;
         }
 
         /* Photo Upload */
@@ -237,10 +226,6 @@
             font-weight: 500;
         }
 
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-
         .spinner {
             display: inline-block;
             width: 16px;
@@ -257,17 +242,8 @@
         }
 
         @media (max-width: 480px) {
-            .signup-header {
-                padding: 25px 20px 15px;
-            }
-            .signup-body {
-                padding: 25px;
-            }
             .photo-section {
                 grid-template-columns: 1fr;
-            }
-            .signup-header h1 {
-                font-size: 24px;
             }
         }
     </style>
@@ -283,7 +259,7 @@
         <div class="signup-body">
             <form id="signupForm">
                 <div class="input-group">
-                    <label><i class="fas fa-user"></i> Player Name</label>
+                    <label><i class="fas fa-user"></i> Player Name *</label>
                     <div class="input-wrapper">
                         <i class="fas fa-skull-crossbones"></i>
                         <input type="text" id="player_name" placeholder="Enter your gaming name" required>
@@ -291,7 +267,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <label><i class="fas fa-envelope"></i> Email Address *</label>
                     <div class="input-wrapper">
                         <i class="fas fa-envelope"></i>
                         <input type="email" id="email" placeholder="your@email.com" required>
@@ -299,7 +275,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
+                    <label><i class="fas fa-lock"></i> Password *</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="password" placeholder="Min 6 characters" required>
@@ -307,7 +283,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <label><i class="fas fa-check-circle"></i> Confirm Password</label>
+                    <label><i class="fas fa-check-circle"></i> Confirm Password *</label>
                     <div class="input-wrapper">
                         <i class="fas fa-check-circle"></i>
                         <input type="password" id="confirmPassword" placeholder="Confirm password" required>
@@ -328,6 +304,7 @@
                         <i class="fas fa-camera"></i>
                         <h4>Profile Photo</h4>
                         <p>Click to upload</p>
+                        <small>Max 2MB</small>
                         <input type="file" id="profile_photo" accept="image/*" class="file-input">
                         <div id="profilePreview" class="preview-container"></div>
                     </div>
@@ -336,6 +313,7 @@
                         <i class="fas fa-image"></i>
                         <h4>Cover Photo</h4>
                         <p>Click to upload</p>
+                        <small>Max 2MB</small>
                         <input type="file" id="cover_photo" accept="image/*" class="file-input">
                         <div id="coverPreview" class="preview-container"></div>
                     </div>
@@ -384,7 +362,7 @@
             }
             
             const previewDiv = document.getElementById(`${type}Preview`);
-            previewDiv.innerHTML = '<div style="font-size:12px;">Uploading...</div>';
+            previewDiv.innerHTML = '<span style="font-size:12px;">Uploading...</span>';
             
             const fileName = `${type}_${Date.now()}_${file.name}`;
             
@@ -444,6 +422,8 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
             const device_name = document.getElementById('device_name').value || null;
             
+            errorMsg.innerText = '';
+            
             if (password !== confirmPassword) {
                 errorMsg.innerText = "Passwords don't match!";
                 return;
@@ -462,11 +442,15 @@
             signupBtn.disabled = true;
             signupBtn.innerHTML = '<span class="spinner"></span> Creating Account...';
             
+            // Create auth user
             const { data: authData, error: authError } = await supabase.auth.signUp({
                 email: email,
                 password: password,
                 options: {
-                    data: { player_name: player_name, device_name: device_name }
+                    data: { 
+                        player_name: player_name, 
+                        device_name: device_name 
+                    }
                 }
             });
             
@@ -477,20 +461,34 @@
                 return;
             }
             
+            if (!authData.user) {
+                errorMsg.innerText = "User creation failed!";
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '🏴‍☠️ Register Now';
+                return;
+            }
+            
+            // Insert into players table
             const { error: insertError } = await supabase
                 .from('players')
-                .insert([{
+                .insert({
                     id: authData.user.id,
                     player_name: player_name,
                     email: email,
                     device_name: device_name,
                     photo: uploadedProfileUrl,
                     cover_photo: uploadedCoverUrl,
-                    win: 0, loss: 0, draw: 0, gf: 0, ga: 0, pts: 0
-                }]);
+                    win: 0,
+                    loss: 0,
+                    draw: 0,
+                    gf: 0,
+                    ga: 0,
+                    pts: 0
+                });
             
             if (insertError) {
-                errorMsg.innerText = insertError.message;
+                console.error('Insert error:', insertError);
+                errorMsg.innerText = "Profile creation failed: " + insertError.message;
                 signupBtn.disabled = false;
                 signupBtn.innerHTML = '🏴‍☠️ Register Now';
                 return;
