@@ -3,35 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - POP123</title>
+    <title>Sign Up | POP123</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <div class="form-box">
-            <h2>🏴‍☠️ Join POP123</h2>
-            <form id="signupForm">
-                <div class="input-group">
-                    <label>Username</label>
-                    <input type="text" id="username" required>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-card signup-card">
+            <div class="auth-header">
+                <div class="auth-logo">🏴‍☠️</div>
+                <h2>Join the Crew!</h2>
+                <p>Become a legendary pirate of the pitch</p>
+            </div>
+            
+            <form id="signupForm" class="auth-form">
+                <div class="form-row">
+                    <div class="input-field">
+                        <label>Player Name *</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🏴‍☠️</span>
+                            <input type="text" id="player_name" placeholder="Your gaming name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Email *</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📧</span>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" id="email" required>
+                
+                <div class="form-row">
+                    <div class="input-field">
+                        <label>Password *</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" placeholder="Min 6 characters" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Confirm Password *</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">✓</span>
+                            <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" id="password" required>
+                
+                <div class="form-row">
+                    <div class="input-field">
+                        <label>Facebook Profile Link</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📘</span>
+                            <input type="url" id="fb_id_link" placeholder="https://facebook.com/yourprofile">
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Phone Number</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📱</span>
+                            <input type="text" id="number" placeholder="Your contact number">
+                        </div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirmPassword" required>
+                
+                <div class="form-row">
+                    <div class="input-field">
+                        <label>Konami User ID</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🎮</span>
+                            <input type="text" id="konami_user_id" placeholder="eFootball/PES ID">
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Device Name</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">💻</span>
+                            <select id="device_name">
+                                <option value="">Select Device</option>
+                                <option value="Mobile">📱 Mobile</option>
+                                <option value="PC">💻 PC</option>
+                                <option value="PlayStation">🎮 PlayStation</option>
+                                <option value="Xbox">🎮 Xbox</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn">Sign Up</button>
-                <p class="message">Already have an account? <a href="login.html">Login</a></p>
+                
+                <div class="form-row">
+                    <div class="input-field">
+                        <label>Profile Photo URL</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🖼️</span>
+                            <input type="url" id="photo" placeholder="https://example.com/photo.jpg">
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Cover Photo URL</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🌊</span>
+                            <input type="url" id="cover_photo" placeholder="https://example.com/cover.jpg">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <span>🏴‍☠️</span> Register as Pirate
+                </button>
+                
+                <div id="errorMsg" class="error-message"></div>
             </form>
-            <div id="errorMsg" class="error"></div>
+            
+            <div class="auth-footer">
+                <p>Already a pirate? <a href="login.html">Login Here</a></p>
+            </div>
         </div>
+        
+        <div class="auth-bg-pattern"></div>
     </div>
     <script type="module" src="script.js"></script>
 </body>
