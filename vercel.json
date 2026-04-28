@@ -5,5 +5,6 @@
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/leaderboard", "destination": "/leaderboard.html" },
     { "source": "/matches", "destination": "/matches.html" }
+    { "source": "/", "destination": "/index.html" },
   ]
 }
