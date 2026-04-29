@@ -20,7 +20,6 @@
             color: #fff;
         }
 
-        /* Top Navbar */
         .top-navbar {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
@@ -35,22 +34,11 @@
             height: 70px;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon { font-size: 32px; }
         .logo-area h2 { font-size: 22px; font-weight: 700; color: #fff; }
         .logo-area span { color: #e94560; }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        .nav-links { display: flex; align-items: center; gap: 8px; }
         .nav-link {
             display: flex;
             align-items: center;
@@ -63,10 +51,8 @@
             transition: all 0.2s;
             opacity: 0.8;
         }
-
         .nav-link:hover { background: rgba(255,255,255,0.1); opacity: 1; }
         .nav-link.active { background: #e94560; opacity: 1; }
-
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -75,19 +61,17 @@
             cursor: pointer;
             color: #fff;
         }
-
-        /* Main Content */
-        .main-content {
-            padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .logout-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
         }
 
-        /* Tournament Header */
-        .tournament-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+        .main-content { padding: 40px; max-width: 1400px; margin: 0 auto; }
+        .tournament-header { text-align: center; margin-bottom: 40px; }
         .tournament-badge {
             display: inline-block;
             background: rgba(233,69,96,0.2);
@@ -96,20 +80,10 @@
             font-size: 14px;
             margin-bottom: 15px;
         }
-        .tournament-header h1 {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        .tournament-header h1 span {
-            color: #e94560;
-        }
-        .tournament-header p {
-            color: #aaa;
-            font-size: 16px;
-        }
+        .tournament-header h1 { font-size: 42px; font-weight: 800; margin-bottom: 10px; }
+        .tournament-header h1 span { color: #e94560; }
+        .tournament-header p { color: #aaa; font-size: 16px; }
 
-        /* Stats Cards */
         .stats-cards {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -124,22 +98,10 @@
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .stat-card i {
-            font-size: 35px;
-            color: #e94560;
-            margin-bottom: 10px;
-        }
-        .stat-card h3 {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        .stat-card p {
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 5px;
-        }
+        .stat-card i { font-size: 35px; color: #e94560; margin-bottom: 10px; }
+        .stat-card h3 { font-size: 28px; font-weight: 700; }
+        .stat-card p { font-size: 12px; color: #aaa; margin-top: 5px; }
 
-        /* Point Table */
         .point-table-container {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
@@ -153,20 +115,13 @@
             padding: 15px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .table-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .table-header h2 i {
-            margin-right: 10px;
-            color: #e94560;
-        }
+        .table-header h2 { font-size: 18px; font-weight: 600; }
+        .table-header h2 i { margin-right: 10px; color: #e94560; }
         .point-table {
             width: 100%;
             border-collapse: collapse;
         }
-        .point-table th,
-        .point-table td {
+        .point-table th, .point-table td {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -177,9 +132,7 @@
             font-weight: 600;
             font-size: 13px;
         }
-        .point-table tr:hover {
-            background: rgba(255,255,255,0.03);
-        }
+        .point-table tr:hover { background: rgba(255,255,255,0.03); }
         .team-cell {
             display: flex;
             align-items: center;
@@ -200,22 +153,16 @@
         .rank-2 { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); color: #1a1a2e; }
         .rank-3 { background: linear-gradient(135deg, #CD7F32, #B87333); color: #1a1a2e; }
 
-        /* Match Schedule */
         .matches-section {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
             border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 40px;
         }
-        .matches-section h2 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        .matches-section h2 i {
-            color: #e94560;
-            margin-right: 10px;
-        }
+        .matches-section h2 { margin-bottom: 20px; font-size: 18px; }
+        .matches-section h2 i { color: #e94560; margin-right: 10px; }
         .matches-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -230,63 +177,28 @@
             align-items: center;
             transition: all 0.2s;
         }
-        .match-card:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateX(5px);
-        }
-        .match-teams {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .match-team {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .match-vs {
-            color: #e94560;
-            font-weight: 700;
-            font-size: 12px;
-        }
-        .match-score {
-            font-weight: 700;
-            font-size: 16px;
-            color: #fff;
-        }
+        .match-card:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
+        .match-teams { display: flex; align-items: center; gap: 10px; }
+        .match-team { display: flex; align-items: center; gap: 8px; }
+        .match-vs { color: #e94560; font-weight: 700; font-size: 12px; }
+        .match-score { font-weight: 700; font-size: 16px; color: #fff; }
         .match-status {
             font-size: 11px;
             padding: 4px 10px;
             border-radius: 20px;
-            background: rgba(46,204,113,0.2);
-            color: #2ecc71;
         }
-        .match-status.played {
-            background: rgba(46,204,113,0.2);
-            color: #2ecc71;
-        }
-        .match-status.upcoming {
-            background: rgba(241,196,15,0.2);
-            color: #f1c40f;
-        }
+        .match-status.played { background: rgba(46,204,113,0.2); color: #2ecc71; }
+        .match-status.upcoming { background: rgba(241,196,15,0.2); color: #f1c40f; }
 
-        /* Admin Panel */
         .admin-panel {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 25px;
             border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 40px;
         }
-        .admin-panel h2 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        .admin-panel h2 i {
-            color: #e94560;
-            margin-right: 10px;
-        }
+        .admin-panel h2 { margin-bottom: 20px; font-size: 18px; }
+        .admin-panel h2 i { color: #e94560; margin-right: 10px; }
         .admin-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -311,10 +223,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .admin-form button:hover {
-            background: #ff6b81;
-            transform: translateY(-2px);
-        }
+        .admin-form button:hover { background: #ff6b81; transform: translateY(-2px); }
 
         @media (max-width: 768px) {
             .top-navbar { padding: 0 20px; }
@@ -334,7 +243,6 @@
             .stats-cards { grid-template-columns: repeat(2, 1fr); }
             .tournament-header h1 { font-size: 28px; }
             .point-table th, .point-table td { padding: 10px 5px; font-size: 12px; }
-            .team-logo { width: 25px; height: 25px; font-size: 12px; }
         }
     </style>
 </head>
@@ -349,11 +257,8 @@
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
             <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="tournament.html" class="nav-link active"><i class="fas fa-trophy"></i> Tournament</a>
-            <a href="leaderboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Leaderboard</a>
         </div>
-        <div class="auth-buttons">
-            <button id="logoutBtn" class="logout-btn" style="background:rgba(255,255,255,0.1); border:none; padding:8px 16px; border-radius:10px; color:white; cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
+        <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </nav>
 
     <main class="main-content">
@@ -370,208 +275,141 @@
             <div class="stat-card"><i class="fas fa-chart-line"></i><h3 id="avgGoals">0</h3><p>Avg Goals/Match</p></div>
         </div>
 
-        <!-- Point Table -->
         <div class="point-table-container">
-            <div class="table-header">
-                <h2><i class="fas fa-table"></i> POINT TABLE</h2>
-            </div>
-            <table class="point-table" id="pointTable">
-                <thead>
-                    <tr>
-                        <th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th><th>D</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
-                    </tr>
-                </thead>
+            <div class="table-header"><h2><i class="fas fa-table"></i> POINT TABLE</h2></div>
+            <table class="point-table">
+                <thead><tr><th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th><th>D</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
                 <tbody id="tableBody"></tbody>
             </table>
         </div>
 
-        <!-- Match Schedule -->
         <div class="matches-section">
             <h2><i class="fas fa-calendar-alt"></i> Match Schedule & Results</h2>
             <div class="matches-grid" id="matchesGrid"></div>
         </div>
 
-        <!-- Admin Panel -->
         <div class="admin-panel">
             <h2><i class="fas fa-user-shield"></i> Admin Panel - Update Match Result</h2>
             <div class="admin-form">
-                <select id="matchSelect">
-                    <option value="">Select Match</option>
-                </select>
+                <select id="matchSelect"><option value="">Select Match</option></select>
                 <input type="number" id="team1Score" placeholder="Team 1 Score" min="0">
                 <input type="number" id="team2Score" placeholder="Team 2 Score" min="0">
                 <button id="updateMatchBtn"><i class="fas fa-save"></i> Update Result</button>
+                <button id="resetBtn" style="background:#ff4757;"><i class="fas fa-trash"></i> Reset Tournament</button>
             </div>
         </div>
     </main>
 
-    <script>
-        // Teams Data
-        const teams = [
-            { id: 1, name: "Team Flame", short: "FLM", logo: "🔥", color: "#ff6b6b" },
-            { id: 2, name: "Blaze Titans", short: "BLZ", logo: "⚡", color: "#ffa502" },
-            { id: 3, name: "NOT HUMANS", short: "NTH", logo: "👾", color: "#a4b0be" },
-            { id: 4, name: "DEAD FOR SURE", short: "DFS", logo: "💀", color: "#747d8c" },
-            { id: 5, name: "BORN2WIN", short: "B2W", logo: "🏆", color: "#2ed573" }
-        ];
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        // Initialize team stats
-        let teamStats = {};
-        teams.forEach(team => {
-            teamStats[team.id] = {
-                id: team.id,
-                name: team.name,
-                short: team.short,
-                logo: team.logo,
-                matches: 0,
-                wins: 0,
-                losses: 0,
-                draws: 0,
-                gf: 0,
-                ga: 0,
-                gd: 0,
-                pts: 0
-            };
-        });
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-        // Matches array
+        let teams = [];
         let matches = [];
+        let stats = [];
 
-        // Create all matches (Double Round Robin)
-        function createAllMatches() {
-            matches = [];
-            // Home and Away matches
-            for (let i = 0; i < teams.length; i++) {
-                for (let j = i + 1; j < teams.length; j++) {
-                    // Home match
-                    matches.push({
-                        id: matches.length + 1,
-                        team1_id: teams[i].id,
-                        team2_id: teams[j].id,
-                        team1_score: null,
-                        team2_score: null,
-                        winner_id: null,
-                        status: "upcoming",
-                        round: 1
-                    });
-                    // Away match
-                    matches.push({
-                        id: matches.length + 1,
-                        team1_id: teams[j].id,
-                        team2_id: teams[i].id,
-                        team1_score: null,
-                        team2_score: null,
-                        winner_id: null,
-                        status: "upcoming",
-                        round: 2
-                    });
-                }
-            }
-            saveToLocalStorage();
+        // Load data from Supabase
+        async function loadTeams() {
+            const { data, error } = await supabase.from('tournament_teams').select('*');
+            if (!error && data) teams = data;
+            else console.error('Teams load error:', error);
         }
 
-        // Save to localStorage
-        function saveToLocalStorage() {
-            localStorage.setItem('tournament_matches', JSON.stringify(matches));
-            localStorage.setItem('tournament_stats', JSON.stringify(teamStats));
+        async function loadMatches() {
+            const { data, error } = await supabase.from('tournament_matches').select('*');
+            if (!error && data) matches = data;
+            else console.error('Matches load error:', error);
         }
 
-        // Load from localStorage
-        function loadFromLocalStorage() {
-            const savedMatches = localStorage.getItem('tournament_matches');
-            const savedStats = localStorage.getItem('tournament_stats');
-            if (savedMatches) matches = JSON.parse(savedMatches);
-            if (savedStats) teamStats = JSON.parse(savedStats);
-            if (matches.length === 0) createAllMatches();
+        async function loadStats() {
+            const { data, error } = await supabase.from('tournament_stats').select('*');
+            if (!error && data) stats = data;
+            else console.error('Stats load error:', error);
         }
 
-        // Update stats based on match results
-        function updateStats() {
-            // Reset stats
+        // Save match to Supabase
+        async function saveMatch(match) {
+            const { error } = await supabase.from('tournament_matches').upsert(match);
+            if (error) console.error('Save match error:', error);
+        }
+
+        // Save stats to Supabase
+        async function saveStats(teamStats) {
+            const { error } = await supabase.from('tournament_stats').upsert(teamStats);
+            if (error) console.error('Save stats error:', error);
+        }
+
+        // Calculate stats from matches
+        function calculateStats() {
+            const teamStats = {};
             teams.forEach(team => {
                 teamStats[team.id] = {
-                    ...teamStats[team.id],
+                    team_id: team.id,
                     matches: 0, wins: 0, losses: 0, draws: 0, gf: 0, ga: 0, gd: 0, pts: 0
                 };
             });
 
-            // Calculate stats from matches
             matches.forEach(match => {
                 if (match.team1_score !== null && match.team2_score !== null) {
                     const t1 = teamStats[match.team1_id];
                     const t2 = teamStats[match.team2_id];
                     
-                    t1.matches++;
-                    t2.matches++;
-                    t1.gf += match.team1_score;
-                    t1.ga += match.team2_score;
-                    t2.gf += match.team2_score;
-                    t2.ga += match.team1_score;
+                    t1.matches++; t2.matches++;
+                    t1.gf += match.team1_score; t1.ga += match.team2_score;
+                    t2.gf += match.team2_score; t2.ga += match.team1_score;
                     
                     if (match.team1_score > match.team2_score) {
-                        t1.wins++;
-                        t2.losses++;
-                        t1.pts += 3;
+                        t1.wins++; t2.losses++; t1.pts += 3;
                     } else if (match.team2_score > match.team1_score) {
-                        t2.wins++;
-                        t1.losses++;
-                        t2.pts += 3;
+                        t2.wins++; t1.losses++; t2.pts += 3;
                     } else {
-                        t1.draws++;
-                        t2.draws++;
-                        t1.pts += 1;
-                        t2.pts += 1;
+                        t1.draws++; t2.draws++; t1.pts += 1; t2.pts += 1;
                     }
                 }
             });
 
-            // Calculate GD
             teams.forEach(team => {
                 teamStats[team.id].gd = teamStats[team.id].gf - teamStats[team.id].ga;
             });
+            
+            return Object.values(teamStats);
         }
 
-        // Render Point Table
-        function renderPointTable() {
-            const sortedTeams = [...teams].sort((a, b) => {
-                if (teamStats[b.id].pts !== teamStats[a.id].pts) return teamStats[b.id].pts - teamStats[a.id].pts;
-                if (teamStats[b.id].gd !== teamStats[a.id].gd) return teamStats[b.id].gd - teamStats[a.id].gd;
-                return teamStats[b.id].gf - teamStats[a.id].gf;
+        // Render UI
+        function renderPointTable(teamStats) {
+            const sorted = [...teamStats].sort((a, b) => {
+                if (b.pts !== a.pts) return b.pts - a.pts;
+                if (b.gd !== a.gd) return b.gd - a.gd;
+                return b.gf - a.gf;
             });
 
             const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = sortedTeams.map((team, idx) => {
-                const s = teamStats[team.id];
-                let rankClass = '';
-                if (idx === 0) rankClass = 'rank-1';
-                else if (idx === 1) rankClass = 'rank-2';
-                else if (idx === 2) rankClass = 'rank-3';
-                
+            tbody.innerHTML = sorted.map((s, idx) => {
+                const team = teams.find(t => t.id === s.team_id);
+                let rankClass = idx === 0 ? 'rank-1' : (idx === 1 ? 'rank-2' : (idx === 2 ? 'rank-3' : ''));
                 return `<tr>
                     <td><span class="team-logo ${rankClass}">${idx + 1}</span></td>
-                    <td><div class="team-cell"><span class="team-logo" style="background:${team.color}20;">${team.logo}</span> ${team.name}</div></td>
-                    <td>${s.matches}</td>
-                    <td>${s.wins}</td>
-                    <td>${s.losses}</td>
-                    <td>${s.draws}</td>
-                    <td>${s.gf}</td>
-                    <td>${s.ga}</td>
+                    <td><div class="team-cell"><span class="team-logo" style="background:${team?.team_color}20;">${team?.team_logo}</span> ${team?.team_name}</div></td>
+                    <td>${s.matches}</td><td>${s.wins}</td><td>${s.losses}</td><td>${s.draws}</td>
+                    <td>${s.gf}</td><td>${s.ga}</td>
                     <td style="color:${s.gd >= 0 ? '#2ecc71' : '#e74c3c'}">${s.gd >= 0 ? '+' : ''}${s.gd}</td>
                     <td><strong>${s.pts}</strong></td>
                 </tr>`;
             }).join('');
 
-            // Update stats cards
             const totalPlayed = matches.filter(m => m.team1_score !== null).length;
             document.getElementById('totalMatches').innerText = totalPlayed;
-            if (sortedTeams[0]) document.getElementById('topTeam').innerText = sortedTeams[0].name.substring(0, 10);
-            
-            const totalGoals = teams.reduce((sum, t) => sum + teamStats[t.id].gf, 0);
-            const avgGoals = totalPlayed > 0 ? (totalGoals / totalPlayed).toFixed(1) : 0;
-            document.getElementById('avgGoals').innerText = avgGoals;
+            if (sorted[0]) {
+                const topTeam = teams.find(t => t.id === sorted[0].team_id);
+                document.getElementById('topTeam').innerText = topTeam?.team_name.substring(0, 10) || '-';
+            }
+            const totalGoals = teamStats.reduce((sum, s) => sum + s.gf, 0);
+            document.getElementById('avgGoals').innerText = totalPlayed > 0 ? (totalGoals / totalPlayed).toFixed(1) : 0;
         }
 
-        // Render Matches
         function renderMatches() {
             const container = document.getElementById('matchesGrid');
             container.innerHTML = matches.map(match => {
@@ -581,12 +419,11 @@
                 const scoreDisplay = isPlayed ? `${match.team1_score} - ${match.team2_score}` : 'vs';
                 const statusClass = isPlayed ? 'played' : 'upcoming';
                 const statusText = isPlayed ? 'Played' : 'Upcoming';
-                
                 return `<div class="match-card">
                     <div class="match-teams">
-                        <div class="match-team"><span class="team-logo" style="background:${team1.color}20;">${team1.logo}</span> ${team1.short}</div>
+                        <div class="match-team"><span class="team-logo" style="background:${team1?.team_color}20;">${team1?.team_logo}</span> ${team1?.team_short}</div>
                         <span class="match-vs">VS</span>
-                        <div class="match-team">${team2.short} <span class="team-logo" style="background:${team2.color}20;">${team2.logo}</span></div>
+                        <div class="match-team">${team2?.team_short} <span class="team-logo" style="background:${team2?.team_color}20;">${team2?.team_logo}</span></div>
                     </div>
                     <div class="match-score">${scoreDisplay}</div>
                     <div class="match-status ${statusClass}">${statusText}</div>
@@ -594,84 +431,115 @@
             }).join('');
         }
 
-        // Render Match Select dropdown
         function renderMatchSelect() {
             const select = document.getElementById('matchSelect');
             select.innerHTML = '<option value="">Select Match</option>' + matches.map((match, idx) => {
                 const team1 = teams.find(t => t.id === match.team1_id);
                 const team2 = teams.find(t => t.id === match.team2_id);
                 const status = match.team1_score !== null ? `(${match.team1_score}-${match.team2_score})` : 'Not Played';
-                return `<option value="${idx}">${team1.name} vs ${team2.name} ${status}</option>`;
+                return `<option value="${idx}">${team1?.team_name} vs ${team2?.team_name} ${status}</option>`;
             }).join('');
         }
 
         // Update match result
-        function updateMatchResult(matchIndex, score1, score2) {
-            if (matchIndex === null || matchIndex < 0 || matchIndex >= matches.length) return false;
+        async function updateMatchResult(matchIndex, score1, score2) {
+            if (matchIndex < 0 || matchIndex >= matches.length) return false;
             
             matches[matchIndex].team1_score = parseInt(score1);
             matches[matchIndex].team2_score = parseInt(score2);
             matches[matchIndex].winner_id = score1 > score2 ? matches[matchIndex].team1_id : (score2 > score1 ? matches[matchIndex].team2_id : null);
             matches[matchIndex].status = "played";
             
-            saveToLocalStorage();
-            updateStats();
-            renderPointTable();
+            await saveMatch(matches[matchIndex]);
+            
+            const updatedStats = calculateStats();
+            for (const stat of updatedStats) {
+                await saveStats(stat);
+            }
+            
+            await loadStats();
+            const freshStats = calculateStats();
+            renderPointTable(freshStats);
             renderMatches();
             renderMatchSelect();
             return true;
         }
 
-        // Reset tournament
-        function resetTournament() {
-            if (confirm('Are you sure you want to reset the entire tournament? All match results will be deleted!')) {
-                createAllMatches();
-                updateStats();
-                renderPointTable();
-                renderMatches();
-                renderMatchSelect();
+        // Create default matches (Double Round Robin)
+        function createDefaultMatches() {
+            const newMatches = [];
+            for (let i = 0; i < teams.length; i++) {
+                for (let j = i + 1; j < teams.length; j++) {
+                    newMatches.push({ team1_id: teams[i].id, team2_id: teams[j].id, team1_score: null, team2_score: null, winner_id: null, status: 'upcoming', round: 1 });
+                    newMatches.push({ team1_id: teams[j].id, team2_id: teams[i].id, team1_score: null, team2_score: null, winner_id: null, status: 'upcoming', round: 2 });
+                }
             }
+            return newMatches;
         }
 
-        // Event Listeners
-        document.getElementById('updateMatchBtn').addEventListener('click', () => {
-            const matchIndex = document.getElementById('matchSelect').value;
-            const score1 = document.getElementById('team1Score').value;
-            const score2 = document.getElementById('team2Score').value;
+        async function resetTournament() {
+            if (!confirm('Are you sure? All match results will be deleted!')) return;
             
-            if (matchIndex === "") {
-                alert('Please select a match');
-                return;
-            }
-            if (score1 === "" || score2 === "") {
-                alert('Please enter both scores');
-                return;
+            const defaultMatches = createDefaultMatches();
+            for (let i = 0; i < defaultMatches.length; i++) {
+                await supabase.from('tournament_matches').upsert({ id: matches[i]?.id, ...defaultMatches[i] });
             }
             
-            updateMatchResult(parseInt(matchIndex), score1, score2);
-            document.getElementById('team1Score').value = '';
-            document.getElementById('team2Score').value = '';
-            alert('Match result updated successfully!');
-        });
-
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
-
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+            const resetStats = teams.map(team => ({
+                team_id: team.id, matches: 0, wins: 0, losses: 0, draws: 0, gf: 0, ga: 0, gd: 0, pts: 0
+            }));
+            for (const stat of resetStats) await saveStats(stat);
+            
+            await loadMatches();
+            await loadStats();
+            const freshStats = calculateStats();
+            renderPointTable(freshStats);
+            renderMatches();
+            renderMatchSelect();
+            alert('Tournament reset successfully!');
         }
 
         // Initialize
-        loadFromLocalStorage();
-        updateStats();
-        renderPointTable();
-        renderMatches();
-        renderMatchSelect();
+        async function init() {
+            await loadTeams();
+            await loadMatches();
+            await loadStats();
+            
+            if (matches.length === 0) {
+                const defaultMatches = createDefaultMatches();
+                for (const match of defaultMatches) await saveMatch(match);
+                await loadMatches();
+            }
+            
+            const teamStats = calculateStats();
+            renderPointTable(teamStats);
+            renderMatches();
+            renderMatchSelect();
+        }
+
+        // Event listeners
+        document.getElementById('updateMatchBtn').addEventListener('click', async () => {
+            const matchIndex = parseInt(document.getElementById('matchSelect').value);
+            const score1 = document.getElementById('team1Score').value;
+            const score2 = document.getElementById('team2Score').value;
+            
+            if (isNaN(matchIndex)) { alert('Please select a match'); return; }
+            if (score1 === "" || score2 === "") { alert('Please enter both scores'); return; }
+            
+            await updateMatchResult(matchIndex, score1, score2);
+            document.getElementById('team1Score').value = '';
+            document.getElementById('team2Score').value = '';
+            alert('Match result updated and saved to database!');
+        });
+
+        document.getElementById('resetBtn')?.addEventListener('click', resetTournament);
+        document.getElementById('logoutBtn').addEventListener('click', () => window.location.href = 'index.html');
+        
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+        
+        init();
     </script>
 </body>
 </html>
