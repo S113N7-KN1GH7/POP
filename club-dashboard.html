@@ -332,32 +332,6 @@
             font-weight: 600;
             color: #1a1a2e;
         }
-        .player-info-value.editable {
-            cursor: pointer;
-            background: #f8f9fa;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-        .player-info-value.editable:hover {
-            background: #e94560;
-            color: white;
-        }
-        .edit-input {
-            padding: 4px 8px;
-            border: 1px solid #e94560;
-            border-radius: 8px;
-            font-size: 12px;
-            width: 100px;
-        }
-        .player-points {
-            background: #e94560;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-        }
         .action-buttons {
             display: flex;
             gap: 10px;
@@ -494,6 +468,12 @@
             border-radius: 10px;
             font-size: 14px;
         }
+        .modal-field small {
+            display: block;
+            font-size: 11px;
+            color: #8892b0;
+            margin-top: 5px;
+        }
         .save-edit-btn {
             background: linear-gradient(135deg, #e94560, #ff6b81);
             color: white;
@@ -620,11 +600,11 @@
         </div>
     </main>
     
-    <!-- Edit Player Modal -->
+    <!-- Edit Player Modal (Only Player Name, Konami ID, Device Name) -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-user-edit"></i> Edit Player</h3>
+                <h3><i class="fas fa-user-edit"></i> Edit Player Information</h3>
                 <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
             </div>
             <div id="editModalBody"></div>
@@ -732,15 +712,15 @@
                             <div class="player-card-body">
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-trophy"></i> Wins</span>
-                                    <span class="player-info-value" data-field="win" data-value="${player.win || 0}">${player.win || 0}</span>
+                                    <span class="player-info-value">${player.win || 0}</span>
                                 </div>
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-frown"></i> Losses</span>
-                                    <span class="player-info-value" data-field="loss" data-value="${player.loss || 0}">${player.loss || 0}</span>
+                                    <span class="player-info-value">${player.loss || 0}</span>
                                 </div>
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-handshake"></i> Draws</span>
-                                    <span class="player-info-value" data-field="draw" data-value="${player.draw || 0}">${player.draw || 0}</span>
+                                    <span class="player-info-value">${player.draw || 0}</span>
                                 </div>
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
@@ -748,14 +728,14 @@
                                 </div>
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-id-card"></i> Konami ID</span>
-                                    <span class="player-info-value" data-field="konami_user_id" data-value="${player.konami_user_id || ''}">${player.konami_user_id || 'Not set'}</span>
+                                    <span class="player-info-value" data-field="konami_user_id">${player.konami_user_id || 'Not set'}</span>
                                 </div>
                                 <div class="player-info-row">
                                     <span class="player-info-label"><i class="fas fa-mobile-alt"></i> Device</span>
-                                    <span class="player-info-value" data-field="device_name" data-value="${player.device_name || ''}">${player.device_name || 'Not set'}</span>
+                                    <span class="player-info-value" data-field="device_name">${player.device_name || 'Not set'}</span>
                                 </div>
                                 <div class="action-buttons">
-                                    <button class="edit-btn" onclick="openEditModal('${player.id}')"><i class="fas fa-edit"></i> Edit</button>
+                                    <button class="edit-btn" onclick="openEditModal('${player.id}')"><i class="fas fa-edit"></i> Edit Info</button>
                                     <button class="remove-btn" onclick="removePlayer('${player.id}')"><i class="fas fa-trash-alt"></i> Remove</button>
                                 </div>
                             </div>
@@ -782,7 +762,7 @@
                 data.map(player => `<option value="${player.id}">🏴‍☠️ ${player.player_name}</option>`).join('');
         }
         
-        // Open Edit Modal
+        // Open Edit Modal - Only Player Name, Konami ID, Device Name
         window.openEditModal = async (playerId) => {
             const { data, error } = await supabase.from('players').select('*').eq('id', playerId).single();
             if (error) {
@@ -800,30 +780,12 @@
                 <div class="modal-field">
                     <label><i class="fas fa-id-card"></i> Konami ID</label>
                     <input type="text" id="edit_konami_id" value="${data.konami_user_id || ''}">
+                    <small>eFootball/PES gamer tag</small>
                 </div>
                 <div class="modal-field">
                     <label><i class="fas fa-mobile-alt"></i> Device Name</label>
                     <input type="text" id="edit_device_name" value="${data.device_name || ''}">
-                </div>
-                <div class="modal-field">
-                    <label><i class="fas fa-trophy"></i> Wins</label>
-                    <input type="number" id="edit_wins" value="${data.win || 0}">
-                </div>
-                <div class="modal-field">
-                    <label><i class="fas fa-frown"></i> Losses</label>
-                    <input type="number" id="edit_losses" value="${data.loss || 0}">
-                </div>
-                <div class="modal-field">
-                    <label><i class="fas fa-handshake"></i> Draws</label>
-                    <input type="number" id="edit_draws" value="${data.draw || 0}">
-                </div>
-                <div class="modal-field">
-                    <label><i class="fas fa-futbol"></i> Goals For (GF)</label>
-                    <input type="number" id="edit_gf" value="${data.gf || 0}">
-                </div>
-                <div class="modal-field">
-                    <label><i class="fas fa-shield-alt"></i> Goals Against (GA)</label>
-                    <input type="number" id="edit_ga" value="${data.ga || 0}">
+                    <small>Mobile/PC/Console model</small>
                 </div>
                 <button class="save-edit-btn" onclick="savePlayerEdit()"><i class="fas fa-save"></i> Save Changes</button>
             `;
@@ -842,14 +804,11 @@
             const player_name = document.getElementById('edit_player_name').value;
             const konami_user_id = document.getElementById('edit_konami_id').value;
             const device_name = document.getElementById('edit_device_name').value;
-            const win = parseInt(document.getElementById('edit_wins').value) || 0;
-            const loss = parseInt(document.getElementById('edit_losses').value) || 0;
-            const draw = parseInt(document.getElementById('edit_draws').value) || 0;
-            const gf = parseInt(document.getElementById('edit_gf').value) || 0;
-            const ga = parseInt(document.getElementById('edit_ga').value) || 0;
             
-            // Calculate points: win=3, draw=1
-            const pts = (win * 3) + (draw * 1);
+            if (!player_name || player_name.length < 3) {
+                alert('Player name must be at least 3 characters');
+                return;
+            }
             
             const { error } = await supabase
                 .from('players')
@@ -857,12 +816,6 @@
                     player_name: player_name,
                     konami_user_id: konami_user_id,
                     device_name: device_name,
-                    win: win,
-                    loss: loss,
-                    draw: draw,
-                    gf: gf,
-                    ga: ga,
-                    pts: pts,
                     updated_at: new Date()
                 })
                 .eq('id', currentEditingPlayer.id);
@@ -870,46 +823,11 @@
             if (error) {
                 alert('Error: ' + error.message);
             } else {
-                alert('✅ Player updated successfully!');
+                alert('✅ Player information updated successfully!');
                 closeModal();
                 loadClubPlayers();
-                // Also update club stats if needed
-                await updateClubStats();
             }
         };
-        
-        async function updateClubStats() {
-            // Get all players in this club
-            const { data: players } = await supabase
-                .from('players')
-                .select('win, loss, draw, gf, ga, pts')
-                .eq('club_id', currentClub.id);
-            
-            if (players && players.length > 0) {
-                const totalWins = players.reduce((sum, p) => sum + (p.win || 0), 0);
-                const totalLosses = players.reduce((sum, p) => sum + (p.loss || 0), 0);
-                const totalDraws = players.reduce((sum, p) => sum + (p.draw || 0), 0);
-                const totalGf = players.reduce((sum, p) => sum + (p.gf || 0), 0);
-                const totalGa = players.reduce((sum, p) => sum + (p.ga || 0), 0);
-                const totalPts = players.reduce((sum, p) => sum + (p.pts || 0), 0);
-                
-                await supabase
-                    .from('clubs')
-                    .update({
-                        win: totalWins,
-                        loss: totalLosses,
-                        draw: totalDraws,
-                        gf: totalGf,
-                        ga: totalGa,
-                        pts: totalPts,
-                        updated_at: new Date()
-                    })
-                    .eq('id', currentClub.id);
-                
-                // Reload club data
-                await loadClubData();
-            }
-        }
         
         // Add player to club
         document.getElementById('addPlayerBtn').addEventListener('click', async () => {
@@ -961,7 +879,6 @@
             
             loadClubPlayers();
             loadAvailablePlayers();
-            await updateClubStats();
         });
         
         // Remove player from club
@@ -978,7 +895,6 @@
                     alert('✅ Player removed from club');
                     loadClubPlayers();
                     loadAvailablePlayers();
-                    await updateClubStats();
                 }
             }
         };
