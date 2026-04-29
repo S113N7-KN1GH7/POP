@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Players Info | POP123</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon { font-size: 32px; }
+        .logo-area h2 { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+        .logo-area span { color: #e94560; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover { background: #f0f4f8; color: #e94560; }
+        .nav-link.active { background: #e94560; color: #ffffff; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a1a2e;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .page-header p {
+            color: #8892b0;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* Select Box */
+        .select-container {
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+
+        .select-box {
+            background: #ffffff;
+            border: 1px solid #e8ecf1;
+            border-radius: 16px;
+            padding: 5px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+        }
+
+        .select-box:focus-within {
+            border-color: #e94560;
+            box-shadow: 0 0 0 3px rgba(233,69,96,0.1);
+        }
+
+        .select-box i {
+            font-size: 20px;
+            color: #e94560;
+        }
+
+        .select-box select {
+            width: 100%;
+            padding: 16px 0;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a2e;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .select-box select option {
+            color: #1a1a2e;
+        }
+
+        /* Club Info Card */
+        .club-info-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .club-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+            background: white;
+        }
+
+        .club-details h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .club-details p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .club-stats {
+            margin-left: auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        .club-stat {
+            text-align: center;
+        }
+
+        .club-stat .number {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .club-stat .label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Players Grid */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .player-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e8ecf1;
+            transition: all 0.3s ease;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #e94560;
+        }
+
+        .player-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .player-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            object-fit: cover;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .player-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+
+        .player-stat-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #ffffff;
+        }
+
+        .player-card-body {
+            padding: 18px;
+        }
+
+        .player-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .player-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .player-info-label {
+            font-size: 12px;
+            color: #8892b0;
+        }
+
+        .player-info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .player-points {
+            background: #e94560;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e8ecf1;
+            color: #8892b0;
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e8ecf1;
+            border-top-color: #e94560;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-navbar { padding: 0 20px; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+            }
+            .nav-links.show { left: 0; }
+            .mobile-menu-btn { display: block; }
+            .main-content { padding: 20px; }
+            .club-info-card { flex-direction: column; text-align: center; }
+            .club-stats { margin-left: 0; justify-content: center; }
+            .players-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-navbar">
+        <div class="logo-area">
+            <div class="logo-icon">🏴‍☠️</div>
+            <h2>POP<span>123</span></h2>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="club-players.html" class="nav-link active"><i class="fas fa-users"></i> Club Players</a>
+            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-users"></i> Club Players Information</h1>
+            <p>Select a club to view all registered players</p>
+        </div>
+
+        <div class="select-container">
+            <div class="select-box">
+                <i class="fas fa-building"></i>
+                <select id="clubSelect">
+                    <option value="">-- Select a Club --</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="clubInfoContainer"></div>
+        <div id="playersContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Select a club to view players</p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+        }
+
+        // Load all clubs into dropdown
+        async function loadClubs() {
+            const { data, error } = await supabase
+                .from('clubs')
+                .select('id, team_name, team_logo, captain_name, win, loss, draw, gf, ga, pts')
+                .order('team_name');
+
+            const select = document.getElementById('clubSelect');
+            
+            if (error || !data || data.length === 0) {
+                select.innerHTML = '<option value="">-- No clubs found --</option>';
+                return;
+            }
+
+            select.innerHTML = '<option value="">-- Select a Club --</option>' + 
+                data.map(club => `<option value="${club.id}">🏴‍☠️ ${club.team_name}</option>`).join('');
+        }
+
+        // Load club info and players when club is selected
+        document.getElementById('clubSelect').addEventListener('change', async (e) => {
+            const clubId = e.target.value;
+            
+            if (!clubId) {
+                document.getElementById('clubInfoContainer').innerHTML = '';
+                document.getElementById('playersContainer').innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Select a club to view players</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Show loading
+            document.getElementById('playersContainer').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading players...</p>
+                </div>
+            `;
+
+            // Load club info
+            const { data: clubData, error: clubError } = await supabase
+                .from('clubs')
+                .select('*')
+                .eq('id', clubId)
+                .single();
+
+            if (clubData) {
+                displayClubInfo(clubData);
+            }
+
+            // Load players in this club
+            const { data: players, error: playersError } = await supabase
+                .from('players')
+                .select('*')
+                .eq('club_id', clubId)
+                .order('pts', { ascending: false });
+
+            displayPlayers(players);
+        });
+
+        function displayClubInfo(club) {
+            const totalMatches = (club.win || 0) + (club.loss || 0) + (club.draw || 0);
+            const gd = (club.gf || 0) - (club.ga || 0);
+            
+            document.getElementById('clubInfoContainer').innerHTML = `
+                <div class="club-info-card">
+                    <img class="club-logo" src="${club.team_logo || 'https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=80&name=' + encodeURIComponent(club.team_name)}" alt="${club.team_name}">
+                    <div class="club-details">
+                        <h2>${club.team_name}</h2>
+                        <p><i class="fas fa-user"></i> Captain: ${club.captain_name}</p>
+                        <p><i class="fas fa-envelope"></i> ${club.email}</p>
+                    </div>
+                    <div class="club-stats">
+                        <div class="club-stat">
+                            <div class="number">${totalMatches}</div>
+                            <div class="label">Matches</div>
+                        </div>
+                        <div class="club-stat">
+                            <div class="number">${club.win || 0}</div>
+                            <div class="label">Wins</div>
+                        </div>
+                        <div class="club-stat">
+                            <div class="number">${club.pts || 0}</div>
+                            <div class="label">Points</div>
+                        </div>
+                        <div class="club-stat">
+                            <div class="number">${gd >= 0 ? '+' + gd : gd}</div>
+                            <div class="label">GD</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function displayPlayers(players) {
+            const container = document.getElementById('playersContainer');
+            
+            if (!players || players.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>No players registered in this club yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="players-grid">
+                    ${players.map(player => `
+                        <div class="player-card">
+                            <div class="player-card-header">
+                                <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=85&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
+                                <h4 class="player-name">${player.player_name}</h4>
+                                <span class="player-stat-badge"><i class="fas fa-star"></i> ${player.pts || 0} Points</span>
+                            </div>
+                            <div class="player-card-body">
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-trophy"></i> Wins</span>
+                                    <span class="player-info-value">${player.win || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-frown"></i> Losses</span>
+                                    <span class="player-info-value">${player.loss || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-handshake"></i> Draws</span>
+                                    <span class="player-info-value">${player.draw || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
+                                    <span class="player-info-value">${player.gf || 0} / ${player.ga || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-id-card"></i> Konami ID</span>
+                                    <span class="player-info-value">${player.konami_user_id || 'Not set'}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-mobile-alt"></i> Device</span>
+                                    <span class="player-info-value">${player.device_name || 'Not set'}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-calendar-alt"></i> Joined</span>
+                                    <span class="player-info-value">${player.created_at ? new Date(player.created_at).toLocaleDateString() : 'Recently'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Initialize
+        loadClubs();
+    </script>
+</body>
+</html>
