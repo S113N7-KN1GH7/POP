@@ -21,29 +21,29 @@
             overflow-x: hidden;
         }
 
-        /* Top Navbar */
+        /* Top Navbar - Smaller */
         .top-navbar {
             background: #ffffff;
             border-bottom: 1px solid #e8ecf1;
-            padding: 0 50px;
+            padding: 0 40px;
             position: sticky;
             top: 0;
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
+            height: 65px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .logo-icon {
-            font-size: 36px;
+            font-size: 28px;
             animation: sway 3s ease-in-out infinite;
         }
 
@@ -54,8 +54,8 @@
 
         .logo-text {
             font-family: 'Orbitron', monospace;
-            font-size: 24px;
-            font-weight: 800;
+            font-size: 16px;
+            font-weight: 700;
             background: linear-gradient(135deg, #1a1a2e, #e94560);
             -webkit-background-clip: text;
             background-clip: text;
@@ -68,7 +68,7 @@
         }
 
         .logo-sub {
-            font-size: 10px;
+            font-size: 8px;
             color: #8892b0;
             letter-spacing: 1px;
         }
@@ -76,19 +76,24 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 12px;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 10px;
             color: #4a5568;
             text-decoration: none;
             font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
+        }
+
+        .nav-link i {
+            font-size: 14px;
         }
 
         .nav-link:hover {
@@ -99,14 +104,15 @@
         .auth-buttons {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 8px;
         }
 
         .login-btn {
-            padding: 10px 25px;
-            border-radius: 12px;
+            padding: 6px 18px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
             background: transparent;
             border: 1px solid #e8ecf1;
@@ -119,42 +125,44 @@
         }
 
         .signup-btn {
-            padding: 10px 25px;
-            border-radius: 12px;
+            padding: 6px 18px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
             background: linear-gradient(135deg, #e94560, #ff6b81);
             color: #ffffff;
-            box-shadow: 0 4px 10px rgba(233,69,96,0.2);
+            box-shadow: 0 2px 6px rgba(233,69,96,0.2);
         }
 
         .signup-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233,69,96,0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(233,69,96,0.3);
         }
 
         .club-btn {
-            padding: 10px 25px;
-            border-radius: 12px;
+            padding: 6px 18px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: #ffffff;
-            box-shadow: 0 4px 10px rgba(102,126,234,0.2);
+            box-shadow: 0 2px 6px rgba(102,126,234,0.2);
         }
 
         .club-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102,126,234,0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.3);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             color: #1a1a2e;
         }
@@ -164,11 +172,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 60px 80px;
+            padding: 50px 80px;
             max-width: 1400px;
             margin: 0 auto;
             gap: 50px;
-            min-height: calc(100vh - 80px);
+            min-height: calc(100vh - 65px);
         }
 
         .hero-content {
@@ -178,20 +186,20 @@
         .badge {
             display: inline-block;
             background: #f0f4f8;
-            padding: 6px 16px;
+            padding: 4px 12px;
             border-radius: 30px;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 600;
             color: #e94560;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .hero-title {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 800;
             line-height: 1.2;
             color: #1a1a2e;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .hero-title span {
@@ -199,39 +207,40 @@
         }
 
         .hero-subtitle {
-            font-size: 18px;
+            font-size: 14px;
             color: #8892b0;
             letter-spacing: 4px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-family: 'Orbitron', monospace;
         }
 
         .hero-desc {
-            font-size: 18px;
+            font-size: 16px;
             color: #5a6e8a;
             line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 550px;
+            margin-bottom: 25px;
+            max-width: 500px;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .btn-primary {
-            padding: 14px 32px;
+            padding: 10px 24px;
             background: linear-gradient(135deg, #e94560, #ff6b81);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-primary:hover {
@@ -240,17 +249,18 @@
         }
 
         .btn-secondary {
-            padding: 14px 32px;
+            padding: 10px 24px;
             background: transparent;
             border: 1px solid #e8ecf1;
             color: #4a5568;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-secondary:hover {
@@ -259,16 +269,17 @@
         }
 
         .btn-club {
-            padding: 14px 32px;
+            padding: 10px 24px;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: #ffffff;
             text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-club:hover {
@@ -278,7 +289,7 @@
 
         .hero-stats {
             display: flex;
-            gap: 50px;
+            gap: 40px;
         }
 
         .stat-item {
@@ -286,16 +297,16 @@
         }
 
         .stat-number {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             color: #1a1a2e;
             font-family: 'Orbitron', monospace;
         }
 
         .stat-label {
-            font-size: 13px;
+            font-size: 11px;
             color: #8892b0;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
         .hero-image {
@@ -305,25 +316,26 @@
 
         .hero-image img {
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             border-radius: 20px;
         }
 
         .floating-card {
             position: absolute;
             background: #ffffff;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 8px 16px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             border: 1px solid #e8ecf1;
             animation: float 4s ease-in-out infinite;
+            font-size: 12px;
         }
 
         .floating-card i {
-            font-size: 20px;
+            font-size: 16px;
             color: #e94560;
         }
 
@@ -333,41 +345,41 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-12px); }
         }
 
         /* Features Section */
         .features-section {
             background: #f8fafc;
-            padding: 80px;
+            padding: 60px 80px;
             text-align: center;
         }
 
         .section-title {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #1a1a2e;
         }
 
         .section-subtitle {
             color: #8892b0;
-            margin-bottom: 50px;
-            font-size: 16px;
+            margin-bottom: 40px;
+            font-size: 14px;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .feature-card {
             background: #ffffff;
-            padding: 35px;
-            border-radius: 20px;
+            padding: 25px;
+            border-radius: 16px;
             border: 1px solid #e8ecf1;
             transition: all 0.3s;
         }
@@ -379,62 +391,64 @@
         }
 
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             background: #f0f4f8;
-            border-radius: 18px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
         }
 
         .feature-icon i {
-            font-size: 32px;
+            font-size: 26px;
             color: #e94560;
         }
 
         .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 8px;
         }
 
         .feature-card p {
             color: #8892b0;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 80px;
+            padding: 60px 80px;
             text-align: center;
             color: #ffffff;
         }
 
         .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 15px;
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
         .cta-section p {
             color: #aaa;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .cta-btn {
-            padding: 14px 32px;
-            border-radius: 12px;
+            padding: 10px 28px;
+            border-radius: 10px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 14px;
             transition: all 0.2s;
         }
 
@@ -463,26 +477,26 @@
         .footer {
             background: #0f0f0f;
             color: #ffffff;
-            padding: 60px 50px 40px;
+            padding: 40px 50px 30px;
             text-align: center;
         }
 
         .footer-logo {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .footer-logo .logo-icon {
-            font-size: 45px;
+            font-size: 35px;
         }
 
         .footer-logo h3 {
             font-family: 'Orbitron', monospace;
-            font-size: 24px;
-            margin-top: 10px;
+            font-size: 18px;
+            margin-top: 8px;
         }
 
         .footer-logo p {
-            font-size: 11px;
+            font-size: 9px;
             color: #666;
             letter-spacing: 2px;
         }
@@ -490,15 +504,15 @@
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 25px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
 
         .footer-links a {
             color: #aaa;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .footer-links a:hover {
@@ -508,13 +522,13 @@
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
 
         .social-links a {
             color: #aaa;
-            font-size: 20px;
+            font-size: 18px;
             transition: all 0.2s;
         }
 
@@ -525,7 +539,7 @@
 
         .footer p {
             color: #666;
-            font-size: 13px;
+            font-size: 11px;
         }
 
         /* Responsive */
@@ -555,22 +569,29 @@
 
         @media (max-width: 768px) {
             .top-navbar {
-                padding: 0 20px;
+                padding: 0 15px;
             }
-            .logo-sub {
+            .logo-area .logo-text {
+                font-size: 13px;
+            }
+            .logo-area .logo-sub {
                 display: none;
+            }
+            .logo-icon {
+                font-size: 22px;
             }
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 65px;
                 left: -100%;
                 width: 100%;
                 background: #ffffff;
                 flex-direction: column;
-                padding: 20px;
+                padding: 15px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 transition: left 0.3s;
                 z-index: 99;
+                gap: 8px;
             }
             .nav-links.show {
                 left: 0;
@@ -579,10 +600,10 @@
                 display: block;
             }
             .hero-title {
-                font-size: 36px;
+                font-size: 32px;
             }
             .hero-subtitle {
-                font-size: 14px;
+                font-size: 12px;
             }
             .features-section {
                 padding: 40px 20px;
@@ -591,28 +612,41 @@
                 grid-template-columns: 1fr;
             }
             .section-title {
-                font-size: 28px;
+                font-size: 24px;
             }
             .cta-section {
                 padding: 40px 20px;
             }
             .cta-section h2 {
-                font-size: 28px;
+                font-size: 24px;
             }
             .footer-links {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
+            }
+            .auth-buttons .login-btn span,
+            .auth-buttons .signup-btn span,
+            .auth-buttons .club-btn span {
+                display: none;
+            }
+            .auth-buttons .login-btn i,
+            .auth-buttons .signup-btn i,
+            .auth-buttons .club-btn i {
+                margin: 0;
+            }
+            .login-btn, .signup-btn, .club-btn {
+                padding: 6px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Top Navbar -->
+    <!-- Top Navbar - Smaller -->
     <nav class="top-navbar">
         <div class="logo-area">
             <div class="logo-icon">🏴‍☠️</div>
             <div>
-                <div class="logo-text">PO<span>P</span></div>
+                <div class="logo-text">PIRATES OF <span>PITCH</span></div>
                 <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
             </div>
         </div>
@@ -623,16 +657,16 @@
         
         <div class="nav-links" id="navLinks">
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Player Dashboard</a>
-            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Club Dashboard</a>
-            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Player</a>
+            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Club</a>
+            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Ranking</a>
             <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
         </div>
         
         <div class="auth-buttons">
-            <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="signup.html" class="signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
-            <a href="club-register.html" class="club-btn"><i class="fas fa-building"></i> Club</a>
+            <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a>
+            <a href="signup.html" class="signup-btn"><i class="fas fa-user-plus"></i> <span>Sign Up</span></a>
+            <a href="club-register.html" class="club-btn"><i class="fas fa-building"></i> <span>Club</span></a>
         </div>
     </nav>
 
@@ -648,8 +682,7 @@
             </h1>
             <p class="hero-desc">
                 Join the ultimate eFootball battle arena. Compete, conquer, and become 
-                the legendary pirate of the virtual pitch. Create your club, recruit players, 
-                and climb the global leaderboard!
+                the legendary pirate of the virtual pitch.
             </p>
             <div class="hero-buttons">
                 <a href="signup.html" class="btn-primary">
@@ -700,46 +733,34 @@
         <p class="section-subtitle">The ultimate gaming experience awaits you</p>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-trophy"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-trophy"></i></div>
                 <h3>Competitive Leagues</h3>
-                <p>Join ranked matches and climb the global leaderboard to prove your skills.</p>
+                <p>Join ranked matches and climb the global leaderboard.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                 <h3>Real-time Statistics</h3>
-                <p>Track your performance with detailed stats including goals, wins, and rankings.</p>
+                <p>Track your performance with detailed stats.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
                 <h3>Club System</h3>
-                <p>Create your own club, recruit players, and manage your team like a pro.</p>
+                <p>Create your own club and recruit players.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-user-plus"></i></div>
                 <h3>Easy Registration</h3>
-                <p>Quick signup process for both players and clubs with instant access.</p>
+                <p>Quick signup for players and clubs.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-edit"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-edit"></i></div>
                 <h3>Profile Management</h3>
-                <p>Customize your profile, upload photos, and manage your gaming info.</p>
+                <p>Customize your profile and gaming info.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3>Secure Platform</h3>
-                <p>Your data is safe with our secure authentication system.</p>
+                <p>Your data is safe with secure authentication.</p>
             </div>
         </div>
     </section>
@@ -763,9 +784,9 @@
         </div>
         <div class="footer-links">
             <a href="index.html">Home</a>
-            <a href="dashboard.html">Player Dashboard</a>
-            <a href="club-dashboard.html">Club Dashboard</a>
-            <a href="leaderboard.html">Leaderboard</a>
+            <a href="dashboard.html">Player</a>
+            <a href="club-dashboard.html">Club</a>
+            <a href="leaderboard.html">Ranking</a>
             <a href="matches.html">Matches</a>
             <a href="login.html">Login</a>
             <a href="signup.html">Sign Up</a>
@@ -782,7 +803,6 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         
@@ -792,7 +812,6 @@
             });
         }
 
-        // Close menu when clicking a link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('show');
