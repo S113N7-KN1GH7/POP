@@ -1,6 +1,6 @@
 
 <!-- ============================================= -->
-<!-- CLUB DASHBOARD - Add Player Option -->
+<!-- CLUB DASHBOARD - Player Cards Design -->
 <!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -128,6 +128,7 @@
             gap: 15px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid #e8ecf1;
+            transition: all 0.2s;
         }
         .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .stat-icon {
@@ -245,50 +246,128 @@
             box-shadow: 0 5px 20px rgba(233,69,96,0.3);
         }
         
-        /* Players List */
-        .players-list {
+        /* ========== PLAYER CARDS GRID ========== */
+        .players-section {
             background: #ffffff;
             border-radius: 16px;
             padding: 24px;
             border: 1px solid #e8ecf1;
         }
-        .players-list h3 {
+        .players-section h3 {
             margin-bottom: 20px;
             font-size: 18px;
             font-weight: 600;
+            color: #1a1a2e;
         }
-        .players-table {
-            width: 100%;
-            border-collapse: collapse;
+        .players-section h3 i {
+            color: #e94560;
+            margin-right: 10px;
         }
-        .players-table th, .players-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #f0f4f8;
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
-        .players-table th {
-            color: #8892b0;
-            font-weight: 500;
-            font-size: 12px;
+        .player-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e8ecf1;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .player-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            border-color: #e94560;
+        }
+        .player-card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
         }
         .player-avatar {
-            width: 35px;
-            height: 35px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
+            border: 3px solid #ffffff;
             object-fit: cover;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .remove-player {
-            color: #e74c3c;
-            cursor: pointer;
-            background: none;
+        .player-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .player-stat-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #ffffff;
+        }
+        .player-card-body {
+            padding: 15px;
+        }
+        .player-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        .player-info-row:last-child {
+            border-bottom: none;
+        }
+        .player-info-label {
+            font-size: 12px;
+            color: #8892b0;
+        }
+        .player-info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .player-points {
+            background: #e94560;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .remove-player-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.2);
             border: none;
-            font-size: 16px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .remove-player:hover { opacity: 0.7; }
+        .remove-player-btn:hover {
+            background: #e74c3c;
+            transform: scale(1.05);
+        }
         .empty-state {
             text-align: center;
-            padding: 40px;
+            padding: 60px;
             color: #8892b0;
+        }
+        .empty-state i {
+            font-size: 50px;
+            opacity: 0.3;
+            margin-bottom: 15px;
         }
         .message {
             padding: 12px;
@@ -309,11 +388,24 @@
             margin-right: 8px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+        .progress-bar {
+            height: 6px;
+            background: #e8ecf1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b81);
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
         
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .two-col { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
+            .players-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
         }
         @media (max-width: 768px) {
             .top-navbar { padding: 0 20px; }
@@ -333,6 +425,7 @@
             .main-content { padding: 20px; }
             .profile-logo { width: 70px; height: 70px; }
             .profile-name { font-size: 18px; }
+            .players-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -413,37 +506,14 @@
             <button class="add-player-btn" id="addPlayerBtn"><i class="fas fa-user-check"></i> Add Player to Club</button>
         </div>
         
-        <!-- Players List -->
-        <div class="players-list">
+        <!-- Players Section - Card View -->
+        <div class="players-section">
             <h3><i class="fas fa-users"></i> Club Players</h3>
             <div id="playersListContainer">
                 <div class="loading"><div class="spinner"></div><p>Loading players...</p></div>
             </div>
         </div>
     </main>
-    
-    <style>
-        .progress-bar {
-            height: 6px;
-            background: #e8ecf1;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #ff6b81);
-            border-radius: 10px;
-            transition: width 0.5s;
-        }
-        .loading { text-align: center; padding: 40px; color: #8892b0; }
-        .players-table { width: 100%; border-collapse: collapse; }
-        .players-table th, .players-table td { padding: 12px; text-align: left; border-bottom: 1px solid #f0f4f8; }
-        .players-table th { color: #8892b0; font-weight: 500; font-size: 12px; }
-        .player-avatar { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; }
-        .remove-player { color: #e74c3c; cursor: pointer; background: none; border: none; font-size: 16px; }
-        .remove-player:hover { opacity: 0.7; }
-        .empty-state { text-align: center; padding: 40px; color: #8892b0; }
-    </style>
     
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -455,7 +525,6 @@
         let currentClub = null;
         let clubData = null;
         
-        // Mobile menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
@@ -508,13 +577,13 @@
             }
         }
         
-        // Load players in this club
+        // Load players with cards design
         async function loadClubPlayers() {
             const { data, error } = await supabase
                 .from('players')
                 .select('*')
                 .eq('club_id', currentClub.id)
-                .order('player_name');
+                .order('pts', { ascending: false });
             
             const container = document.getElementById('playersListContainer');
             if (error) {
@@ -525,32 +594,63 @@
             document.getElementById('totalPlayers').innerText = data?.length || 0;
             
             if (!data || data.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-users" style="font-size: 40px; opacity: 0.3; margin-bottom: 10px; display: block;"></i>No players added yet. Add players above!</div>';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>No players added yet.</p>
+                        <p style="font-size: 12px; margin-top: 8px;">Add players using the form above!</p>
+                    </div>
+                `;
                 return;
             }
             
             container.innerHTML = `
-                <table class="players-table">
-                    <thead>
-                        <tr><th>Player</th><th>Player Name</th><th>Device</th><th>Konami ID</th><th>Points</th><th>Action</th></tr>
-                    </thead>
-                    <tbody>
-                        ${data.map(player => `
-                            <tr>
-                                <td><img src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=35&name=${encodeURIComponent(player.player_name)}`}" class="player-avatar"></td>
-                                <td><strong>${player.player_name}</strong></td>
-                                <td>${player.device_name || 'Not set'}</td>
-                                <td>${player.konami_user_id || 'Not set'}</td>
-                                <td>${player.pts || 0}</td>
-                                <td><button class="remove-player" onclick="removePlayer('${player.id}')"><i class="fas fa-trash"></i></button></td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="players-grid">
+                    ${data.map(player => `
+                        <div class="player-card">
+                            <button class="remove-player-btn" onclick="removePlayer('${player.id}')"><i class="fas fa-trash-alt"></i></button>
+                            <div class="player-card-header">
+                                <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=80&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
+                                <h4 class="player-name">${player.player_name}</h4>
+                                <span class="player-stat-badge"><i class="fas fa-star"></i> ${player.pts || 0} Points</span>
+                            </div>
+                            <div class="player-card-body">
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-trophy"></i> Wins</span>
+                                    <span class="player-info-value">${player.win || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-frown"></i> Losses</span>
+                                    <span class="player-info-value">${player.loss || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-handshake"></i> Draws</span>
+                                    <span class="player-info-value">${player.draw || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
+                                    <span class="player-info-value">${player.gf || 0} / ${player.ga || 0}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-id-card"></i> Konami ID</span>
+                                    <span class="player-info-value">${player.konami_user_id || 'Not set'}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-mobile-alt"></i> Device</span>
+                                    <span class="player-info-value">${player.device_name || 'Not set'}</span>
+                                </div>
+                                <div class="player-info-row">
+                                    <span class="player-info-label"><i class="fas fa-calendar-alt"></i> Joined</span>
+                                    <span class="player-info-value">${player.created_at ? new Date(player.created_at).toLocaleDateString() : 'Recently'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
             `;
         }
         
-        // Load available players (not in any club)
+        // Load available players
         async function loadAvailablePlayers() {
             const { data, error } = await supabase
                 .from('players')
