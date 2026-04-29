@@ -1,0 +1,448 @@
+<!-- ============================================= -->
+<!-- CLUB REGISTER PAGE - Complete Signup for Clubs -->
+<!-- ============================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Sign Up | POP123 - Pirates of Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .register-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .register-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .register-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .register-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .register-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .form-group label i {
+            color: #667eea;
+            margin-right: 5px;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            border: 1px solid #e8ecf1;
+            border-radius: 12px;
+            padding: 0 15px;
+            transition: all 0.2s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        .input-wrapper i {
+            color: #8892b0;
+            font-size: 16px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 12px;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Logo Upload */
+        .logo-upload-area {
+            margin-bottom: 20px;
+        }
+        .upload-box {
+            background: #f8f9fa;
+            border: 2px dashed #e8ecf1;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-box:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        .upload-box i {
+            font-size: 40px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .upload-box h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .upload-box p {
+            font-size: 11px;
+            color: #8892b0;
+        }
+        .file-input {
+            display: none;
+        }
+        .preview-img {
+            margin-top: 12px;
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #667eea;
+        }
+        .remove-btn {
+            background: #e74c3c;
+            border: none;
+            border-radius: 6px;
+            padding: 4px 12px;
+            margin-top: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e8ecf1;
+            font-size: 14px;
+            color: #8892b0;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <div class="logo-icon">🏴‍☠️</div>
+            <h1>Register Your Club</h1>
+            <p>Join POP123 as a Team/Club</p>
+        </div>
+        
+        <div class="register-body">
+            <form id="clubRegisterForm">
+                <div class="form-group">
+                    <label><i class="fas fa-users"></i> Team Name <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-users"></i>
+                        <input type="text" id="team_name" placeholder="Enter your team/club name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="club@email.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Min 6 characters" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-check-circle"></i> Confirm Password <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-user-captain"></i> Captain Name <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="captain_name" placeholder="Team captain's full name" required>
+                    </div>
+                </div>
+                
+                <div class="logo-upload-area">
+                    <div class="upload-box" id="logoUploadBox">
+                        <i class="fas fa-image"></i>
+                        <h4>Team Logo</h4>
+                        <p>Click to upload (Max 2MB)</p>
+                        <input type="file" id="team_logo" accept="image/*" class="file-input">
+                        <div id="logoPreview"></div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="register-btn" id="registerBtn">🏴‍☠️ Register Club</button>
+                <div id="errorMsg" class="error-message"></div>
+            </form>
+            
+            <div class="login-link">
+                <p>Already have a club? <a href="club-login.html">Login Here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        let uploadedLogoUrl = null;
+
+        // Logo upload handler
+        const logoBox = document.getElementById('logoUploadBox');
+        const logoInput = document.getElementById('team_logo');
+        if (logoBox) logoBox.addEventListener('click', () => logoInput.click());
+        if (logoInput) logoInput.addEventListener('change', (e) => uploadLogo(e.target.files[0]));
+
+        async function uploadLogo(file) {
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Logo must be less than 2MB');
+                return;
+            }
+            
+            const previewDiv = document.getElementById('logoPreview');
+            previewDiv.innerHTML = '<span>Uploading...</span>';
+            
+            const fileName = `logo_${Date.now()}_${file.name}`;
+            
+            const { error } = await supabase.storage
+                .from('club-logos')
+                .upload(`logos/${fileName}`, file);
+            
+            if (error) {
+                alert('Upload failed: ' + error.message);
+                previewDiv.innerHTML = '';
+                return;
+            }
+            
+            const { data: urlData } = supabase.storage
+                .from('club-logos')
+                .getPublicUrl(`logos/${fileName}`);
+            
+            uploadedLogoUrl = urlData.publicUrl;
+            
+            previewDiv.innerHTML = `
+                <img src="${urlData.publicUrl}" class="preview-img">
+                <br>
+                <button type="button" class="remove-btn" onclick="window.removeLogo()">Remove</button>
+            `;
+        }
+
+        window.removeLogo = () => {
+            uploadedLogoUrl = null;
+            document.getElementById('logoPreview').innerHTML = '';
+            logoInput.value = '';
+        };
+
+        // Form submission
+        const form = document.getElementById('clubRegisterForm');
+        const registerBtn = document.getElementById('registerBtn');
+        const errorMsg = document.getElementById('errorMsg');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const team_name = document.getElementById('team_name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const captain_name = document.getElementById('captain_name').value.trim();
+            
+            errorMsg.innerText = '';
+            
+            if (team_name.length < 3) {
+                errorMsg.innerText = "❌ Team name must be at least 3 characters!";
+                return;
+            }
+            if (!email || !email.includes('@')) {
+                errorMsg.innerText = "❌ Valid email required!";
+                return;
+            }
+            if (!password || password.length < 6) {
+                errorMsg.innerText = "❌ Password must be at least 6 characters!";
+                return;
+            }
+            if (password !== confirmPassword) {
+                errorMsg.innerText = "❌ Passwords do not match!";
+                return;
+            }
+            if (!captain_name) {
+                errorMsg.innerText = "❌ Captain name required!";
+                return;
+            }
+            
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="spinner"></span> Creating Club...';
+            
+            try {
+                // Create Auth User
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: { team_name: team_name, captain_name: captain_name }
+                    }
+                });
+                
+                if (authError) throw authError;
+                if (!authData.user) throw new Error("Club creation failed!");
+                
+                // Insert into clubs table
+                const { error: insertError } = await supabase
+                    .from('clubs')
+                    .insert({
+                        id: authData.user.id,
+                        team_name: team_name,
+                        email: email,
+                        captain_name: captain_name,
+                        team_logo: uploadedLogoUrl,
+                        win: 0,
+                        loss: 0,
+                        draw: 0,
+                        gf: 0,
+                        ga: 0,
+                        pts: 0,
+                        created_at: new Date(),
+                        updated_at: new Date()
+                    });
+                
+                if (insertError) throw insertError;
+                
+                alert('✅ Club Registration Successful! Please login.');
+                window.location.href = 'club-login.html';
+                
+            } catch (err) {
+                console.error(err);
+                errorMsg.innerText = "❌ " + (err.message || "Registration failed!");
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '🏴‍☠️ Register Club';
+            }
+        });
+    </script>
+</body>
+</html>
