@@ -20,29 +20,29 @@
             color: #1a1a2e;
         }
 
-        /* Top Navbar */
+        /* Top Navbar - Smaller */
         .top-navbar {
             background: #ffffff;
             border-bottom: 1px solid #e8ecf1;
-            padding: 0 50px;
+            padding: 0 30px;
             position: sticky;
             top: 0;
             z-index: 100;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
+            height: 60px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .logo-icon {
-            font-size: 36px;
+            font-size: 28px;
             animation: sway 3s ease-in-out infinite;
         }
 
@@ -53,7 +53,7 @@
 
         .logo-text {
             font-family: 'Orbitron', monospace;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 800;
             background: linear-gradient(135deg, #1a1a2e, #e94560);
             -webkit-background-clip: text;
@@ -67,7 +67,7 @@
         }
 
         .logo-sub {
-            font-size: 10px;
+            font-size: 8px;
             color: #8892b0;
             letter-spacing: 1px;
         }
@@ -75,18 +75,19 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 12px;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 8px;
             color: #4a5568;
             text-decoration: none;
             font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
         }
 
@@ -103,31 +104,33 @@
         .auth-buttons {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .rank-badge {
             background: #f0f4f8;
-            padding: 8px 18px;
-            border-radius: 30px;
+            padding: 5px 12px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 12px;
         }
-        .rank-badge i { color: #f5a623; font-size: 16px; }
-        .rank-badge span { font-weight: 600; font-size: 14px; }
+        .rank-badge i { color: #f5a623; font-size: 12px; }
+        .rank-badge span { font-weight: 600; }
 
         .logout-btn {
             background: transparent;
             border: 1px solid #e8ecf1;
-            padding: 8px 20px;
-            border-radius: 12px;
+            padding: 6px 14px;
+            border-radius: 8px;
             color: #e94560;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 500;
+            font-size: 13px;
             transition: all 0.2s;
         }
         .logout-btn:hover { background: #fff5f5; border-color: #e94560; }
@@ -136,31 +139,31 @@
             display: none;
             background: none;
             border: none;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             color: #1a1a2e;
         }
 
         /* Main Content */
         .main-content {
-            padding: 30px 40px;
+            padding: 25px 30px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         /* Welcome Section */
         .welcome-section {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .welcome-section h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #1a1a2e;
         }
         .welcome-section p {
             color: #8892b0;
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 13px;
+            margin-top: 4px;
         }
         .welcome-section h1 span {
             color: #e94560;
@@ -169,15 +172,15 @@
         /* Profile Container */
         .profile-container {
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
             border: 1px solid #e8ecf1;
         }
         .cover-photo {
             width: 100%;
-            height: 120px;
+            height: 100px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         .profile-info {
@@ -185,35 +188,35 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-top: -50px;
-            padding: 0 20px 25px 20px;
+            margin-top: -40px;
+            padding: 0 20px 20px 20px;
         }
         .profile-avatar {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 4px solid #ffffff;
+            border: 3px solid #ffffff;
             object-fit: cover;
             background: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
         }
         .profile-name {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .profile-email {
             color: #8892b0;
-            font-size: 14px;
-            margin-bottom: 8px;
+            font-size: 12px;
+            margin-bottom: 6px;
         }
         .profile-badge {
             display: inline-block;
             background: #e94560;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: 500;
             color: white;
         }
@@ -222,43 +225,43 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
         .stat-card {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 14px;
+            padding: 15px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid #e8ecf1;
             transition: all 0.2s;
         }
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
         .stat-icon {
-            width: 50px;
-            height: 50px;
+            width: 42px;
+            height: 42px;
             background: #f0f4f8;
-            border-radius: 14px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             color: #e94560;
         }
         .stat-info h4 {
-            font-size: 12px;
+            font-size: 11px;
             color: #8892b0;
             font-weight: 500;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .stat-info h3 {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 700;
             color: #1a1a2e;
         }
@@ -267,13 +270,13 @@
         .two-col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 30px;
+            gap: 20px;
+            margin-bottom: 25px;
         }
         .card {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 14px;
+            padding: 18px;
             border: 1px solid #e8ecf1;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
@@ -281,28 +284,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 1px solid #e8ecf1;
         }
         .card-header h3 {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
         }
         .card-header i {
             color: #8892b0;
-            font-size: 18px;
+            font-size: 14px;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #f0f4f8;
+            font-size: 13px;
         }
         .info-row span:first-child {
             color: #8892b0;
-            font-size: 13px;
         }
         .info-row span:last-child {
             font-weight: 600;
@@ -311,15 +314,15 @@
 
         /* Progress Bar */
         .progress-container {
-            margin-top: 16px;
+            margin-top: 12px;
         }
         .progress-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #8892b0;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         .progress-bar {
-            height: 6px;
+            height: 5px;
             background: #e8ecf1;
             border-radius: 10px;
             overflow: hidden;
@@ -334,41 +337,42 @@
         /* Recent Activity Section */
         .recent-section {
             background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 14px;
+            padding: 18px;
             border: 1px solid #e8ecf1;
         }
         .recent-section h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
+            margin-bottom: 15px;
+            font-size: 14px;
             font-weight: 600;
         }
         .recent-section h3 i {
             color: #e94560;
-            margin-right: 10px;
+            margin-right: 6px;
         }
         .match-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
         .match-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: #f8f9fa;
-            border-radius: 12px;
+            border-radius: 10px;
             transition: all 0.2s;
+            font-size: 12px;
         }
         .match-item:hover {
             background: #f0f4f8;
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
         .match-result {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: 600;
         }
         .match-result.win {
@@ -381,25 +385,25 @@
         }
         .match-score {
             font-weight: 600;
-            color: #1a1a2e;
         }
         .match-date {
-            font-size: 11px;
+            font-size: 10px;
             color: #8892b0;
         }
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: #8892b0;
+            font-size: 13px;
         }
         .spinner {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border: 3px solid #e8ecf1;
             border-top-color: #e94560;
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -416,49 +420,58 @@
         }
         @media (max-width: 768px) {
             .top-navbar {
-                padding: 0 20px;
+                padding: 0 15px;
             }
             .logo-sub {
                 display: none;
             }
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 60px;
                 left: -100%;
                 width: 100%;
                 background: #ffffff;
                 flex-direction: column;
-                padding: 20px;
+                padding: 15px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
                 transition: left 0.3s;
                 z-index: 99;
+                gap: 5px;
             }
             .nav-links.show {
                 left: 0;
+            }
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+                padding: 10px;
             }
             .mobile-menu-btn {
                 display: block;
             }
             .main-content {
-                padding: 20px;
+                padding: 15px;
             }
             .profile-avatar {
-                width: 70px;
-                height: 70px;
+                width: 60px;
+                height: 60px;
             }
             .profile-name {
-                font-size: 18px;
+                font-size: 16px;
             }
             .stats-grid {
-                gap: 12px;
+                gap: 10px;
             }
             .stat-info h3 {
-                font-size: 20px;
+                font-size: 18px;
             }
             .stat-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            .rank-badge {
+                display: none;
             }
         }
     </style>
@@ -480,9 +493,9 @@
         
         <div class="nav-links" id="navLinks">
             <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Player Dashboard</a>
-            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Club Dashboard</a>
-            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Player</a>
+            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Club</a>
+            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Rank</a>
             <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
             <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
         </div>
@@ -577,7 +590,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3><i class="fas fa-gamepad"></i> Gaming Information</h3>
-                    <a href="settings.html" style="color: #e94560; font-size: 12px;">Edit</a>
+                    <a href="settings.html" style="color: #e94560; font-size: 11px;">Edit</a>
                 </div>
                 <div class="info-row">
                     <span>Konami ID</span>
@@ -665,7 +678,6 @@
                 updateUI(data);
                 await updatePlayerRank(data.player_name);
                 
-                // Load club info if player is in a club
                 if (data.club_id) {
                     loadClubInfo(data.club_id);
                 }
@@ -733,11 +745,11 @@
                 .select('*')
                 .or(`player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`)
                 .order('match_date', { ascending: false })
-                .limit(8);
+                .limit(6);
             
             const container = document.getElementById('recentMatches');
             if (!data || data.length === 0) {
-                container.innerHTML = '<div class="loading"><p style="color:#8892b0;">No matches yet</p></div>';
+                container.innerHTML = '<div class="loading"><p>No matches yet</p></div>';
                 return;
             }
             
@@ -747,7 +759,7 @@
                     <div class="match-item">
                         <span class="match-result ${isWin ? 'win' : 'loss'}">
                             <i class="fas ${isWin ? 'fa-trophy' : 'fa-skull'}"></i>
-                            ${isWin ? 'VICTORY' : 'DEFEAT'}
+                            ${isWin ? 'WIN' : 'LOSS'}
                         </span>
                         <span class="match-score">${m.player1_score||0} - ${m.player2_score||0}</span>
                         <span class="match-date">${new Date(m.match_date).toLocaleDateString()}</span>
