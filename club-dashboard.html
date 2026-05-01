@@ -18,15 +18,18 @@
             font-family: 'Inter', sans-serif;
             background: #f5f7fb;
             color: #1a1a2e;
+            padding-top: 60px;
         }
 
-        /* Top Navbar - Smaller */
+        /* Navbar Styles (will be applied via navbar.html) */
         .top-navbar {
             background: #ffffff;
             border-bottom: 1px solid #e8ecf1;
             padding: 0 30px;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
             display: flex;
             align-items: center;
@@ -620,36 +623,6 @@
             }
         }
         @media (max-width: 768px) {
-            .top-navbar {
-                padding: 0 15px;
-            }
-            .logo-sub {
-                display: none;
-            }
-            .nav-links {
-                position: fixed;
-                top: 60px;
-                left: -100%;
-                width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                padding: 15px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                transition: left 0.3s;
-                z-index: 99;
-                gap: 5px;
-            }
-            .nav-links.show {
-                left: 0;
-            }
-            .nav-link {
-                width: 100%;
-                justify-content: center;
-                padding: 10px;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
             .main-content {
                 padding: 15px;
             }
@@ -678,34 +651,8 @@
     </style>
 </head>
 <body>
-    <!-- Top Navbar -->
-    <nav class="top-navbar">
-        <div class="logo-area">
-            <div class="logo-icon">🏴‍☠️</div>
-            <div>
-                <div class="logo-text">PIRATES OF <span>PITCH</span></div>
-                <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
-            </div>
-        </div>
-        
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        
-        <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-            <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Player</a>
-            <a href="club-dashboard.html" class="nav-link active"><i class="fas fa-users"></i> Club</a>
-            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Rank</a>
-            <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
-            <a href="club-settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
-        </div>
-        
-        <div class="auth-buttons">
-            <div class="rank-badge"><i class="fas fa-crown"></i> <span id="rankDisplay">Rank #1</span></div>
-            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        </div>
-    </nav>
+    <!-- Navbar will be loaded here -->
+    <div id="navbar-placeholder"></div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -856,6 +803,59 @@
         </div>
     </div>
 
+    <!-- Navbar Loader Script -->
+    <script>
+        // Navbar loader - without external file
+        async function loadNavbar() {
+            const navbarHtml = `
+                <nav class="top-navbar">
+                    <div class="logo-area">
+                        <div class="logo-icon">🏴‍☠️</div>
+                        <div>
+                            <div class="logo-text">PIRATES OF <span>PITCH</span></div>
+                            <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <div class="nav-links" id="navLinks">
+                        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                        <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Player</a>
+                        <a href="club-dashboard.html" class="nav-link active"><i class="fas fa-users"></i> Club</a>
+                        <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Rank</a>
+                        <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
+                        <a href="club-settings.html" class="nav-link"><i class="fas fa-cog"></i> Club Settings</a>
+                    </div>
+                    
+                    <div class="auth-buttons">
+                        <div class="rank-badge"><i class="fas fa-crown"></i> <span id="rankDisplay">Rank #1</span></div>
+                        <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </div>
+                </nav>
+            `;
+            
+            document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                });
+            }
+            
+            // Logout will be handled by main script
+        }
+        
+        // Load navbar when page loads
+        document.addEventListener('DOMContentLoaded', loadNavbar);
+    </script>
+
+    <!-- Main Script -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -866,13 +866,6 @@
         let currentClub = null;
         let clubData = null;
         let currentEditingPlayer = null;
-
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
-        }
 
         async function checkSession() {
             const { data: { user }, error } = await supabase.auth.getUser();
@@ -924,7 +917,8 @@
             const { data } = await supabase.from('clubs').select('team_name').order('pts', { ascending: false });
             if (data) {
                 let rank = data.findIndex(c => c.team_name === teamName) + 1;
-                document.getElementById('rankDisplay').innerHTML = `Rank #${rank || 1}`;
+                const rankDisplay = document.getElementById('rankDisplay');
+                if (rankDisplay) rankDisplay.innerHTML = `Rank #${rank || 1}`;
             }
         }
 
@@ -1147,11 +1141,15 @@
             loadAvailablePlayers();
         });
 
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            localStorage.removeItem('pop123_club');
-            window.location.href = 'index.html';
-        });
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                localStorage.removeItem('pop123_club');
+                window.location.href = 'index.html';
+            });
+        }
 
         async function init() {
             if (await checkSession()) {
