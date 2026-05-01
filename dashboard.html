@@ -20,6 +20,134 @@
             color: #1a1a2e;
         }
 
+        /* Top Navbar */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a1a2e, #e94560);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text span {
+            color: #e94560;
+            background: none;
+        }
+
+        .logo-sub {
+            font-size: 9px;
+            color: #8892b0;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #f0f4f8;
+            color: #e94560;
+        }
+
+        .nav-link.active {
+            background: #e94560;
+            color: #ffffff;
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rank-badge {
+            background: #f0f4f8;
+            padding: 6px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+        .rank-badge i { color: #f5a623; font-size: 14px; }
+        .rank-badge span { font-weight: 600; }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid #e8ecf1;
+            padding: 6px 18px;
+            border-radius: 10px;
+            color: #e94560;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .logout-btn:hover {
+            background: #fff5f5;
+            border-color: #e94560;
+            transform: translateY(-1px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #1a1a2e;
+        }
+
         /* Main Content */
         .main-content {
             padding: 25px 30px;
@@ -301,6 +429,36 @@
             }
         }
         @media (max-width: 768px) {
+            .top-navbar {
+                padding: 0 15px;
+            }
+            .logo-sub {
+                display: none;
+            }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 15px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: left 0.3s;
+                z-index: 99;
+                gap: 8px;
+            }
+            .nav-links.show {
+                left: 0;
+            }
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+                padding: 10px;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
             .main-content {
                 padding: 15px;
             }
@@ -322,12 +480,42 @@
                 height: 35px;
                 font-size: 16px;
             }
+            .rank-badge {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar will be loaded here automatically by navbar-loader.js -->
-    
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="logo-area">
+            <div class="logo-icon">🏴‍☠️</div>
+            <div>
+                <div class="logo-text">PIRATES OF <span>PITCH</span></div>
+                <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
+            </div>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Player</a>
+            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-users"></i> Club</a>
+            <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Rank</a>
+            <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
+            <a href="settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+        
+        <div class="auth-buttons">
+            <div class="rank-badge"><i class="fas fa-crown"></i> <span id="rankDisplay">Rank #1</span></div>
+            <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </nav>
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="welcome-section">
@@ -453,10 +641,6 @@
         </div>
     </main>
 
-    <!-- Navbar Loader -->
-    <script src="navbar-loader.js"></script>
-    
-    <!-- Main Script -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -465,6 +649,13 @@
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
         let currentUser = null;
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+        }
 
         async function checkSession() {
             const { data: { user }, error } = await supabase.auth.getUser();
@@ -549,7 +740,7 @@
                 document.getElementById('coverPhoto').src = player.cover_photo;
             }
             
-            // Update rank display in navbar (if rankDisplay exists)
+            // Update rank display in navbar
             updatePlayerRank(player.player_name);
         }
 
@@ -591,6 +782,25 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Logout function
+        async function logout() {
+            try {
+                await supabase.auth.signOut();
+                localStorage.removeItem('pop123_user');
+                localStorage.removeItem('supabase_session');
+                window.location.href = 'index.html';
+            } catch (err) {
+                console.error('Logout error:', err);
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Add logout button event listener
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', logout);
         }
 
         async function init() {
