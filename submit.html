@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Result Submit | Pirates of Pitch - POP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 25px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 25px;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-header h1 i {
+            color: #e94560;
+            font-size: 32px;
+        }
+        .page-header p {
+            color: #8892b0;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 18px 25px;
+            color: white;
+        }
+        .form-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-header h2 i {
+            color: #ffd700;
+        }
+
+        /* Team Selection */
+        .team-selection {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e8ecf1;
+            align-items: center;
+        }
+        .team-box {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+        }
+        .team-box label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+        .team-box select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e8ecf1;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            cursor: pointer;
+        }
+        .team-box select:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .vs-div {
+            font-size: 20px;
+            font-weight: 800;
+            color: #e94560;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e8ecf1;
+        }
+
+        /* Team Points */
+        .team-points {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            padding: 20px 25px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf1;
+            align-items: center;
+        }
+        .team-point-box {
+            text-align: center;
+        }
+        .team-point-box label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+        .team-point-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e8ecf1;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+        .team-point-box input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .team-points-vs {
+            font-size: 18px;
+            font-weight: 800;
+            color: #8892b0;
+        }
+
+        /* Players Section */
+        .players-section {
+            padding: 25px;
+        }
+        .players-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8ecf1;
+        }
+        .players-section h3 i {
+            color: #e94560;
+            margin-right: 8px;
+        }
+        .player-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .player-name {
+            font-weight: 600;
+            color: #1a1a2e;
+            padding: 0 15px;
+        }
+        .player-score input {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid #e8ecf1;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+        }
+        .player-score input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .vs-small {
+            font-weight: 700;
+            color: #e94560;
+            font-size: 14px;
+        }
+
+        /* Submit Button */
+        .submit-section {
+            padding: 20px 25px 25px;
+            border-top: 1px solid #e8ecf1;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(233,69,96,0.3);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Message */
+        .message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .message.success {
+            background: #e6f7e6;
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        .message.error {
+            background: #fee;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+        .message.warning {
+            background: #fff3e0;
+            color: #f39c12;
+            border: 1px solid #f39c12;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px;
+            }
+            .team-selection {
+                grid-template-columns: 1fr;
+            }
+            .team-points {
+                grid-template-columns: 1fr;
+            }
+            .player-row {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 10px;
+            }
+            .vs-div, .team-points-vs, .vs-small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-futbol"></i> Match Result Submit</h1>
+            <p>Enter match scores for teams and players</p>
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <h2><i class="fas fa-trophy"></i> POP Intra Bid S-01 - Match Result</h2>
+            </div>
+
+            <div id="messageContainer"></div>
+
+            <!-- Team Selection -->
+            <div class="team-selection">
+                <div class="team-box">
+                    <label><i class="fas fa-building"></i> Team 1</label>
+                    <select id="team1Select">
+                        <option value="">-- Select Team --</option>
+                    </select>
+                </div>
+                <div class="vs-div">VS</div>
+                <div class="team-box">
+                    <label><i class="fas fa-building"></i> Team 2</label>
+                    <select id="team2Select">
+                        <option value="">-- Select Team --</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Team Points -->
+            <div class="team-points">
+                <div class="team-point-box">
+                    <label><i class="fas fa-star"></i> Team 1 Points</label>
+                    <input type="number" id="team1Points" placeholder="0" min="0" value="0">
+                </div>
+                <div class="team-points-vs">vs</div>
+                <div class="team-point-box">
+                    <label><i class="fas fa-star"></i> Team 2 Points</label>
+                    <input type="number" id="team2Points" placeholder="0" min="0" value="0">
+                </div>
+            </div>
+
+            <!-- Players Section -->
+            <div class="players-section">
+                <h3><i class="fas fa-users"></i> Players Match Result</h3>
+                <div id="playersContainer">
+                    <div class="loading" style="text-align:center;padding:20px;">Select teams to load players...</div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="submit-section">
+                <button id="submitBtn" class="submit-btn"><i class="fas fa-save"></i> Submit Match Result</button>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        const tournamentName = 'pop intra bid s-01';
+        let clubs = [];
+        let players = [];
+
+        // Load clubs
+        async function loadClubs() {
+            const { data, error } = await supabase
+                .from('clubs')
+                .select('id, team_name')
+                .order('team_name');
+            
+            if (error) {
+                console.error('Error loading clubs:', error);
+                return;
+            }
+            
+            clubs = data || [];
+            
+            const team1Select = document.getElementById('team1Select');
+            const team2Select = document.getElementById('team2Select');
+            
+            team1Select.innerHTML = '<option value="">-- Select Team --</option>' + 
+                clubs.map(club => `<option value="${club.id}">🏴‍☠️ ${club.team_name}</option>`).join('');
+            
+            team2Select.innerHTML = '<option value="">-- Select Team --</option>' + 
+                clubs.map(club => `<option value="${club.id}">🏴‍☠️ ${club.team_name}</option>`).join('');
+        }
+
+        // Load players when team changes
+        async function loadPlayers(team1Id, team2Id) {
+            if (!team1Id && !team2Id) {
+                document.getElementById('playersContainer').innerHTML = '<div class="loading" style="text-align:center;padding:20px;">Select teams to load players...</div>';
+                return;
+            }
+            
+            let playersList = [];
+            
+            if (team1Id) {
+                const { data, error } = await supabase
+                    .from('players')
+                    .select('id, player_name, club_id')
+                    .eq('club_id', team1Id)
+                    .order('player_name');
+                
+                if (!error && data) {
+                    playersList.push(...data.map(p => ({ ...p, team: 'team1' })));
+                }
+            }
+            
+            if (team2Id) {
+                const { data, error } = await supabase
+                    .from('players')
+                    .select('id, player_name, club_id')
+                    .eq('club_id', team2Id)
+                    .order('player_name');
+                
+                if (!error && data) {
+                    playersList.push(...data.map(p => ({ ...p, team: 'team2' })));
+                }
+            }
+            
+            // Group by team
+            const team1Players = playersList.filter(p => p.team === 'team1');
+            const team2Players = playersList.filter(p => p.team === 'team2');
+            
+            // Create player rows (up to 6 players per team)
+            const maxPlayers = Math.max(team1Players.length, team2Players.length, 6);
+            
+            let html = '';
+            for (let i = 0; i < maxPlayers; i++) {
+                const player1 = team1Players[i];
+                const player2 = team2Players[i];
+                
+                html += `
+                    <div class="player-row" data-index="${i}">
+                        <div class="player-name">
+                            ${player1 ? `<i class="fas fa-user"></i> ${player1.player_name}` : '<span style="color:#8892b0;">— No Player —</span>'}
+                            ${player1 ? `<input type="hidden" class="player1Id" value="${player1.id}">` : ''}
+                        </div>
+                        <div class="player-score">
+                            <input type="number" class="player1Score" placeholder="0" min="0" value="0" ${!player1 ? 'disabled' : ''} style="width:70px;">
+                        </div>
+                        <div class="vs-small">vs</div>
+                        <div class="player-score">
+                            <input type="number" class="player2Score" placeholder="0" min="0" value="0" ${!player2 ? 'disabled' : ''} style="width:70px;">
+                        </div>
+                        <div class="player-name" style="text-align:right;">
+                            ${player2 ? `<i class="fas fa-user"></i> ${player2.player_name}` : '<span style="color:#8892b0;">— No Player —</span>'}
+                            ${player2 ? `<input type="hidden" class="player2Id" value="${player2.id}">` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('playersContainer').innerHTML = `
+                <div style="background:#f0f4f8; border-radius:12px; padding:10px; margin-bottom:15px; display:flex; justify-content:space-between; text-align:center;">
+                    <div style="flex:1; font-weight:600;">Team 1 Players</div>
+                    <div style="width:160px; text-align:center; font-weight:600;">Score</div>
+                    <div style="width:40px;"></div>
+                    <div style="width:160px; text-align:center; font-weight:600;">Score</div>
+                    <div style="flex:1; text-align:right; font-weight:600;">Team 2 Players</div>
+                </div>
+                ${html}
+            `;
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const container = document.getElementById('messageContainer');
+            const icon = type === 'success' ? 'fa-check-circle' : (type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle');
+            container.innerHTML = `<div class="message ${type}"><i class="fas ${icon}"></i> ${message}</div>`;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Update club stats in clubs table
+        async function updateClubStats(team1Id, team2Id, team1Score, team2Score) {
+            // Get current club stats
+            const { data: club1 } = await supabase.from('clubs').select('*').eq('id', team1Id).single();
+            const { data: club2 } = await supabase.from('clubs').select('*').eq('id', team2Id).single();
+            
+            if (club1) {
+                const newStats1 = calculateStats(club1, team1Score, team2Score);
+                await supabase.from('clubs').update(newStats1).eq('id', team1Id);
+            }
+            
+            if (club2) {
+                const newStats2 = calculateStats(club2, team2Score, team1Score);
+                await supabase.from('clubs').update(newStats2).eq('id', team2Id);
+            }
+        }
+
+        // Update tournament team stats
+        async function updateTournamentTeamStats(team1Id, team2Id, team1Score, team2Score) {
+            // Get team names
+            const club1 = clubs.find(c => c.id === team1Id);
+            const club2 = clubs.find(c => c.id === team2Id);
+            
+            if (club1) {
+                const { data: tourTeam1 } = await supabase
+                    .from('tournament_teams')
+                    .select('*')
+                    .eq('id', team1Id)
+                    .eq('tournament_name', tournamentName)
+                    .single();
+                
+                if (tourTeam1) {
+                    const newStats1 = calculateStats(tourTeam1, team1Score, team2Score);
+                    await supabase.from('tournament_teams').update(newStats1).eq('id', team1Id).eq('tournament_name', tournamentName);
+                }
+            }
+            
+            if (club2) {
+                const { data: tourTeam2 } = await supabase
+                    .from('tournament_teams')
+                    .select('*')
+                    .eq('id', team2Id)
+                    .eq('tournament_name', tournamentName)
+                    .single();
+                
+                if (tourTeam2) {
+                    const newStats2 = calculateStats(tourTeam2, team2Score, team1Score);
+                    await supabase.from('tournament_teams').update(newStats2).eq('id', team2Id).eq('tournament_name', tournamentName);
+                }
+            }
+        }
+
+        // Update player stats
+        async function updatePlayerStats(playerId, playerScore, isWinner) {
+            const { data: player } = await supabase.from('players').select('*').eq('id', playerId).single();
+            
+            if (player) {
+                const matchesPlayed = (player.matches_played || 0) + 1;
+                const wins = (player.win || 0) + (isWinner ? 1 : 0);
+                const losses = (player.loss || 0) + (!isWinner ? 1 : 0);
+                const points = (wins * 3) + (player.draw || 0);
+                
+                await supabase.from('players').update({
+                    matches_played: matchesPlayed,
+                    win: wins,
+                    loss: losses,
+                    points: points,
+                    updated_at: new Date()
+                }).eq('id', playerId);
+            }
+        }
+
+        // Calculate stats helper
+        function calculateStats(current, myScore, opponentScore) {
+            const matchesPlayed = (current.matches_played || 0) + 1;
+            const goalsFor = (current.goals_for || 0) + myScore;
+            const goalsAgainst = (current.goals_against || 0) + opponentScore;
+            
+            let wins = current.wins || 0;
+            let draws = current.draws || 0;
+            let losses = current.losses || 0;
+            let points = current.points || 0;
+            
+            if (myScore > opponentScore) {
+                wins++;
+                points += 3;
+            } else if (myScore === opponentScore) {
+                draws++;
+                points += 1;
+            } else {
+                losses++;
+            }
+            
+            return {
+                matches_played: matchesPlayed,
+                wins: wins,
+                draws: draws,
+                losses: losses,
+                goals_for: goalsFor,
+                goals_against: goalsAgainst,
+                points: points,
+                updated_at: new Date()
+            };
+        }
+
+        // Save match result to match_results table
+        async function saveMatchResult(team1Id, team2Id, team1Score, team2Score, playerResults) {
+            const { error } = await supabase
+                .from('match_results')
+                .insert({
+                    tournament_name: tournamentName,
+                    team1_id: team1Id,
+                    team2_id: team2Id,
+                    team1_score: team1Score,
+                    team2_score: team2Score,
+                    winner_id: team1Score > team2Score ? team1Id : (team2Score > team1Score ? team2Id : null),
+                    is_played: true,
+                    match_date: new Date().toISOString().split('T')[0]
+                });
+            
+            if (error) throw error;
+        }
+
+        // Submit match result
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const team1Id = document.getElementById('team1Select').value;
+            const team2Id = document.getElementById('team2Select').value;
+            const team1Score = parseInt(document.getElementById('team1Points').value) || 0;
+            const team2Score = parseInt(document.getElementById('team2Points').value) || 0;
+            
+            if (!team1Id || !team2Id) {
+                showMessage('Please select both teams', 'error');
+                return;
+            }
+            
+            if (team1Id === team2Id) {
+                showMessage('Please select two different teams', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+            
+            try {
+                // 1. Update club stats
+                await updateClubStats(team1Id, team2Id, team1Score, team2Score);
+                
+                // 2. Update tournament team stats
+                await updateTournamentTeamStats(team1Id, team2Id, team1Score, team2Score);
+                
+                // 3. Update player stats
+                const playerRows = document.querySelectorAll('.player-row');
+                const playerResults = [];
+                
+                for (const row of playerRows) {
+                    const player1Id = row.querySelector('.player1Id')?.value;
+                    const player2Id = row.querySelector('.player2Id')?.value;
+                    const player1Score = parseInt(row.querySelector('.player1Score')?.value) || 0;
+                    const player2Score = parseInt(row.querySelector('.player2Score')?.value) || 0;
+                    
+                    if (player1Id) {
+                        const isWinner = player1Score > player2Score;
+                        await updatePlayerStats(player1Id, player1Score, isWinner);
+                        playerResults.push({ playerId: player1Id, score: player1Score, isWinner });
+                    }
+                    
+                    if (player2Id) {
+                        const isWinner = player2Score > player1Score;
+                        await updatePlayerStats(player2Id, player2Score, isWinner);
+                        playerResults.push({ playerId: player2Id, score: player2Score, isWinner });
+                    }
+                }
+                
+                // 4. Save match result
+                await saveMatchResult(team1Id, team2Id, team1Score, team2Score, playerResults);
+                
+                showMessage('✅ Match result submitted successfully!', 'success');
+                
+                // Reset form
+                document.getElementById('team1Select').value = '';
+                document.getElementById('team2Select').value = '';
+                document.getElementById('team1Points').value = '0';
+                document.getElementById('team2Points').value = '0';
+                document.getElementById('playersContainer').innerHTML = '<div class="loading" style="text-align:center;padding:20px;">Select teams to load players...</div>';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('❌ Error submitting match: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Submit Match Result';
+            }
+        });
+
+        // Event listeners for team selection
+        document.getElementById('team1Select').addEventListener('change', () => {
+            const team1Id = document.getElementById('team1Select').value;
+            const team2Id = document.getElementById('team2Select').value;
+            loadPlayers(team1Id, team2Id);
+        });
+        
+        document.getElementById('team2Select').addEventListener('change', () => {
+            const team1Id = document.getElementById('team1Select').value;
+            const team2Id = document.getElementById('team2Select').value;
+            loadPlayers(team1Id, team2Id);
+        });
+
+        // Load navbar and initialize
+        async function loadNavbar() {
+            try {
+                const response = await fetch('/navbar.html');
+                const navbarHtml = await response.text();
+                document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
+            } catch (error) {
+                console.error('Navbar load failed:', error);
+            }
+        }
+
+        // Initialize
+        async function init() {
+            await loadNavbar();
+            await loadClubs();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
