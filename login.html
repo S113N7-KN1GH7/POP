@@ -1,12 +1,13 @@
+
 <!-- ============================================= -->
-<!-- LOGIN.HTML - Clean Login Page -->
+<!-- LOGIN.HTML - Clean Login Page with Session Check -->
 <!-- ============================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | POP123 - Pirates of Pitch</title>
+    <title>Login | Pirates of Pitch - POP</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -18,7 +19,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f5f7fb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -31,33 +32,49 @@
             width: 100%;
             background: #ffffff;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
             overflow: hidden;
-            border: 1px solid #e8ecf1;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .login-header {
-            background: #ffffff;
-            padding: 40px 30px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
             text-align: center;
-            border-bottom: 1px solid #e8ecf1;
+            color: white;
         }
 
         .logo-icon {
-            font-size: 50px;
+            font-size: 60px;
             margin-bottom: 10px;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
         }
 
         .login-header h1 {
             font-size: 28px;
             font-weight: 700;
-            color: #1a1a2e;
             margin-bottom: 8px;
         }
 
         .login-header p {
-            color: #8892b0;
             font-size: 14px;
+            opacity: 0.9;
         }
 
         .login-body {
@@ -71,7 +88,7 @@
         .input-group label {
             display: block;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             color: #4a5568;
             margin-bottom: 8px;
         }
@@ -79,7 +96,7 @@
         .input-wrapper {
             display: flex;
             align-items: center;
-            background: #f8fafc;
+            background: #f8f9fa;
             border: 1px solid #e8ecf1;
             border-radius: 12px;
             padding: 0 15px;
@@ -87,9 +104,8 @@
         }
 
         .input-wrapper:focus-within {
-            border-color: #e94560;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
         }
 
         .input-wrapper i {
@@ -128,7 +144,7 @@
         }
 
         .forgot-link {
-            color: #e94560;
+            color: #667eea;
             text-decoration: none;
         }
 
@@ -139,7 +155,7 @@
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: #e94560;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
             border: none;
             border-radius: 12px;
@@ -150,8 +166,8 @@
         }
 
         .login-btn:hover {
-            background: #ff6b81;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
         }
 
         .login-btn:disabled {
@@ -176,9 +192,9 @@
         }
 
         .signup-link a {
-            color: #e94560;
+            color: #667eea;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .signup-link a:hover {
@@ -202,7 +218,7 @@
 
         @media (max-width: 480px) {
             .login-header {
-                padding: 30px 20px 15px;
+                padding: 30px 20px;
             }
             .login-body {
                 padding: 25px;
@@ -220,7 +236,7 @@
             <h1>Welcome Back!</h1>
             <p>Login to continue your pirate journey</p>
         </div>
-        
+
         <div class="login-body">
             <form id="loginForm">
                 <div class="input-group">
@@ -230,7 +246,7 @@
                         <input type="email" id="email" placeholder="captain@pop123.com" required>
                     </div>
                 </div>
-                
+
                 <div class="input-group">
                     <label>Password</label>
                     <div class="input-wrapper">
@@ -238,18 +254,18 @@
                         <input type="password" id="password" placeholder="Enter your password" required>
                     </div>
                 </div>
-                
+
                 <div class="form-options">
                     <label class="checkbox">
-                        <input type="checkbox"> Remember me
+                        <input type="checkbox" id="rememberMe"> Remember me
                     </label>
                     <a href="#" class="forgot-link">Forgot Password?</a>
                 </div>
-                
+
                 <button type="submit" class="login-btn" id="loginBtn">Login to Dashboard</button>
                 <div id="errorMsg" class="error-message"></div>
             </form>
-            
+
             <div class="signup-link">
                 <p>Don't have an account? <a href="signup.html">Create Account</a></p>
             </div>
@@ -267,62 +283,115 @@
         const loginBtn = document.getElementById('loginBtn');
         const errorMsg = document.getElementById('errorMsg');
 
+        // =============================================
+        // CHECK IF USER IS ALREADY LOGGED IN
+        // =============================================
+        async function checkUserAndRedirect() {
+            try {
+                // Check local storage first
+                const localUser = localStorage.getItem('pop123_user');
+                if (localUser) {
+                    // Verify with Supabase
+                    const { data: { user }, error } = await supabase.auth.getUser();
+                    if (user && !error) {
+                        console.log("User already logged in, redirecting to dashboard...");
+                        window.location.href = 'dashboard.html';
+                        return;
+                    } else {
+                        // Invalid session, clear storage
+                        localStorage.removeItem('pop123_user');
+                    }
+                }
+                
+                // Also check Supabase session directly
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                    console.log("Active session found, redirecting to dashboard...");
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (err) {
+                console.log("Session check error:", err);
+            }
+        }
+
+        // Run session check when page loads
+        checkUserAndRedirect();
+
+        // =============================================
+        // LOGIN FORM SUBMIT
+        // =============================================
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Clear previous error
+            errorMsg.innerText = '';
+
+            // Basic validation
+            if (!email || !email.includes('@')) {
+                errorMsg.innerText = 'Please enter a valid email address';
+                return;
+            }
+            if (!password || password.length < 6) {
+                errorMsg.innerText = 'Password must be at least 6 characters';
+                return;
+            }
+
+            // Disable button and show loading
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="spinner"></span> Logging in...';
-            
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
-            
-            if (error) {
-                errorMsg.innerText = error.message;
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    errorMsg.innerText = error.message;
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Login to Dashboard';
+                    return;
+                }
+
+                if (data?.user) {
+                    // Store user in localStorage
+                    localStorage.setItem('pop123_user', JSON.stringify(data.user));
+                    
+                    // If remember me is checked, store session for longer
+                    if (rememberMe) {
+                        // Supabase handles this automatically with session persistence
+                        console.log("Remember me enabled - session will persist");
+                    }
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMsg.innerText = 'Login failed. Please try again.';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Login to Dashboard';
+                }
+            } catch (err) {
+                console.error('Login error:', err);
+                errorMsg.innerText = 'An unexpected error occurred. Please try again.';
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = 'Login to Dashboard';
-            } else {
-                localStorage.setItem('pop123_user', JSON.stringify(data.user));
-                window.location.href = 'dashboard.html';
             }
         });
-<!-- login.html-এর Body-র ভিতরের অংশ আগের মতোই থাকবে। শুধু স্ক্রিপ্টটি রিপ্লেস করুন -->
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  const supabaseUrl = 'YOUR_SUPABASE_URL';
-  const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-  // --- এই ফাংশনটি যুক্ত করুন: পেজ লোড হওয়ার সাথে সাথে সেশন চেক করবে ---
-  async function checkUserAndRedirect() {
-    const { data: { user }, error } = await supabase.auth.getUser();
-    
-    // যদি ইউজার ইতিমধ্যে লগইন করা থাকে, তাহলে তাকে ড্যাশবোর্ডে পাঠিয়ে দিন
-    if (user) {
-      console.log("User already logged in, redirecting to dashboard.");
-      window.location.href = 'dashboard.html';
-    }
-    // কোনো error বা লগইন না থাকলে, কিছু করবেন না। ইউজার লগইন ফর্ম দেখতে পাবে।
-  }
-
-  // পেজ লোড হওয়ার সাথে সাথে চেক করুন
-  checkUserAndRedirect();
-
-  // --- লগইন ফর্মের জমা দেওয়ার ইভেন্ট (আগের মতই) ---
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      // লগইন করার প্রচেষ্টা... (আপনার পুরানো কোড এখানে থাকবে)
-      // ...
-    });
-  }
+        // Add enter key support
+        const inputs = document.querySelectorAll('#loginForm input');
+        inputs.forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    loginForm.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
     </script>
-
 </body>
 </html>
