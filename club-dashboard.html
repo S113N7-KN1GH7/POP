@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,133 +17,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background: #f5f7fb;
-            color: #1a1a2e;
-            padding-top: 60px;
-        }
-
-        /* Navbar Styles (will be applied via navbar.html) */
-        .top-navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e8ecf1;
-            padding: 0 30px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 60px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-icon {
-            font-size: 28px;
-            animation: sway 3s ease-in-out infinite;
-        }
-
-        @keyframes sway {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        .logo-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #1a1a2e, #e94560);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .logo-text span {
-            color: #e94560;
-            background: none;
-        }
-
-        .logo-sub {
-            font-size: 8px;
-            color: #8892b0;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 8px;
-            color: #4a5568;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-
-        .nav-link:hover {
-            background: #f0f4f8;
-            color: #e94560;
-        }
-
-        .nav-link.active {
-            background: #e94560;
-            color: #ffffff;
-        }
-
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .rank-badge {
-            background: #f0f4f8;
-            padding: 5px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-        }
-        .rank-badge i { color: #f5a623; font-size: 12px; }
-        .rank-badge span { font-weight: 600; }
-
-        .logout-btn {
-            background: transparent;
-            border: 1px solid #e8ecf1;
-            padding: 6px 14px;
-            border-radius: 8px;
-            color: #e94560;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-        .logout-btn:hover { background: #fff5f5; border-color: #e94560; }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
             color: #1a1a2e;
         }
 
@@ -644,16 +517,12 @@
                 width: 100%;
                 justify-content: center;
             }
-            .rank-badge {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar will be loaded here -->
-    <div id="navbar-placeholder"></div>
-
+    <!-- Navbar will be loaded here automatically by navbar-loader.js -->
+    
     <!-- Main Content -->
     <main class="main-content">
         <div class="welcome-section">
@@ -803,58 +672,9 @@
         </div>
     </div>
 
-    <!-- Navbar Loader Script -->
-    <script>
-        // Navbar loader - without external file
-        async function loadNavbar() {
-            const navbarHtml = `
-                <nav class="top-navbar">
-                    <div class="logo-area">
-                        <div class="logo-icon">🏴‍☠️</div>
-                        <div>
-                            <div class="logo-text">PIRATES OF <span>PITCH</span></div>
-                            <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
-                        </div>
-                    </div>
-                    
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    
-                    <div class="nav-links" id="navLinks">
-                        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                        <a href="dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Player</a>
-                        <a href="club-dashboard.html" class="nav-link active"><i class="fas fa-users"></i> Club</a>
-                        <a href="leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Rank</a>
-                        <a href="matches.html" class="nav-link"><i class="fas fa-futbol"></i> Matches</a>
-                        <a href="club-settings.html" class="nav-link"><i class="fas fa-cog"></i> Club Settings</a>
-                    </div>
-                    
-                    <div class="auth-buttons">
-                        <div class="rank-badge"><i class="fas fa-crown"></i> <span id="rankDisplay">Rank #1</span></div>
-                        <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                    </div>
-                </nav>
-            `;
-            
-            document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
-            
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navLinks.classList.toggle('show');
-                });
-            }
-            
-            // Logout will be handled by main script
-        }
-        
-        // Load navbar when page loads
-        document.addEventListener('DOMContentLoaded', loadNavbar);
-    </script>
-
+    <!-- Navbar Loader -->
+    <script src="navbar-loader.js"></script>
+    
     <!-- Main Script -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -910,16 +730,6 @@
             document.getElementById('goalProgress').style.width = totalGoals > 0 ? ((club.gf||0)/totalGoals)*100 + '%' : '0%';
             if (club.created_at) document.getElementById('joinedDate').innerHTML = new Date(club.created_at).toLocaleDateString();
             if (club.team_logo) document.getElementById('teamLogo').src = club.team_logo;
-            updateRank(club.team_name);
-        }
-
-        async function updateRank(teamName) {
-            const { data } = await supabase.from('clubs').select('team_name').order('pts', { ascending: false });
-            if (data) {
-                let rank = data.findIndex(c => c.team_name === teamName) + 1;
-                const rankDisplay = document.getElementById('rankDisplay');
-                if (rankDisplay) rankDisplay.innerHTML = `Rank #${rank || 1}`;
-            }
         }
 
         async function loadClubPlayers() {
@@ -1140,16 +950,6 @@
             loadClubPlayers();
             loadAvailablePlayers();
         });
-
-        // Logout functionality
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
-                await supabase.auth.signOut();
-                localStorage.removeItem('pop123_club');
-                window.location.href = 'index.html';
-            });
-        }
 
         async function init() {
             if (await checkSession()) {
