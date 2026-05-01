@@ -8,18 +8,18 @@
             <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
         </div>
     </div>
-    
+
     <button class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
     </button>
-    
+
     <div class="nav-links" id="navLinks">
         <!-- Home Link -->
         <a href="index.html" class="nav-link" data-page="home">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        
+
         <!-- Account Dropdown -->
         <div class="dropdown">
             <button class="dropdown-btn nav-link">
@@ -33,7 +33,7 @@
                 <a href="dashboard.html"><i class="fas fa-id-card"></i> My Profile</a>
             </div>
         </div>
-        
+
         <!-- Category Dropdown -->
         <div class="dropdown">
             <button class="dropdown-btn nav-link">
@@ -48,7 +48,7 @@
                 <a href="matches.html"><i class="fas fa-handshake"></i> Friendly</a>
             </div>
         </div>
-        
+
         <!-- Ranking Dropdown -->
         <div class="dropdown">
             <button class="dropdown-btn nav-link">
@@ -61,7 +61,7 @@
                 <a href="club-leaderboard.html"><i class="fas fa-trophy"></i> Club Ranking</a>
             </div>
         </div>
-        
+
         <!-- System Dropdown -->
         <div class="dropdown">
             <button class="dropdown-btn nav-link">
@@ -76,14 +76,14 @@
             </div>
         </div>
     </div>
-    
+
     <div class="auth-buttons" id="authButtons">
         <!-- Guest Mode (No Login) -->
         <div class="guest-mode" id="guestMode">
             <i class="fas fa-user-circle"></i>
             <span>Guest User</span>
         </div>
-        
+
         <!-- User Mode (After Login) - Hidden by default -->
         <div class="user-mode" id="userMode" style="display: none;">
             <div class="user-dropdown">
@@ -98,11 +98,12 @@
                     <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
                     <a href="club-settings.html"><i class="fas fa-users-cog"></i> Club Settings</a>
                     <hr>
-                    <button id="logoutBtnNav" class="logout-nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    <button id="logoutPlayerBtn" class="logout-nav-btn player-logout"><i class="fas fa-sign-out-alt"></i> Logout (Player)</button>
+                    <button id="logoutClubBtn" class="logout-nav-btn club-logout"><i class="fas fa-building"></i> Logout (Club)</button>
                 </div>
             </div>
         </div>
-        
+
         <div class="rank-badge" id="rankBadge">
             <i class="fas fa-crown"></i>
             <span id="rankDisplay">Rank #1</span>
@@ -316,7 +317,7 @@
         top: 100%;
         right: 0;
         background: #ffffff;
-        min-width: 220px;
+        min-width: 240px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         border-radius: 12px;
         z-index: 1001;
@@ -367,13 +368,25 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        color: #e74c3c;
         font-size: 13px;
         transition: all 0.2s;
     }
 
-    .logout-nav-btn:hover {
+    .logout-nav-btn.player-logout {
+        color: #e74c3c;
+    }
+
+    .logout-nav-btn.player-logout:hover {
         background: #fee;
+        color: #c0392b;
+    }
+
+    .logout-nav-btn.club-logout {
+        color: #e94560;
+    }
+
+    .logout-nav-btn.club-logout:hover {
+        background: #fff0f0;
         color: #c0392b;
     }
 
@@ -557,25 +570,25 @@
             border-right: 2px solid #e94560;
             overflow-y: auto;
         }
-        
+
         .nav-links.show {
             left: 0;
         }
-        
+
         .nav-link, .dropdown {
             width: 100%;
         }
-        
+
         .dropdown-btn, .nav-link {
             width: 100%;
             justify-content: flex-start;
             padding: 12px 20px;
         }
-        
+
         .nav-link span, .dropdown-btn span {
             display: inline;
         }
-        
+
         .dropdown-content {
             position: static;
             display: none;
@@ -585,7 +598,7 @@
             margin-left: 20px;
             width: calc(100% - 20px);
         }
-        
+
         .dropdown:hover .dropdown-content {
             display: block;
         }
@@ -596,29 +609,29 @@
             height: 60px;
             padding: 0 15px;
         }
-        
+
         .logo-text {
             font-size: 16px;
         }
-        
+
         .logo-icon {
             font-size: 28px;
         }
-        
+
         .mobile-menu-btn {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .guest-mode span, .user-dropdown-btn span {
             display: none;
         }
-        
+
         .guest-mode {
             padding: 6px 12px;
         }
-        
+
         .rank-badge {
             display: none;
         }
@@ -628,13 +641,9 @@
         .logo-text {
             font-size: 14px;
         }
-        
+
         .logo-icon {
             font-size: 24px;
-        }
-        
-        .logout-btn {
-            padding: 6px 14px;
         }
     }
 </style>
@@ -649,7 +658,7 @@
                 link.classList.add('active');
             }
         });
-        
+
         // Check if dropdown contains active page
         document.querySelectorAll('.dropdown-content a').forEach(link => {
             const href = link.getAttribute('href');
@@ -665,7 +674,7 @@
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
-    
+
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -697,40 +706,43 @@
     async function updateNavbarForUser() {
         if (typeof supabase !== 'undefined' && supabase.auth) {
             const { data: { user }, error } = await supabase.auth.getUser();
-            
+
             const guestMode = document.getElementById('guestMode');
             const userMode = document.getElementById('userMode');
             const rankBadge = document.getElementById('rankBadge');
-            
+
             if (user && !error) {
                 // User is logged in
                 if (guestMode) guestMode.style.display = 'none';
                 if (userMode) userMode.style.display = 'block';
                 if (rankBadge) rankBadge.style.display = 'flex';
-                
+
                 // Update user info
                 const userName = user.user_metadata?.player_name || user.email.split('@')[0];
                 const userNameSpan = document.getElementById('userName');
                 if (userNameSpan) userNameSpan.innerText = userName;
-                
+
                 // Get player avatar
                 const { data: playerData } = await supabase
                     .from('players')
                     .select('photo')
                     .eq('id', user.id)
                     .single();
-                    
+
                 if (playerData?.photo) {
                     const userAvatar = document.getElementById('userAvatar');
                     if (userAvatar) userAvatar.src = playerData.photo;
+                } else {
+                    const userAvatar = document.getElementById('userAvatar');
+                    if (userAvatar) userAvatar.src = `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=35&name=${encodeURIComponent(userName)}`;
                 }
-                
+
                 // Get player rank
                 const { data: ranked } = await supabase
                     .from('players')
                     .select('player_name, pts')
                     .order('pts', { ascending: false });
-                    
+
                 if (ranked && userName) {
                     const rank = ranked.findIndex(p => p.player_name === userName) + 1;
                     const rankDisplay = document.getElementById('rankDisplay');
@@ -744,20 +756,35 @@
             }
         }
     }
-    
-    // Logout function
-    const logoutBtnNav = document.getElementById('logoutBtnNav');
-    if (logoutBtnNav) {
-        logoutBtnNav.addEventListener('click', async () => {
+
+    // Player Logout Function
+    const logoutPlayerBtn = document.getElementById('logoutPlayerBtn');
+    if (logoutPlayerBtn) {
+        logoutPlayerBtn.addEventListener('click', async () => {
             if (typeof supabase !== 'undefined' && supabase.auth) {
                 await supabase.auth.signOut();
             }
-            localStorage.clear();
+            localStorage.removeItem('pop123_user');
+            localStorage.removeItem('supabase_session');
             sessionStorage.clear();
             window.location.href = 'index.html';
         });
     }
-    
+
+    // Club Logout Function
+    const logoutClubBtn = document.getElementById('logoutClubBtn');
+    if (logoutClubBtn) {
+        logoutClubBtn.addEventListener('click', async () => {
+            if (typeof supabase !== 'undefined' && supabase.auth) {
+                await supabase.auth.signOut();
+            }
+            localStorage.removeItem('pop123_club');
+            localStorage.removeItem('supabase_session');
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        });
+    }
+
     // Run when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', updateNavbarForUser);
