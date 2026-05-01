@@ -1,136 +1,253 @@
-<!-- ============================================= -->
-<!-- CLUB SETTINGS PAGE -->
-<!-- ============================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Settings | POP123</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Club Settings | Pirates of Pitch - POP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f5f7fb; color: #1a1a2e; }
-        .top-navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e8ecf1;
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 70px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-icon { font-size: 32px; }
-        .logo-area h2 { font-size: 22px; font-weight: 700; }
-        .logo-area span { color: #e94560; }
-        .nav-links { display: flex; align-items: center; gap: 8px; }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            border-radius: 10px;
-            color: #4a5568;
-            text-decoration: none;
-            font-weight: 500;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
         }
-        .nav-link:hover { background: #f0f4f8; color: #e94560; }
-        .nav-link.active { background: #e94560; color: #ffffff; }
-        .logout-btn {
-            background: transparent;
-            border: 1px solid #e8ecf1;
-            padding: 8px 16px;
-            border-radius: 10px;
+
+        /* Main Content */
+        .main-content {
+            padding: 25px 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 25px;
+        }
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .page-header p {
+            color: #8892b0;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+        .page-header h1 i {
             color: #e94560;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-right: 10px;
         }
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
-        .main-content { padding: 30px 40px; max-width: 800px; margin: 0 auto; }
-        .page-header { margin-bottom: 30px; }
-        .page-header h1 { font-size: 28px; font-weight: 700; }
+
+        /* Settings Card */
         .settings-card {
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 16px;
             border: 1px solid #e8ecf1;
             overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+
+        /* Tabs */
         .settings-tabs {
             display: flex;
             border-bottom: 1px solid #e8ecf1;
             background: #fafbfc;
             padding: 0 20px;
             gap: 5px;
+            flex-wrap: wrap;
         }
         .tab-btn {
-            padding: 15px 25px;
+            padding: 12px 24px;
             background: transparent;
             border: none;
             font-size: 14px;
             font-weight: 500;
             color: #8892b0;
             cursor: pointer;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
+            border-radius: 8px 8px 0 0;
         }
-        .tab-btn:hover { color: #e94560; }
-        .tab-btn.active { color: #e94560; border-bottom: 2px solid #e94560; }
-        .settings-body { padding: 30px; }
-        .settings-section { display: none; animation: fadeIn 0.3s ease; }
-        .settings-section.active-section { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .form-group { margin-bottom: 25px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 8px; }
-        .form-group label i { color: #e94560; margin-right: 6px; }
+        .tab-btn:hover {
+            color: #e94560;
+            background: rgba(233,69,96,0.05);
+        }
+        .tab-btn.active {
+            color: #e94560;
+            border-bottom: 2px solid #e94560;
+            background: rgba(233,69,96,0.05);
+        }
+
+        /* Settings Body */
+        .settings-body {
+            padding: 25px;
+        }
+        .settings-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .settings-section.active-section {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+        .form-group label i {
+            color: #e94560;
+            margin-right: 6px;
+        }
         .form-group input {
             width: 100%;
             padding: 12px 15px;
             background: #f8f9fa;
             border: 1px solid #e8ecf1;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
-        .form-group input:focus { outline: none; border-color: #e94560; box-shadow: 0 0 0 3px rgba(233,69,96,0.1); }
-        .form-group input:disabled { background: #f0f4f8; color: #8892b0; }
+        .form-group input:focus {
+            outline: none;
+            border-color: #e94560;
+            box-shadow: 0 0 0 3px rgba(233,69,96,0.1);
+        }
+        .form-group input:disabled {
+            background: #f0f4f8;
+            color: #8892b0;
+            cursor: not-allowed;
+        }
+
+        /* Logo Upload */
+        .logo-upload-area {
+            margin-bottom: 20px;
+        }
         .upload-box {
             background: #f8f9fa;
             border: 2px dashed #e8ecf1;
             border-radius: 16px;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.2s;
         }
-        .upload-box:hover { border-color: #e94560; background: #fff5f5; }
-        .upload-box i { font-size: 40px; color: #8892b0; margin-bottom: 10px; }
-        .file-input { display: none; }
-        .preview-img {
-            margin-top: 12px;
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+        .upload-box:hover {
+            border-color: #e94560;
+            background: #fff5f5;
+        }
+        .upload-box i {
+            font-size: 45px;
+            color: #8892b0;
+            margin-bottom: 10px;
+        }
+        .upload-box h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .upload-box p {
+            font-size: 12px;
+            color: #8892b0;
+        }
+        .file-input {
+            display: none;
+        }
+        .logo-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .logo-preview img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #e94560;
+            border: 3px solid #e94560;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        .remove-logo-btn {
+            background: #e74c3c;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 15px;
+            margin-top: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .remove-logo-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Buttons */
         .save-btn {
             background: linear-gradient(135deg, #e94560, #ff6b81);
             color: white;
             border: none;
-            padding: 14px 30px;
-            border-radius: 12px;
-            font-size: 15px;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
             width: 100%;
+            margin-top: 10px;
         }
-        .save-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(233,69,96,0.3); }
-        .message { padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; }
-        .message.success { background: #e6f7e6; color: #2ecc71; border: 1px solid #2ecc71; }
-        .message.error { background: #fee; color: #e74c3c; border: 1px solid #e74c3c; }
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(233,69,96,0.3);
+        }
+        .save-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Messages */
+        .message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .message.success {
+            background: #e6f7e6;
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        .message.error {
+            background: #fee;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+        .message i {
+            font-size: 16px;
+        }
+
+        /* Spinner */
         .spinner {
             display: inline-block;
             width: 16px;
@@ -141,88 +258,130 @@
             animation: spin 0.6s linear infinite;
             margin-right: 8px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .top-navbar { padding: 0 20px; }
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                padding: 20px;
-                transition: left 0.3s;
+            .main-content {
+                padding: 15px;
             }
-            .nav-links.show { left: 0; }
-            .mobile-menu-btn { display: block; }
-            .main-content { padding: 20px; }
-            .settings-tabs { overflow-x: auto; }
-            .tab-btn { padding: 12px 16px; white-space: nowrap; }
+            .settings-tabs {
+                padding: 0 15px;
+                gap: 2px;
+            }
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+            .settings-body {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <nav class="top-navbar">
-        <div class="logo-area"><div class="logo-icon">🏴‍☠️</div><h2>POP<span>123</span></h2></div>
-        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
-        <div class="nav-links" id="navLinks">
-            <a href="club-dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="club-leaderboard.html" class="nav-link"><i class="fas fa-trophy"></i> Leaderboard</a>
-            <a href="club-settings.html" class="nav-link active"><i class="fas fa-cog"></i> Settings</a>
-        </div>
-        <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-    </nav>
+    <!-- Navbar will be loaded here automatically by navbar-loader.js -->
+    
+    <!-- Main Content -->
     <main class="main-content">
-        <div class="page-header"><h1><i class="fas fa-cog"></i> Club Settings</h1><p>Manage your club profile and information</p></div>
+        <div class="page-header">
+            <h1><i class="fas fa-cog"></i> Club Settings</h1>
+            <p>Manage your club profile and settings</p>
+        </div>
+
         <div class="settings-card">
             <div class="settings-tabs">
-                <button class="tab-btn active" data-tab="profile"><i class="fas fa-users"></i> Profile</button>
-                <button class="tab-btn" data-tab="logo"><i class="fas fa-image"></i> Logo</button>
-                <button class="tab-btn" data-tab="password"><i class="fas fa-lock"></i> Password</button>
+                <button class="tab-btn active" data-tab="profile">
+                    <i class="fas fa-users"></i> Profile
+                </button>
+                <button class="tab-btn" data-tab="logo">
+                    <i class="fas fa-image"></i> Logo
+                </button>
+                <button class="tab-btn" data-tab="password">
+                    <i class="fas fa-lock"></i> Password
+                </button>
             </div>
+
             <div class="settings-body">
                 <div id="messageContainer"></div>
+
+                <!-- Profile Section -->
                 <div class="settings-section active-section" id="profileSection">
                     <form id="profileForm">
-                        <div class="form-group"><label><i class="fas fa-users"></i> Team Name</label><input type="text" id="team_name" placeholder="Team name"></div>
-                        <div class="form-group"><label><i class="fas fa-envelope"></i> Email</label><input type="email" id="email" disabled></div>
-                        <div class="form-group"><label><i class="fas fa-user"></i> Captain Name</label><input type="text" id="captain_name" placeholder="Captain name"></div>
+                        <div class="form-group">
+                            <label><i class="fas fa-tag"></i> Team Name</label>
+                            <input type="text" id="team_name" placeholder="Enter team name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Captain Name</label>
+                            <input type="text" id="captain_name" placeholder="Enter captain name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="email" disabled>
+                            <small style="color:#8892b0; font-size:11px;">Email cannot be changed</small>
+                        </div>
                         <button type="submit" class="save-btn">Save Profile Changes</button>
                     </form>
                 </div>
+
+                <!-- Logo Section -->
                 <div class="settings-section" id="logoSection">
-                    <div class="upload-box" id="logoUploadBox">
-                        <i class="fas fa-image"></i><h4>Team Logo</h4><p>Click to upload (Max 2MB)</p>
-                        <input type="file" id="team_logo" accept="image/*" class="file-input">
-                        <div id="logoPreview"></div>
+                    <div class="logo-upload-area">
+                        <div class="upload-box" id="logoUploadBox">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Upload Team Logo</h4>
+                            <p>Click or drag to upload (Max 2MB)</p>
+                            <input type="file" id="team_logo" accept="image/*" class="file-input">
+                        </div>
+                        <div id="logoPreview" class="logo-preview"></div>
                     </div>
-                    <button id="saveLogoBtn" class="save-btn" style="margin-top:20px;">Save Logo</button>
+                    <button id="saveLogoBtn" class="save-btn">Save Logo</button>
                 </div>
+
+                <!-- Password Section -->
                 <div class="settings-section" id="passwordSection">
                     <form id="passwordForm">
-                        <div class="form-group"><label><i class="fas fa-lock"></i> Current Password</label><input type="password" id="current_password"></div>
-                        <div class="form-group"><label><i class="fas fa-key"></i> New Password</label><input type="password" id="new_password"></div>
-                        <div class="form-group"><label><i class="fas fa-check-circle"></i> Confirm Password</label><input type="password" id="confirm_password"></div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Current Password</label>
+                            <input type="password" id="current_password" placeholder="Enter current password">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-key"></i> New Password</label>
+                            <input type="password" id="new_password" placeholder="Min 6 characters">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
+                            <input type="password" id="confirm_password" placeholder="Confirm new password">
+                        </div>
                         <button type="submit" class="save-btn">Update Password</button>
                     </form>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Navbar Loader -->
+    <script src="navbar-loader.js"></script>
+    
+    <!-- Main Script -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
         const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
         const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
         let currentClub = null;
         let clubData = null;
         let uploadedLogoUrl = null;
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
+
+        // Tab switching
         const tabBtns = document.querySelectorAll('.tab-btn');
         const sections = document.querySelectorAll('.settings-section');
+        
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tabName = btn.dataset.tab;
@@ -232,84 +391,214 @@
                 document.getElementById(`${tabName}Section`).classList.add('active-section');
             });
         });
+
         async function checkSession() {
             const { data: { user }, error } = await supabase.auth.getUser();
-            if (error || !user) { window.location.href = 'club-login.html'; return false; }
+            if (error || !user) {
+                window.location.href = 'club-login.html';
+                return false;
+            }
             currentClub = user;
             return true;
         }
+
         async function loadClubData() {
             const { data, error } = await supabase.from('clubs').select('*').eq('id', currentClub.id).single();
-            if (data) { clubData = data; loadFormData(data); }
+            if (error && error.code === 'PGRST116') {
+                window.location.href = 'club-login.html';
+                return;
+            }
+            if (data) {
+                clubData = data;
+                loadFormData(data);
+            }
         }
+
         function loadFormData(data) {
             document.getElementById('team_name').value = data.team_name || '';
-            document.getElementById('email').value = data.email || '';
             document.getElementById('captain_name').value = data.captain_name || '';
+            document.getElementById('email').value = data.email || '';
+            
             if (data.team_logo) {
-                document.getElementById('logoPreview').innerHTML = `<img src="${data.team_logo}" class="preview-img"><br><button type="button" class="remove-btn" onclick="removePreview()">Remove</button>`;
+                document.getElementById('logoPreview').innerHTML = `
+                    <img src="${data.team_logo}" alt="Team Logo">
+                    <br>
+                    <button type="button" class="remove-logo-btn" onclick="removeLogo()">Remove Logo</button>
+                `;
                 uploadedLogoUrl = data.team_logo;
             }
         }
+
         function showMessage(message, type) {
             const container = document.getElementById('messageContainer');
-            container.innerHTML = `<div class="message ${type}">${message}</div>`;
-            setTimeout(() => container.innerHTML = '', 4000);
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            container.innerHTML = `
+                <div class="message ${type}">
+                    <i class="fas ${icon}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 4000);
         }
+
+        // Profile Form Submit
         document.getElementById('profileForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const team_name = document.getElementById('team_name').value;
             const captain_name = document.getElementById('captain_name').value;
-            const { error } = await supabase.from('clubs').update({ team_name, captain_name, updated_at: new Date() }).eq('id', currentClub.id);
-            if (error) showMessage('❌ ' + error.message, 'error');
-            else showMessage('✅ Club profile updated successfully!', 'success');
+            
+            if (!team_name || team_name.length < 3) {
+                showMessage('Team name must be at least 3 characters', 'error');
+                return;
+            }
+            
+            if (!captain_name) {
+                showMessage('Captain name is required', 'error');
+                return;
+            }
+            
+            const { error } = await supabase
+                .from('clubs')
+                .update({ 
+                    team_name: team_name, 
+                    captain_name: captain_name, 
+                    updated_at: new Date() 
+                })
+                .eq('id', currentClub.id);
+            
+            if (error) {
+                showMessage(error.message, 'error');
+            } else {
+                showMessage('Club profile updated successfully!', 'success');
+            }
         });
+
+        // Logo upload
         const logoBox = document.getElementById('logoUploadBox');
         const logoInput = document.getElementById('team_logo');
+        
         if (logoBox) logoBox.addEventListener('click', () => logoInput.click());
         if (logoInput) logoInput.addEventListener('change', (e) => uploadLogo(e.target.files[0]));
+        
         async function uploadLogo(file) {
             if (!file) return;
-            if (file.size > 2 * 1024 * 1024) { alert('Logo must be less than 2MB'); return; }
+            if (!file.type.startsWith('image/')) {
+                showMessage('Please upload an image file', 'error');
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                showMessage('Logo must be less than 2MB', 'error');
+                return;
+            }
+            
             const previewDiv = document.getElementById('logoPreview');
-            previewDiv.innerHTML = '<span>Uploading...</span>';
+            previewDiv.innerHTML = '<div class="spinner"></div>';
+            
             const fileName = `logo_${Date.now()}_${file.name}`;
-            const { error } = await supabase.storage.from('club-logos').upload(`logos/${fileName}`, file);
-            if (error) { alert('Upload failed: ' + error.message); previewDiv.innerHTML = ''; return; }
-            const { data: urlData } = supabase.storage.from('club-logos').getPublicUrl(`logos/${fileName}`);
+            
+            const { error } = await supabase.storage
+                .from('club-logos')
+                .upload(`logos/${fileName}`, file);
+            
+            if (error) {
+                showMessage('Upload failed: ' + error.message, 'error');
+                previewDiv.innerHTML = '';
+                return;
+            }
+            
+            const { data: urlData } = supabase.storage
+                .from('club-logos')
+                .getPublicUrl(`logos/${fileName}`);
+            
             uploadedLogoUrl = urlData.publicUrl;
-            previewDiv.innerHTML = `<img src="${urlData.publicUrl}" class="preview-img"><br><button type="button" class="remove-btn" onclick="removePreview()">Remove</button>`;
+            
+            previewDiv.innerHTML = `
+                <img src="${urlData.publicUrl}" alt="Team Logo">
+                <br>
+                <button type="button" class="remove-logo-btn" onclick="removeLogo()">Remove Logo</button>
+            `;
         }
-        window.removePreview = () => {
+        
+        window.removeLogo = () => {
             uploadedLogoUrl = null;
             document.getElementById('logoPreview').innerHTML = '';
             logoInput.value = '';
+            showMessage('Logo removed', 'success');
         };
+        
+        // Save Logo
         document.getElementById('saveLogoBtn').addEventListener('click', async () => {
-            if (!uploadedLogoUrl) { showMessage('No logo to save', 'error'); return; }
-            const { error } = await supabase.from('clubs').update({ team_logo: uploadedLogoUrl, updated_at: new Date() }).eq('id', currentClub.id);
-            if (error) showMessage('❌ ' + error.message, 'error');
-            else showMessage('✅ Logo updated successfully!', 'success');
+            if (!uploadedLogoUrl) {
+                showMessage('No logo to save', 'error');
+                return;
+            }
+            
+            const { error } = await supabase
+                .from('clubs')
+                .update({ team_logo: uploadedLogoUrl, updated_at: new Date() })
+                .eq('id', currentClub.id);
+            
+            if (error) {
+                showMessage(error.message, 'error');
+            } else {
+                showMessage('Logo updated successfully!', 'success');
+            }
         });
+
+        // Password Change
         document.getElementById('passwordForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const current = document.getElementById('current_password').value;
-            const newPass = document.getElementById('new_password').value;
-            const confirm = document.getElementById('confirm_password').value;
-            if (!current || !newPass) { showMessage('Please fill all fields', 'error'); return; }
-            if (newPass.length < 6) { showMessage('Password must be at least 6 characters', 'error'); return; }
-            if (newPass !== confirm) { showMessage('Passwords do not match', 'error'); return; }
-            const { error } = await supabase.auth.updateUser({ password: newPass });
-            if (error) showMessage('❌ ' + error.message, 'error');
-            else { showMessage('✅ Password updated successfully!', 'success'); document.getElementById('current_password').value = ''; document.getElementById('new_password').value = ''; document.getElementById('confirm_password').value = ''; }
+            
+            const currentPassword = document.getElementById('current_password').value;
+            const newPassword = document.getElementById('new_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (!currentPassword || !newPassword) {
+                showMessage('Please fill all fields', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showMessage('New password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('New passwords do not match', 'error');
+                return;
+            }
+            
+            // Verify current password by signing in
+            const { error: signInError } = await supabase.auth.signInWithPassword({
+                email: clubData.email,
+                password: currentPassword
+            });
+            
+            if (signInError) {
+                showMessage('Current password is incorrect', 'error');
+                return;
+            }
+            
+            // Update password
+            const { error } = await supabase.auth.updateUser({ password: newPassword });
+            
+            if (error) {
+                showMessage(error.message, 'error');
+            } else {
+                showMessage('Password updated successfully!', 'success');
+                document.getElementById('current_password').value = '';
+                document.getElementById('new_password').value = '';
+                document.getElementById('confirm_password').value = '';
+            }
         });
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            localStorage.removeItem('pop123_club');
-            window.location.href = 'index.html';
-        });
+
         async function init() {
-            if (await checkSession()) await loadClubData();
+            if (await checkSession()) {
+                await loadClubData();
+            }
         }
         init();
     </script>
