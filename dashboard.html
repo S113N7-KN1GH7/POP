@@ -8,166 +8,154 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-/* ========== LOGOUT BUTTON STYLES FOR DASHBOARD ========== */
-/* এই CSS টি আপনার dashboard.html এ যোগ করুন */
+        /* ========== LOGOUT BUTTON STYLES FOR DASHBOARD ========== */
+        .logout-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
 
-/* Logout Button Container */
-.logout-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 999;
-}
+        .logout-main-btn {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            position: relative;
+        }
 
-/* Main Logout Button */
-.logout-main-btn {
-    background: linear-gradient(135deg, #e94560, #ff6b81);
-    border: none;
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
-    position: relative;
-}
+        .logout-main-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(233, 69, 96, 0.4);
+        }
 
-.logout-main-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(233, 69, 96, 0.4);
-}
+        .logout-main-btn i {
+            font-size: 24px;
+            color: white;
+        }
 
-.logout-main-btn i {
-    font-size: 24px;
-    color: white;
-}
+        .logout-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            border: 1px solid #e8ecf1;
+        }
 
-/* Logout Options Panel */
-.logout-options {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    min-width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    border: 1px solid #e8ecf1;
-}
+        .logout-container:hover .logout-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
 
-.logout-container:hover .logout-options {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
+        .logout-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            width: 100%;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
 
-/* Logout Option Items */
-.logout-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
-    width: 100%;
-    background: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-}
+        .logout-option i {
+            width: 20px;
+            font-size: 16px;
+        }
 
-.logout-option i {
-    width: 20px;
-    font-size: 16px;
-}
+        .logout-option:first-child {
+            border-bottom: 1px solid #e8ecf1;
+        }
 
-.logout-option:first-child {
-    border-bottom: 1px solid #e8ecf1;
-}
+        .logout-option.player-logout {
+            color: #e74c3c;
+        }
 
-/* Player Logout (Red) */
-.logout-option.player-logout {
-    color: #e74c3c;
-}
+        .logout-option.player-logout i {
+            color: #e74c3c;
+        }
 
-.logout-option.player-logout i {
-    color: #e74c3c;
-}
+        .logout-option.player-logout:hover {
+            background: #fee;
+        }
 
-.logout-option.player-logout:hover {
-    background: #fee;
-}
+        .logout-option.club-logout {
+            color: #e94560;
+        }
 
-/* Club Logout (Orange/Pink) */
-.logout-option.club-logout {
-    color: #e94560;
-}
+        .logout-option.club-logout i {
+            color: #e94560;
+        }
 
-.logout-option.club-logout i {
-    color: #e94560;
-}
+        .logout-option.club-logout:hover {
+            background: #fff0f0;
+        }
 
-.logout-option.club-logout:hover {
-    background: #fff0f0;
-}
+        .logout-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a2e;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
 
-/* Tooltip */
-.logout-tooltip {
-    position: absolute;
-    right: 70px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #1a1a2e;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
+        .logout-main-btn:hover .logout-tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 80px;
+        }
 
-.logout-main-btn:hover .logout-tooltip {
-    opacity: 1;
-    visibility: visible;
-    right: 80px;
-}
+        @media (max-width: 768px) {
+            .logout-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            .logout-main-btn {
+                width: 45px;
+                height: 45px;
+            }
+            .logout-main-btn i {
+                font-size: 20px;
+            }
+            .logout-options {
+                min-width: 170px;
+            }
+            .logout-option {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+        }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .logout-container {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    .logout-main-btn {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .logout-main-btn i {
-        font-size: 20px;
-    }
-    
-    .logout-options {
-        min-width: 170px;
-    }
-    
-    .logout-option {
-        padding: 10px 16px;
-        font-size: 13px;
-    }
-}
+        /* ========== MAIN DASHBOARD STYLES ========== */
         * {
             margin: 0;
             padding: 0;
@@ -180,14 +168,12 @@
             color: #1a1a2e;
         }
 
-        /* Main Content */
         .main-content {
             padding: 25px 30px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* Welcome Section */
         .welcome-section {
             margin-bottom: 25px;
         }
@@ -205,7 +191,6 @@
             color: #e94560;
         }
 
-        /* Profile Container - Fixed for overlay */
         .profile-container {
             background: #ffffff;
             border-radius: 16px;
@@ -291,7 +276,6 @@
             margin-top: 8px;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -336,7 +320,6 @@
             color: #1a1a2e;
         }
 
-        /* Two Column Layout */
         .two-col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -382,7 +365,6 @@
             color: #1a1a2e;
         }
 
-        /* Progress Bar */
         .progress-container {
             margin-top: 12px;
         }
@@ -404,7 +386,6 @@
             transition: width 0.5s;
         }
 
-        /* Recent Activity Section */
         .recent-section {
             background: #ffffff;
             border-radius: 14px;
@@ -479,7 +460,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -523,7 +503,7 @@
 </head>
 <body>
     <!-- Navbar will be loaded here automatically by navbar-loader.js -->
-    
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="welcome-section">
@@ -656,7 +636,7 @@
 
     <!-- Navbar Loader -->
     <script src="navbar-loader.js"></script>
-    
+
     <!-- Main Script -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -696,8 +676,6 @@
 
             if (data) {
                 updateUI(data);
-                
-                // Load club info if player is in a club
                 if (data.club_id) {
                     loadClubInfo(data.club_id);
                 }
@@ -710,7 +688,6 @@
                 .select('team_name')
                 .eq('id', clubId)
                 .single();
-            
             if (data) {
                 document.getElementById('clubName').innerHTML = `<span style="color:#e94560;">${data.team_name}</span>`;
             }
@@ -726,17 +703,13 @@
             document.getElementById('totalMatches').innerText = (player.win||0)+(player.loss||0)+(player.draw||0);
             document.getElementById('gf').innerText = player.gf || 0;
             document.getElementById('ga').innerText = player.ga || 0;
-            
             let gd = (player.gf||0) - (player.ga||0);
             document.getElementById('gd').innerHTML = gd >= 0 ? `+${gd}` : gd;
-            
             let totalGoals = (player.gf||0)+(player.ga||0);
             document.getElementById('goalProgress').style.width = totalGoals > 0 ? ((player.gf||0)/totalGoals)*100 + '%' : '0%';
-            
             document.getElementById('konamiId').innerHTML = player.konami_user_id || '<span style="color:#8892b0;">Not set</span>';
             document.getElementById('deviceName').innerHTML = player.device_name || '<span style="color:#8892b0;">Not set</span>';
             document.getElementById('playerPhone').innerHTML = player.number || '<span style="color:#8892b0;">Not set</span>';
-            
             if (player.fb_id_link) {
                 document.getElementById('fbLink').innerHTML = `<a href="${player.fb_id_link}" target="_blank" style="color:#e94560;">View Profile</a>`;
             }
@@ -749,8 +722,6 @@
             if (player.cover_photo) {
                 document.getElementById('coverPhoto').src = player.cover_photo;
             }
-            
-            // Update rank display in navbar (if rankDisplay exists)
             updatePlayerRank(player.player_name);
         }
 
@@ -772,13 +743,11 @@
                 .or(`player1_id.eq.${currentUser.id},player2_id.eq.${currentUser.id}`)
                 .order('match_date', { ascending: false })
                 .limit(6);
-            
             const container = document.getElementById('recentMatches');
             if (!data || data.length === 0) {
                 container.innerHTML = '<div class="loading"><p>No matches yet</p></div>';
                 return;
             }
-            
             container.innerHTML = data.map(m => {
                 let isWin = m.winner_id === currentUser.id;
                 return `
@@ -794,120 +763,92 @@
             }).join('');
         }
 
+        // ========== PLAYER LOGOUT FUNCTION ==========
+        async function playerLogout() {
+            try {
+                const logoutBtn = document.querySelector('.logout-main-btn');
+                if (logoutBtn) {
+                    logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                }
+                if (typeof supabase !== 'undefined' && supabase.auth) {
+                    await supabase.auth.signOut();
+                }
+                localStorage.removeItem('pop123_user');
+                localStorage.removeItem('supabase_session');
+                localStorage.removeItem('pop123_club');
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ========== CLUB LOGOUT FUNCTION ==========
+        async function clubLogout() {
+            try {
+                const logoutBtn = document.querySelector('.logout-main-btn');
+                if (logoutBtn) {
+                    logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                }
+                if (typeof supabase !== 'undefined' && supabase.auth) {
+                    await supabase.auth.signOut();
+                }
+                localStorage.removeItem('pop123_club');
+                localStorage.removeItem('supabase_session');
+                localStorage.removeItem('pop123_user');
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ========== ADD LOGOUT BUTTON TO PAGE ==========
+        function addLogoutButton() {
+            if (document.querySelector('.logout-container')) return;
+            
+            const logoutHTML = `
+                <div class="logout-container">
+                    <button class="logout-main-btn" id="logoutMainBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="logout-tooltip">Logout</span>
+                    </button>
+                    <div class="logout-options">
+                        <button class="logout-option player-logout" id="playerLogoutBtn">
+                            <i class="fas fa-user"></i>
+                            <span>Logout as Player</span>
+                        </button>
+                        <button class="logout-option club-logout" id="clubLogoutBtn">
+                            <i class="fas fa-building"></i>
+                            <span>Logout as Club</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', logoutHTML);
+            
+            const playerLogoutBtn = document.getElementById('playerLogoutBtn');
+            const clubLogoutBtn = document.getElementById('clubLogoutBtn');
+            
+            if (playerLogoutBtn) {
+                playerLogoutBtn.addEventListener('click', playerLogout);
+            }
+            if (clubLogoutBtn) {
+                clubLogoutBtn.addEventListener('click', clubLogout);
+            }
+        }
+
         async function init() {
             if (await checkSession()) {
                 await loadPlayerData();
                 await loadRecentMatches();
+                addLogoutButton();
             }
         }
         init();
-
-// Player Logout Function
-async function playerLogout() {
-    try {
-        // Show loading state
-        const btn = document.querySelector('.logout-main-btn');
-        const originalIcon = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        btn.disabled = true;
-        
-        // Sign out from Supabase
-        if (typeof supabase !== 'undefined' && supabase.auth) {
-            await supabase.auth.signOut();
-        }
-        
-        // Clear all storage
-        localStorage.removeItem('pop123_user');
-        localStorage.removeItem('supabase_session');
-        localStorage.removeItem('pop123_club');
-        sessionStorage.clear();
-        
-        // Redirect to home
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 300);
-        
-    } catch (error) {
-        console.error('Logout error:', error);
-        window.location.href = 'index.html';
-    }
-}
-
-// Club Logout Function
-async function clubLogout() {
-    try {
-        // Show loading state
-        const btn = document.querySelector('.logout-main-btn');
-        const originalIcon = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        btn.disabled = true;
-        
-        // Sign out from Supabase
-        if (typeof supabase !== 'undefined' && supabase.auth) {
-            await supabase.auth.signOut();
-        }
-        
-        // Clear all storage
-        localStorage.removeItem('pop123_club');
-        localStorage.removeItem('supabase_session');
-        localStorage.removeItem('pop123_user');
-        sessionStorage.clear();
-        
-        // Redirect to home
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 300);
-        
-    } catch (error) {
-        console.error('Logout error:', error);
-        window.location.href = 'index.html';
-    }
-}
-
-// Add Logout HTML to Dashboard
-function addLogoutButton() {
-    // Check if already added
-    if (document.querySelector('.logout-container')) return;
-    
-    const logoutHTML = `
-        <div class="logout-container">
-            <button class="logout-main-btn" id="logoutMainBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="logout-tooltip">Logout</span>
-            </button>
-            <div class="logout-options">
-                <button class="logout-option player-logout" id="playerLogoutBtn">
-                    <i class="fas fa-user"></i>
-                    <span>Logout as Player</span>
-                </button>
-                <button class="logout-option club-logout" id="clubLogoutBtn">
-                    <i class="fas fa-building"></i>
-                    <span>Logout as Club</span>
-                </button>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', logoutHTML);
-    
-    // Add event listeners
-    const playerLogoutBtn = document.getElementById('playerLogoutBtn');
-    const clubLogoutBtn = document.getElementById('clubLogoutBtn');
-    
-    if (playerLogoutBtn) {
-        playerLogoutBtn.addEventListener('click', playerLogout);
-    }
-    if (clubLogoutBtn) {
-        clubLogoutBtn.addEventListener('click', clubLogout);
-    }
-}
-
-// Initialize logout button when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addLogoutButton);
-} else {
-    addLogoutButton();
-}
     </script>
 </body>
 </html>
