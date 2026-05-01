@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Point Table | Pirates of Pitch - POP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 25px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 25px;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-header h1 i {
+            color: #e94560;
+            font-size: 32px;
+        }
+        .page-header p {
+            color: #8892b0;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Tournament Info Card */
+        .tournament-info {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: white;
+        }
+        .tournament-title h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .tournament-title p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .tournament-stats {
+            display: flex;
+            gap: 30px;
+        }
+        .tournament-stat {
+            text-align: center;
+        }
+        .tournament-stat .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+        }
+        .tournament-stat .stat-label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        /* Point Table */
+        .point-table-container {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e8ecf1;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        .table-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .table-header h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .table-header h3 i {
+            color: #ffd700;
+        }
+        .point-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .point-table th {
+            background: #f8f9fa;
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 1px solid #e8ecf1;
+        }
+        .point-table td {
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 13px;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        .point-table tr:hover {
+            background: #f8f9fa;
+        }
+        .team-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: flex-start;
+        }
+        .team-rank {
+            font-weight: 700;
+            font-size: 14px;
+            color: #e94560;
+            width: 30px;
+        }
+        .team-logo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f0f4f8;
+        }
+        .team-name {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .points-cell {
+            font-weight: 700;
+            color: #e94560;
+            font-size: 16px;
+        }
+        .gd-positive {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .gd-negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .top-rank {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Match Schedule Section */
+        .matches-section {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e8ecf1;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .matches-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .matches-header h3 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .matches-list {
+            padding: 20px;
+        }
+        .match-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            transition: all 0.2s;
+            border: 1px solid #e8ecf1;
+        }
+        .match-card:hover {
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 2;
+        }
+        .team-in-match {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-in-match img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .vs {
+            font-weight: 700;
+            color: #e94560;
+            font-size: 12px;
+        }
+        .match-score {
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Orbitron', monospace;
+            color: #1a1a2e;
+        }
+        .match-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-completed {
+            background: #e6f7e6;
+            color: #2ecc71;
+        }
+        .status-upcoming {
+            background: #fff3e0;
+            color: #f39c12;
+        }
+        .edit-score-btn {
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .edit-score-btn:hover {
+            background: rgba(102,126,234,0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e8ecf1;
+        }
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #8892b0;
+        }
+        .modal-field {
+            margin-bottom: 15px;
+        }
+        .modal-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+        .modal-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e8ecf1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .save-score-btn {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8892b0;
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e8ecf1;
+            border-top-color: #e94560;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px;
+            }
+            .point-table th, .point-table td {
+                padding: 10px 6px;
+                font-size: 11px;
+            }
+            .team-cell {
+                gap: 6px;
+            }
+            .team-logo {
+                width: 25px;
+                height: 25px;
+            }
+            .match-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .match-teams {
+                flex-direction: column;
+            }
+            .tournament-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be loaded here automatically by navbar-loader.js -->
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-trophy"></i> Tournament Point Table</h1>
+            <p>Champions League 2024 - Point table and match schedule</p>
+        </div>
+
+        <!-- Tournament Info -->
+        <div class="tournament-info">
+            <div class="tournament-title">
+                <h2>🏆 POP Champions League 2024</h2>
+                <p>Group Stage • 6 Teams</p>
+            </div>
+            <div class="tournament-stats">
+                <div class="tournament-stat">
+                    <div class="stat-value" id="totalMatches">0</div>
+                    <div class="stat-label">Total Matches</div>
+                </div>
+                <div class="tournament-stat">
+                    <div class="stat-value" id="completedMatches">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Point Table -->
+        <div class="point-table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-ranking-star"></i> Point Table</h3>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="point-table" id="pointTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th>MP</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pointTableBody">
+                        <tr><td colspan="10" class="loading"><div class="spinner"></div>Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Match Schedule -->
+        <div class="matches-section">
+            <div class="matches-header">
+                <h3><i class="fas fa-calendar-alt"></i> Match Schedule & Results</h3>
+            </div>
+            <div id="matchesList" class="matches-list">
+                <div class="loading"><div class="spinner"></div>Loading matches...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Score Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Update Match Score</h3>
+                <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Navbar Loader -->
+    <script src="navbar-loader.js"></script>
+    
+    <!-- Main Script -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        // Team data with UUIDs
+        const teams = [
+            { id: '2d3bf42a-5399-45ee-958d-fd463d36840', name: 'Not Humans', logo: 'https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=50&name=NH' },
+            { id: '542d8b03-e8e4-4fe8-9f62-24c668cbe102', name: 'Team Flame', logo: 'https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=50&name=TF' },
+            { id: '8187b06b-1cc2-4d13-8487-16c464fbdfdc', name: 'Demo', logo: 'https://ui-avatars.com/api/?background=3498db&color=fff&bold=true&size=50&name=DM' },
+            { id: 'c100bb2b-4a75-4e4f-b80c-054bce5a1b63', name: 'BORN2WIN', logo: 'https://ui-avatars.com/api/?background=2ecc71&color=fff&bold=true&size=50&name=B2W' },
+            { id: 'd7c90848-da1d-4250-b196-6404621e1693', name: 'Dead For Sure', logo: 'https://ui-avatars.com/api/?background=95a5a6&color=fff&bold=true&size=50&name=DFS' },
+            { id: 'eff9de20-a528-44a7-a754-20a8e460c439', name: 'Blaze Titans', logo: 'https://ui-avatars.com/api/?background=f39c12&color=fff&bold=true&size=50&name=BT' }
+        ];
+
+        let tournamentStats = {
+            win: 3,
+            draw: 1,
+            loss: 0
+        };
+
+        // Initialize tournament tables if not exists
+        async function initTournamentTables() {
+            // Check if tournament_teams table exists
+            const { data: existingTeams, error: checkError } = await supabase
+                .from('tournament_teams')
+                .select('*')
+                .limit(1);
+            
+            if (checkError && checkError.code === '42P01') {
+                // Table doesn't exist, create it
+                await createTournamentTables();
+            }
+            
+            // Insert teams if not exists
+            for (const team of teams) {
+                const { data, error } = await supabase
+                    .from('tournament_teams')
+                    .select('*')
+                    .eq('id', team.id)
+                    .single();
+                
+                if (!data) {
+                    await supabase.from('tournament_teams').insert({
+                        id: team.id,
+                        team_name: team.name,
+                        team_logo: team.logo,
+                        matches_played: 0,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        goals_for: 0,
+                        goals_against: 0,
+                        points: 0
+                    });
+                }
+            }
+        }
+
+        async function createTournamentTables() {
+            // Create tournament_teams table
+            await supabase.rpc('create_tournament_teams_table', {});
+            
+            // Create tournament_matches table
+            await supabase.rpc('create_tournament_matches_table', {});
+        }
+
+        // Load point table
+        async function loadPointTable() {
+            const { data, error } = await supabase
+                .from('tournament_teams')
+                .select('*')
+                .order('points', { ascending: false })
+                .order('goals_for', { ascending: false });
+            
+            const tbody = document.getElementById('pointTableBody');
+            if (error || !data || data.length === 0) {
+                // Use local data if no database
+                displayLocalPointTable();
+                return;
+            }
+            
+            tbody.innerHTML = data.map((team, index) => {
+                const gd = team.goals_for - team.goals_against;
+                return `
+                    <tr class="${index < 2 ? 'top-rank' : ''}">
+                        <td><span class="team-rank">#${index + 1}</span></td>
+                        <td>
+                            <div class="team-cell">
+                                <img class="team-logo" src="${team.team_logo || `https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=35&name=${team.team_name.charAt(0)}`}" alt="${team.team_name}">
+                                <span class="team-name">${team.team_name}</span>
+                            </div>
+                        </td>
+                        <td>${team.matches_played || 0}</td>
+                        <td>${team.wins || 0}</td>
+                        <td>${team.draws || 0}</td>
+                        <td>${team.losses || 0}</td>
+                        <td>${team.goals_for || 0}</td>
+                        <td>${team.goals_against || 0}</td>
+                        <td class="${gd >= 0 ? 'gd-positive' : 'gd-negative'}">${gd >= 0 ? '+' : ''}${gd}</td>
+                        <td class="points-cell">${team.points || 0}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Update stats
+            const totalMatches = data.reduce((sum, t) => sum + (t.matches_played || 0), 0) / 2;
+            document.getElementById('totalMatches').innerText = totalMatches;
+        }
+
+        function displayLocalPointTable() {
+            // Local calculation for point table
+            const teamStats = teams.map(team => ({
+                ...team,
+                matches_played: 0,
+                wins: 0,
+                draws: 0,
+                losses: 0,
+                goals_for: 0,
+                goals_against: 0,
+                points: 0
+            }));
+            
+            // Random demo stats for visual
+            const demoStats = [
+                { wins: 3, draws: 1, losses: 0, gf: 12, ga: 4 },
+                { wins: 2, draws: 2, losses: 0, gf: 8, ga: 3 },
+                { wins: 2, draws: 0, losses: 2, gf: 7, ga: 6 },
+                { wins: 1, draws: 2, losses: 1, gf: 5, ga: 5 },
+                { wins: 0, draws: 2, losses: 2, gf: 3, ga: 8 },
+                { wins: 0, draws: 1, losses: 3, gf: 2, ga: 11 }
+            ];
+            
+            teamStats.forEach((team, i) => {
+                team.wins = demoStats[i].wins;
+                team.draws = demoStats[i].draws;
+                team.losses = demoStats[i].losses;
+                team.goals_for = demoStats[i].gf;
+                team.goals_against = demoStats[i].ga;
+                team.matches_played = team.wins + team.draws + team.losses;
+                team.points = (team.wins * 3) + (team.draws * 1);
+            });
+            
+            teamStats.sort((a, b) => b.points - a.points);
+            
+            const tbody = document.getElementById('pointTableBody');
+            tbody.innerHTML = teamStats.map((team, index) => {
+                const gd = team.goals_for - team.goals_against;
+                return `
+                    <tr class="${index < 2 ? 'top-rank' : ''}">
+                        <td><span class="team-rank">#${index + 1}</span></td>
+                        <td>
+                            <div class="team-cell">
+                                <img class="team-logo" src="${team.logo}" alt="${team.name}">
+                                <span class="team-name">${team.name}</span>
+                            </div>
+                        </td>
+                        <td>${team.matches_played}</td>
+                        <td>${team.wins}</td>
+                        <td>${team.draws}</td>
+                        <td>${team.losses}</td>
+                        <td>${team.goals_for}</td>
+                        <td>${team.goals_against}</td>
+                        <td class="${gd >= 0 ? 'gd-positive' : 'gd-negative'}">${gd >= 0 ? '+' : ''}${gd}</td>
+                        <td class="points-cell">${team.points}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('totalMatches').innerText = '15';
+        }
+
+        // Load matches
+        async function loadMatches() {
+            const { data, error } = await supabase
+                .from('tournament_matches')
+                .select('*')
+                .order('match_date', { ascending: true });
+            
+            const container = document.getElementById('matchesList');
+            if (error || !data || data.length === 0) {
+                displayLocalMatches();
+                return;
+            }
+            
+            container.innerHTML = data.map(match => {
+                const team1 = teams.find(t => t.id === match.team1_id);
+                const team2 = teams.find(t => t.id === match.team2_id);
+                const isCompleted = match.team1_score !== null && match.team2_score !== null;
+                
+                return `
+                    <div class="match-card">
+                        <div class="match-teams">
+                            <div class="team-in-match">
+                                <img src="${team1?.logo}" alt="${team1?.name}">
+                                <span>${team1?.name}</span>
+                            </div>
+                            ${isCompleted ? 
+                                `<span class="match-score">${match.team1_score} - ${match.team2_score}</span>` :
+                                `<span class="vs">VS</span>`
+                            }
+                            <div class="team-in-match">
+                                <img src="${team2?.logo}" alt="${team2?.name}">
+                                <span>${team2?.name}</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span class="match-status ${isCompleted ? 'status-completed' : 'status-upcoming'}">
+                                <i class="fas ${isCompleted ? 'fa-check-circle' : 'fa-clock'}"></i>
+                                ${isCompleted ? 'Completed' : match.match_date || 'Upcoming'}
+                            </span>
+                            ${!isCompleted ? `<button class="edit-score-btn" onclick="openScoreModal('${match.id}', '${match.team1_id}', '${match.team2_id}')"><i class="fas fa-edit"></i> Enter Score</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function displayLocalMatches() {
+            // Create matches between all teams
+            const matchesList = [];
+            for (let i = 0; i < teams.length; i++) {
+                for (let j = i + 1; j < teams.length; j++) {
+                    matchesList.push({
+                        id: `match_${i}_${j}`,
+                        team1: teams[i],
+                        team2: teams[j],
+                        team1_score: null,
+                        team2_score: null,
+                        completed: false
+                    });
+                }
+            }
+            
+            const container = document.getElementById('matchesList');
+            container.innerHTML = matchesList.map(match => `
+                <div class="match-card">
+                    <div class="match-teams">
+                        <div class="team-in-match">
+                            <img src="${match.team1.logo}" alt="${match.team1.name}">
+                            <span>${match.team1.name}</span>
+                        </div>
+                        <span class="vs">VS</span>
+                        <div class="team-in-match">
+                            <img src="${match.team2.logo}" alt="${match.team2.name}">
+                            <span>${match.team2.name}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="match-status status-upcoming"><i class="fas fa-clock"></i> Upcoming</span>
+                        <button class="edit-score-btn" onclick="alert('Demo: Enter Score feature')"><i class="fas fa-edit"></i> Enter Score</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.openScoreModal = (matchId, team1Id, team2Id) => {
+            const modal = document.getElementById('editModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            const team1 = teams.find(t => t.id === team1Id);
+            const team2 = teams.find(t => t.id === team2Id);
+            
+            modalBody.innerHTML = `
+                <div class="modal-field">
+                    <label>${team1?.name} Score</label>
+                    <input type="number" id="score1" min="0" placeholder="0">
+                </div>
+                <div class="modal-field">
+                    <label>${team2?.name} Score</label>
+                    <input type="number" id="score2" min="0" placeholder="0">
+                </div>
+                <button class="save-score-btn" onclick="saveScore('${matchId}', '${team1Id}', '${team2Id}')">Save Score</button>
+            `;
+            
+            modal.style.display = 'flex';
+        };
+
+        window.saveScore = async (matchId, team1Id, team2Id) => {
+            const score1 = parseInt(document.getElementById('score1').value) || 0;
+            const score2 = parseInt(document.getElementById('score2').value) || 0;
+            
+            // Save to database
+            const { error } = await supabase
+                .from('tournament_matches')
+                .upsert({
+                    id: matchId,
+                    team1_id: team1Id,
+                    team2_id: team2Id,
+                    team1_score: score1,
+                    team2_score: score2,
+                    match_date: new Date().toISOString()
+                });
+            
+            if (error) {
+                alert('Error saving score: ' + error.message);
+            } else {
+                // Update team stats
+                await updateTeamStats(team1Id, team2Id, score1, score2);
+                closeModal();
+                loadPointTable();
+                loadMatches();
+            }
+        };
+
+        async function updateTeamStats(team1Id, team2Id, score1, score2) {
+            // Get current stats
+            const { data: team1 } = await supabase.from('tournament_teams').select('*').eq('id', team1Id).single();
+            const { data: team2 } = await supabase.from('tournament_teams').select('*').eq('id', team2Id).single();
+            
+            if (team1 && team2) {
+                const newStats1 = calculateNewStats(team1, score1, score2);
+                const newStats2 = calculateNewStats(team2, score2, score1);
+                
+                await supabase.from('tournament_teams').update(newStats1).eq('id', team1Id);
+                await supabase.from('tournament_teams').update(newStats2).eq('id', team2Id);
+            }
+        }
+
+        function calculateNewStats(team, myScore, opponentScore) {
+            const matches_played = (team.matches_played || 0) + 1;
+            const goals_for = (team.goals_for || 0) + myScore;
+            const goals_against = (team.goals_against || 0) + opponentScore;
+            
+            let wins = team.wins || 0;
+            let draws = team.draws || 0;
+            let losses = team.losses || 0;
+            let points = team.points || 0;
+            
+            if (myScore > opponentScore) {
+                wins++;
+                points += 3;
+            } else if (myScore === opponentScore) {
+                draws++;
+                points += 1;
+            } else {
+                losses++;
+            }
+            
+            return {
+                matches_played,
+                wins,
+                draws,
+                losses,
+                goals_for,
+                goals_against,
+                points
+            };
+        }
+
+        window.closeModal = () => {
+            document.getElementById('editModal').style.display = 'none';
+        };
+
+        async function init() {
+            await initTournamentTables();
+            await loadPointTable();
+            await loadMatches();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
