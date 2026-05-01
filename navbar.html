@@ -1,4 +1,5 @@
-<!-- ========== NAVBAR.HTML - Complete New Design ========== -->
+
+<!-- ========== NAVBAR.HTML - Complete New Design with Dropdown Menus ========== -->
 <nav class="top-navbar">
     <div class="logo-area">
         <div class="logo-icon">🏴‍☠️</div>
@@ -13,50 +14,104 @@
     </button>
     
     <div class="nav-links" id="navLinks">
+        <!-- Home Link -->
         <a href="index.html" class="nav-link" data-page="home">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a href="dashboard.html" class="nav-link" data-page="player">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>Player</span>
-        </a>
-        <a href="club-dashboard.html" class="nav-link" data-page="club">
-            <i class="fas fa-users"></i>
-            <span>Club</span>
-        </a>
-        <a href="leaderboard.html" class="nav-link" data-page="rank">
-            <i class="fas fa-trophy"></i>
-            <span>Rank</span>
-        </a>
-        <a href="matches.html" class="nav-link" data-page="matches">
-            <i class="fas fa-futbol"></i>
-            <span>Matches</span>
-        </a>
-        <a href="settings.html" class="nav-link" data-page="settings">
-            <i class="fas fa-cog"></i>
-            <span>Settings</span>
-        </a>
-        <a href="club-settings.html" class="nav-link" data-page="club-settings">
-            <i class="fas fa-users-cog"></i>
-            <span>Club Settings</span>
-        </a>
+        
+        <!-- Account Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn nav-link">
+                <i class="fas fa-user-circle"></i>
+                <span>Account</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="login.html"><i class="fas fa-sign-in-alt"></i> Sign-In</a>
+                <a href="signup.html"><i class="fas fa-user-plus"></i> Registration</a>
+                <a href="dashboard.html"><i class="fas fa-id-card"></i> My Profile</a>
+            </div>
+        </div>
+        
+        <!-- Category Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn nav-link">
+                <i class="fas fa-tags"></i>
+                <span>Category</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="club-dashboard.html"><i class="fas fa-users"></i> Club</a>
+                <a href="#"><i class="fas fa-handshake"></i> Team-up</a>
+                <a href="#"><i class="fas fa-user"></i> Solo</a>
+                <a href="matches.html"><i class="fas fa-handshake"></i> Friendly</a>
+            </div>
+        </div>
+        
+        <!-- Ranking Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Ranking</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="leaderboard.html"><i class="fas fa-trophy"></i> Player Ranking</a>
+                <a href="club-leaderboard.html"><i class="fas fa-trophy"></i> Club Ranking</a>
+            </div>
+        </div>
+        
+        <!-- System Dropdown -->
+        <div class="dropdown">
+            <button class="dropdown-btn nav-link">
+                <i class="fas fa-cog"></i>
+                <span>System</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#"><i class="fas fa-gavel"></i> Rules</a>
+                <a href="#"><i class="fas fa-user-shield"></i> Administration</a>
+                <a href="#"><i class="fas fa-headset"></i> Support</a>
+            </div>
+        </div>
     </div>
     
-    <div class="auth-buttons">
-        <div class="rank-badge">
+    <div class="auth-buttons" id="authButtons">
+        <!-- Guest Mode (No Login) -->
+        <div class="guest-mode" id="guestMode">
+            <i class="fas fa-user-circle"></i>
+            <span>Guest User</span>
+        </div>
+        
+        <!-- User Mode (After Login) - Hidden by default -->
+        <div class="user-mode" id="userMode" style="display: none;">
+            <div class="user-dropdown">
+                <button class="user-dropdown-btn">
+                    <img id="userAvatar" class="user-avatar-small" src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=35" alt="Avatar">
+                    <span id="userName">Loading...</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="user-dropdown-content">
+                    <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Player Dashboard</a>
+                    <a href="club-dashboard.html"><i class="fas fa-users"></i> Club Dashboard</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="club-settings.html"><i class="fas fa-users-cog"></i> Club Settings</a>
+                    <hr>
+                    <button id="logoutBtnNav" class="logout-nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rank-badge" id="rankBadge">
             <i class="fas fa-crown"></i>
             <span id="rankDisplay">Rank #1</span>
         </div>
-        <button id="logoutBtn" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </button>
     </div>
 </nav>
 
 <style>
-    /* ========== NEW NAVBAR DESIGN ========== */
+    /* ========== NEW NAVBAR DESIGN WITH DROPDOWNS ========== */
     .top-navbar {
         background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         border-bottom: 1px solid rgba(233, 69, 96, 0.2);
@@ -128,6 +183,216 @@
         padding: 5px;
         border-radius: 50px;
         backdrop-filter: blur(5px);
+    }
+
+    /* Dropdown Styles */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 20px;
+        border-radius: 40px;
+        color: #4a5568;
+        font-weight: 600;
+        font-size: 13px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dropdown-btn i:last-child {
+        font-size: 10px;
+        transition: transform 0.3s;
+    }
+
+    .dropdown:hover .dropdown-btn i:last-child {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-btn:hover {
+        background: linear-gradient(135deg, #e94560, #ff6b81);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #ffffff;
+        min-width: 200px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        border-radius: 12px;
+        z-index: 1001;
+        overflow: hidden;
+        border: 1px solid #e8ecf1;
+        animation: fadeInDown 0.3s ease;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown-content a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 20px;
+        color: #4a5568;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+
+    .dropdown-content a i {
+        width: 20px;
+        font-size: 14px;
+        color: #e94560;
+    }
+
+    .dropdown-content a:hover {
+        background: #f0f4f8;
+        color: #e94560;
+        padding-left: 25px;
+    }
+
+    /* User Dropdown */
+    .user-mode {
+        position: relative;
+    }
+
+    .user-dropdown {
+        position: relative;
+    }
+
+    .user-dropdown-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #f0f4f8, #e8ecf1);
+        border: none;
+        padding: 5px 15px 5px 8px;
+        border-radius: 40px;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #1a1a2e;
+        font-weight: 500;
+    }
+
+    .user-dropdown-btn:hover {
+        background: linear-gradient(135deg, #e94560, #ff6b81);
+        color: white;
+    }
+
+    .user-avatar-small {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #ffffff;
+        min-width: 220px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        border-radius: 12px;
+        z-index: 1001;
+        overflow: hidden;
+        border: 1px solid #e8ecf1;
+        animation: fadeInDown 0.3s ease;
+    }
+
+    .user-dropdown:hover .user-dropdown-content {
+        display: block;
+    }
+
+    .user-dropdown-content a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 20px;
+        color: #4a5568;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+
+    .user-dropdown-content a i {
+        width: 20px;
+        font-size: 14px;
+        color: #e94560;
+    }
+
+    .user-dropdown-content a:hover {
+        background: #f0f4f8;
+        color: #e94560;
+    }
+
+    .user-dropdown-content hr {
+        margin: 5px 0;
+        border: none;
+        border-top: 1px solid #e8ecf1;
+    }
+
+    .logout-nav-btn {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #e74c3c;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+
+    .logout-nav-btn:hover {
+        background: #fee;
+        color: #c0392b;
+    }
+
+    /* Guest Mode */
+    .guest-mode {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #f0f4f8, #e8ecf1);
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #4a5568;
+    }
+
+    .guest-mode i {
+        font-size: 18px;
+        color: #8892b0;
     }
 
     .nav-link {
@@ -225,45 +490,6 @@
         font-weight: 700;
     }
 
-    .logout-btn {
-        background: transparent;
-        border: 1px solid #e94560;
-        padding: 6px 18px;
-        border-radius: 30px;
-        color: #e94560;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 600;
-        font-size: 13px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .logout-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(233, 69, 96, 0.2), transparent);
-        transition: left 0.5s;
-    }
-
-    .logout-btn:hover::before {
-        left: 100%;
-    }
-
-    .logout-btn:hover {
-        background: #e94560;
-        color: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
-    }
-
     .mobile-menu-btn {
         display: none;
         background: linear-gradient(135deg, #e94560, #ff6b81);
@@ -283,27 +509,15 @@
         box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
     }
 
-    /* Dropdown Animation */
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     /* Responsive Design */
     @media (max-width: 1100px) {
-        .nav-link span {
+        .nav-link span, .dropdown-btn span {
             display: none;
         }
-        .nav-link {
+        .nav-link, .dropdown-btn {
             padding: 8px 15px;
         }
-        .nav-link i {
+        .nav-link i, .dropdown-btn i {
             font-size: 18px;
         }
     }
@@ -320,6 +534,60 @@
         }
         .rank-badge {
             padding: 6px 12px;
+        }
+    }
+
+    @media (max-width: 850px) {
+        .nav-links {
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 300px;
+            height: calc(100vh - 60px);
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            flex-direction: column;
+            padding: 20px;
+            gap: 10px;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            align-items: stretch;
+            backdrop-filter: blur(20px);
+            border-right: 2px solid #e94560;
+            overflow-y: auto;
+        }
+        
+        .nav-links.show {
+            left: 0;
+        }
+        
+        .nav-link, .dropdown {
+            width: 100%;
+        }
+        
+        .dropdown-btn, .nav-link {
+            width: 100%;
+            justify-content: flex-start;
+            padding: 12px 20px;
+        }
+        
+        .nav-link span, .dropdown-btn span {
+            display: inline;
+        }
+        
+        .dropdown-content {
+            position: static;
+            display: none;
+            box-shadow: none;
+            background: #f8f9fa;
+            margin-top: 5px;
+            margin-left: 20px;
+            width: calc(100% - 20px);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
     }
 
@@ -343,66 +611,16 @@
             justify-content: center;
         }
         
-        .nav-links {
-            position: fixed;
-            top: 60px;
-            left: -100%;
-            width: 280px;
-            height: calc(100vh - 60px);
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            flex-direction: column;
-            padding: 20px;
-            gap: 12px;
-            border-radius: 0 20px 20px 0;
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-            align-items: stretch;
-            backdrop-filter: blur(20px);
-            border-right: 2px solid #e94560;
+        .guest-mode span, .user-dropdown-btn span {
+            display: none;
         }
         
-        .nav-links.show {
-            left: 0;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                left: -100%;
-                opacity: 0;
-            }
-            to {
-                left: 0;
-                opacity: 1;
-            }
-        }
-        
-        .nav-link {
-            padding: 12px 20px;
-            border-radius: 12px;
-            justify-content: flex-start;
-        }
-        
-        .nav-link span {
-            display: inline;
-        }
-        
-        .nav-link i {
-            font-size: 18px;
-            width: 25px;
-        }
-        
-        .rank-badge span {
-            display: inline;
+        .guest-mode {
+            padding: 6px 12px;
         }
         
         .rank-badge {
-            padding: 6px 16px;
-        }
-        
-        .logout-btn span {
-            display: inline;
+            display: none;
         }
     }
 
@@ -415,16 +633,8 @@
             font-size: 24px;
         }
         
-        .rank-badge {
-            display: none;
-        }
-        
         .logout-btn {
             padding: 6px 14px;
-        }
-        
-        .nav-links {
-            width: 260px;
         }
     }
 </style>
@@ -437,6 +647,17 @@
             const href = link.getAttribute('href');
             if (href === currentPage) {
                 link.classList.add('active');
+            }
+        });
+        
+        // Check if dropdown contains active page
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
+                const parentDropdown = link.closest('.dropdown');
+                if (parentDropdown) {
+                    parentDropdown.querySelector('.dropdown-btn').classList.add('active');
+                }
             }
         });
     })();
@@ -461,19 +682,73 @@
         }
     });
 
-    // Close menu on link click
-    document.querySelectorAll('.nav-link').forEach(link => {
+    // Close menu on link click (mobile)
+    document.querySelectorAll('.nav-link, .dropdown-content a').forEach(link => {
         link.addEventListener('click', () => {
-            if (navLinks && navLinks.classList.contains('show')) {
-                navLinks.classList.remove('show');
+            if (window.innerWidth <= 850) {
+                if (navLinks && navLinks.classList.contains('show')) {
+                    navLinks.classList.remove('show');
+                }
             }
         });
     });
 
-    // Logout functionality
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
+    // Check if user is logged in and update navbar accordingly
+    async function updateNavbarForUser() {
+        if (typeof supabase !== 'undefined' && supabase.auth) {
+            const { data: { user }, error } = await supabase.auth.getUser();
+            
+            const guestMode = document.getElementById('guestMode');
+            const userMode = document.getElementById('userMode');
+            const rankBadge = document.getElementById('rankBadge');
+            
+            if (user && !error) {
+                // User is logged in
+                if (guestMode) guestMode.style.display = 'none';
+                if (userMode) userMode.style.display = 'block';
+                if (rankBadge) rankBadge.style.display = 'flex';
+                
+                // Update user info
+                const userName = user.user_metadata?.player_name || user.email.split('@')[0];
+                const userNameSpan = document.getElementById('userName');
+                if (userNameSpan) userNameSpan.innerText = userName;
+                
+                // Get player avatar
+                const { data: playerData } = await supabase
+                    .from('players')
+                    .select('photo')
+                    .eq('id', user.id)
+                    .single();
+                    
+                if (playerData?.photo) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    if (userAvatar) userAvatar.src = playerData.photo;
+                }
+                
+                // Get player rank
+                const { data: ranked } = await supabase
+                    .from('players')
+                    .select('player_name, pts')
+                    .order('pts', { ascending: false });
+                    
+                if (ranked && userName) {
+                    const rank = ranked.findIndex(p => p.player_name === userName) + 1;
+                    const rankDisplay = document.getElementById('rankDisplay');
+                    if (rankDisplay) rankDisplay.innerText = `Rank #${rank || 1}`;
+                }
+            } else {
+                // Guest user
+                if (guestMode) guestMode.style.display = 'flex';
+                if (userMode) userMode.style.display = 'none';
+                if (rankBadge) rankBadge.style.display = 'none';
+            }
+        }
+    }
+    
+    // Logout function
+    const logoutBtnNav = document.getElementById('logoutBtnNav');
+    if (logoutBtnNav) {
+        logoutBtnNav.addEventListener('click', async () => {
             if (typeof supabase !== 'undefined' && supabase.auth) {
                 await supabase.auth.signOut();
             }
@@ -481,5 +756,12 @@
             sessionStorage.clear();
             window.location.href = 'index.html';
         });
+    }
+    
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateNavbarForUser);
+    } else {
+        updateNavbarForUser();
     }
 </script>
