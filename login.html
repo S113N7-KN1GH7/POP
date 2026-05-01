@@ -290,6 +290,39 @@
                 window.location.href = 'dashboard.html';
             }
         });
+<!-- login.html-এর Body-র ভিতরের অংশ আগের মতোই থাকবে। শুধু স্ক্রিপ্টটি রিপ্লেস করুন -->
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const supabaseUrl = 'YOUR_SUPABASE_URL';
+  const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  // --- এই ফাংশনটি যুক্ত করুন: পেজ লোড হওয়ার সাথে সাথে সেশন চেক করবে ---
+  async function checkUserAndRedirect() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    
+    // যদি ইউজার ইতিমধ্যে লগইন করা থাকে, তাহলে তাকে ড্যাশবোর্ডে পাঠিয়ে দিন
+    if (user) {
+      console.log("User already logged in, redirecting to dashboard.");
+      window.location.href = 'dashboard.html';
+    }
+    // কোনো error বা লগইন না থাকলে, কিছু করবেন না। ইউজার লগইন ফর্ম দেখতে পাবে।
+  }
+
+  // পেজ লোড হওয়ার সাথে সাথে চেক করুন
+  checkUserAndRedirect();
+
+  // --- লগইন ফর্মের জমা দেওয়ার ইভেন্ট (আগের মতই) ---
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // লগইন করার প্রচেষ্টা... (আপনার পুরানো কোড এখানে থাকবে)
+      // ...
+    });
+  }
     </script>
+
 </body>
 </html>
