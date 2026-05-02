@@ -13,6 +13,7 @@ body{font-family:Inter;background:#f5f7fb;padding:20px}
 select,input{width:100%;padding:10px;margin-top:5px;margin-bottom:10px}
 button{padding:12px;background:#e94560;color:#fff;border:none;border-radius:10px;cursor:pointer}
 .row{display:grid;grid-template-columns:1fr 80px 1fr 80px;gap:10px;margin-bottom:10px}
+#msg{margin-top:10px;font-weight:600}
 </style>
 </head>
 
@@ -44,14 +45,16 @@ const supabase = createClient(
 );
 
 let clubs = [];
-let p1 = [], p2 = [];
-let rows = 5;
+let rowsCount = 5;
 
 const tournamentName = "pop intra bid s-01";
 
 // ✅ LOAD TEAMS
 async function loadTeams(){
-let {data} = await supabase.from('clubs').select('*').order('team_name');
+const {data,error} = await supabase.from('clubs').select('*').order('team_name');
+
+if(error){ showError(error); return; }
+
 clubs = data || [];
 
 let opt = '<option value="">Select Team</option>';
@@ -59,16 +62,18 @@ clubs.forEach(t=>{
 opt += `<option value="${t.id}">${t.team_name}</option>`;
 });
 
-document.getElementById('team1').innerHTML = opt;
-document.getElementById('team2').innerHTML = opt;
+team1.innerHTML = opt;
+team2.innerHTML = opt;
 }
 
 // ✅ LOAD PLAYERS
 async function loadPlayers(teamId){
-let {data} = await supabase.from('players')
+const {data,error} = await supabase.from('players')
 .select('*')
 .eq('club_id',teamId)
 .order('player_name');
+
+if(error){ showError(error); return []; }
 
 return data || [];
 }
@@ -76,16 +81,16 @@ return data || [];
 // ✅ RENDER PLAYERS
 async function renderPlayers(){
 
-let t1 = document.getElementById('team1').value;
-let t2 = document.getElementById('team2').value;
+let t1 = team1.value;
+let t2 = team2.value;
 
 if(!t1 || !t2){
-document.getElementById('players').innerHTML = "Select teams";
+players.innerHTML = "Select teams";
 return;
 }
 
-p1 = await loadPlayers(t1);
-p2 = await loadPlayers(t2);
+let p1 = await loadPlayers(t1);
+let p2 = await loadPlayers(t2);
 
 let opt1 = '<option>Player</option>';
 let opt2 = '<option>Player</option>';
@@ -95,7 +100,7 @@ p2.forEach(p=> opt2 += `<option>${p.player_name}</option>`);
 
 let html = '';
 
-for(let i=0;i<rows;i++){
+for(let i=0;i<rowsCount;i++){
 html += `
 <div class="row">
 <select class="p1">${opt1}</select>
@@ -105,17 +110,25 @@ html += `
 </div>`;
 }
 
-document.getElementById('players').innerHTML = html;
+players.innerHTML = html;
+}
+
+// ✅ COMMON ERROR SHOW
+function showError(err){
+console.error(err);
+msg.innerText = "❌ ERROR: " + err.message;
 }
 
 // ✅ UPDATE TOURNAMENT
 async function updateTournament(name,my,opp){
 
-let {data} = await supabase.from('tournament_teams')
+const {data,error} = await supabase.from('tournament_teams')
 .select('*')
 .eq('team_name',name)
 .eq('tournament_name',tournamentName)
 .maybeSingle();
+
+if(error) throw error;
 
 let w=0,d=0,l=0,p=0;
 
@@ -124,7 +137,8 @@ else if(my==opp){d=1;p=1}
 else l=1;
 
 if(data){
-await supabase.from('tournament_teams').update({
+
+const {error:e2} = await supabase.from('tournament_teams').update({
 matches_played:data.matches_played+1,
 wins:data.wins+w,
 draws:data.draws+d,
@@ -135,8 +149,12 @@ points:data.points+p
 })
 .eq('team_name',name)
 .eq('tournament_name',tournamentName);
+
+if(e2) throw e2;
+
 }else{
-await supabase.from('tournament_teams').insert({
+
+const {error:e3} = await supabase.from('tournament_teams').insert({
 id:crypto.randomUUID(),
 team_name:name,
 tournament_name:tournamentName,
@@ -146,17 +164,20 @@ goals_for:my,
 goals_against:opp,
 points:p
 });
+
+if(e3) throw e3;
 }
 }
 
 // ✅ UPDATE CLUB
 async function updateClub(name,my,opp){
 
-let {data} = await supabase.from('clubs')
+const {data,error} = await supabase.from('clubs')
 .select('*')
 .eq('team_name',name)
 .maybeSingle();
 
+if(error) throw error;
 if(!data) return;
 
 let w=0,d=0,l=0,p=0;
@@ -165,25 +186,27 @@ if(my>opp){w=1;p=3}
 else if(my==opp){d=1;p=1}
 else l=1;
 
-await supabase.from('clubs').update({
+const {error:e2} = await supabase.from('clubs').update({
 win:data.win+w,
 draw:data.draw+d,
 loss:data.loss+l,
 gf:data.gf+my,
 ga:data.ga+opp,
 pts:data.pts+p
-})
-.eq('team_name',name);
+}).eq('team_name',name);
+
+if(e2) throw e2;
 }
 
 // ✅ UPDATE PLAYER
 async function updatePlayer(name,my,opp){
 
-let {data} = await supabase.from('players')
+const {data,error} = await supabase.from('players')
 .select('*')
 .eq('player_name',name)
 .maybeSingle();
 
+if(error) throw error;
 if(!data) return;
 
 let w=0,d=0,l=0,p=0;
@@ -192,24 +215,27 @@ if(my>opp){w=1;p=3}
 else if(my==opp){d=1;p=1}
 else l=1;
 
-await supabase.from('players').update({
+const {error:e2} = await supabase.from('players').update({
 win:data.win+w,
 draw:data.draw+d,
 loss:data.loss+l,
 gf:data.gf+my,
 ga:data.ga+opp,
 pts:data.pts+p
-})
-.eq('player_name',name);
+}).eq('player_name',name);
+
+if(e2) throw e2;
 }
 
 // ✅ SUBMIT
 async function submitMatch(){
 
-const msg = document.getElementById('msg');
+msg.innerText = "⏳ Processing...";
 
-let t1 = document.getElementById('team1').value;
-let t2 = document.getElementById('team2').value;
+try{
+
+let t1 = team1.value;
+let t2 = team2.value;
 
 if(!t1 || !t2){
 msg.innerText = "Select teams";
@@ -219,22 +245,18 @@ return;
 let name1 = clubs.find(c=>c.id==t1)?.team_name;
 let name2 = clubs.find(c=>c.id==t2)?.team_name;
 
-let s1 = parseInt(document.getElementById('score1').value)||0;
-let s2 = parseInt(document.getElementById('score2').value)||0;
+let s1 = parseInt(score1.value)||0;
+let s2 = parseInt(score2.value)||0;
 
-// teams
 await updateTournament(name1,s1,s2);
 await updateTournament(name2,s2,s1);
 
-// clubs
 await updateClub(name1,s1,s2);
 await updateClub(name2,s2,s1);
 
-// players
-let rowsEl = document.querySelectorAll('.row');
+let rows = document.querySelectorAll('.row');
 
-for(let r of rowsEl){
-
+for(let r of rows){
 let p1 = r.querySelector('.p1').value.trim();
 let p2 = r.querySelector('.p2').value.trim();
 
@@ -245,13 +267,17 @@ if(p1 && p1!=="Player") await updatePlayer(p1,ps1,ps2);
 if(p2 && p2!=="Player") await updatePlayer(p2,ps2,ps1);
 }
 
-msg.innerText = "✅ Match Submitted!";
+msg.innerText = "✅ SUCCESS! DB Updated";
+
+}catch(err){
+showError(err);
+}
 }
 
-// ✅ EVENTS
-document.getElementById('submitBtn').addEventListener('click', submitMatch);
-document.getElementById('team1').addEventListener('change', renderPlayers);
-document.getElementById('team2').addEventListener('change', renderPlayers);
+// EVENTS
+submitBtn.addEventListener('click', submitMatch);
+team1.addEventListener('change', renderPlayers);
+team2.addEventListener('change', renderPlayers);
 
 // INIT
 loadTeams();
