@@ -184,7 +184,7 @@
         }
         .player-row {
             display: grid;
-            grid-template-columns: 1fr auto 1fr auto 1fr;
+            grid-template-columns: 1fr auto 1fr auto 1fr auto;
             gap: 15px;
             align-items: center;
             margin-bottom: 15px;
@@ -410,6 +410,41 @@
         </div>
     </main>
 
+    <!-- Point Table Display -->
+    <main class="main-content" style="margin-top: 30px;">
+        <div class="page-header">
+            <h1><i class="fas fa-table"></i> Current Point Table</h1>
+            <p>Updated after each match submission</p>
+        </div>
+        <div class="point-table-container" style="background:#ffffff; border-radius:16px; border:1px solid #e8ecf1; overflow-x:auto;">
+            <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:15px 20px;">
+                <h3 style="color:white;"><i class="fas fa-ranking-star"></i> POP Intra Bid S-01 Point Table</h3>
+            </div>
+            <table class="point-table" style="width:100%; border-collapse:collapse;">
+                <thead>
+                    <tr style="background:#f8f9fa;">
+                        <th style="padding:12px;">Rank</th>
+                        <th style="padding:12px;">Team</th>
+                        <th style="padding:12px;">MP</th>
+                        <th style="padding:12px;">W</th>
+                        <th style="padding:12px;">D</th>
+                        <th style="padding:12px;">L</th>
+                        <th style="padding:12px;">GF</th>
+                        <th style="padding:12px;">GA</th>
+                        <th style="padding:12px;">GD</th>
+                        <th style="padding:12px;">Pts</th>
+                    </tr>
+                </thead>
+                <tbody id="pointTableBody">
+                    <tr><td colspan="10" style="text-align:center; padding:40px;"><div class="spinner"></div> Loading...</td></tr>
+                </tbody>
+            </table>
+            <div style="padding:15px; text-align:center; border-top:1px solid #e8ecf1;">
+                <button id="refreshPointTable" class="add-player-btn" style="background:#e94560; color:white; border:none; padding:8px 20px;"><i class="fas fa-sync-alt"></i> Refresh Point Table</button>
+            </div>
+        </div>
+    </main>
+
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -421,7 +456,17 @@
         let clubs = [];
         let team1Players = [];
         let team2Players = [];
-        let playerRows = 6; // Default 6 rows
+        let playerRows = 6;
+
+        // Team logos mapping
+        const teamLogos = {
+            'Not Humans': 'https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=50&name=NH',
+            'Team Flame': 'https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=50&name=TF',
+            'Demo': 'https://ui-avatars.com/api/?background=3498db&color=fff&bold=true&size=50&name=DM',
+            'BORN2WIN': 'https://ui-avatars.com/api/?background=2ecc71&color=fff&bold=true&size=50&name=B2W',
+            'Dead For Sure': 'https://ui-avatars.com/api/?background=95a5a6&color=fff&bold=true&size=50&name=DFS',
+            'Blaze Titans': 'https://ui-avatars.com/api/?background=f39c12&color=fff&bold=true&size=50&name=BT'
+        };
 
         // Load clubs
         async function loadClubs() {
@@ -487,12 +532,13 @@
                 team2Players.map(p => `<option value="${p.id}">🏴‍☠️ ${p.player_name}</option>`).join('');
             
             let html = `
-                <div style="background:#f0f4f8; border-radius:12px; padding:12px; margin-bottom:15px; display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:15px; text-align:center; font-weight:600; font-size:12px;">
+                <div style="background:#f0f4f8; border-radius:12px; padding:12px; margin-bottom:15px; display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto; gap:15px; text-align:center; font-weight:600; font-size:12px;">
                     <div>Team 1 Player</div>
                     <div>Score</div>
                     <div></div>
                     <div>Score</div>
                     <div>Team 2 Player</div>
+                    <div></div>
                 </div>
             `;
             
@@ -512,7 +558,7 @@
                         <select class="player-select player2-select" data-row="${i}">
                             ${team2Options}
                         </select>
-                        ${i >= 6 ? `<button type="button" class="remove-row-btn" data-row="${i}"><i class="fas fa-trash"></i></button>` : ''}
+                        ${i >= 6 ? `<button type="button" class="remove-row-btn" data-row="${i}"><i class="fas fa-trash"></i></button>` : '<div></div>'}
                     </div>
                 `;
             }
@@ -592,6 +638,20 @@
                 if (tourTeam1) {
                     const newStats1 = calculateStats(tourTeam1, team1Score, team2Score);
                     await supabase.from('tournament_teams').update(newStats1).eq('id', team1Id).eq('tournament_name', tournamentName);
+                } else {
+                    // Insert if not exists
+                    await supabase.from('tournament_teams').insert({
+                        id: team1Id,
+                        team_name: club1.team_name,
+                        tournament_name: tournamentName,
+                        matches_played: 1,
+                        wins: team1Score > team2Score ? 1 : 0,
+                        draws: team1Score === team2Score ? 1 : 0,
+                        losses: team1Score < team2Score ? 1 : 0,
+                        goals_for: team1Score,
+                        goals_against: team2Score,
+                        points: team1Score > team2Score ? 3 : (team1Score === team2Score ? 1 : 0)
+                    });
                 }
             }
             if (club2) {
@@ -605,6 +665,19 @@
                 if (tourTeam2) {
                     const newStats2 = calculateStats(tourTeam2, team2Score, team1Score);
                     await supabase.from('tournament_teams').update(newStats2).eq('id', team2Id).eq('tournament_name', tournamentName);
+                } else {
+                    await supabase.from('tournament_teams').insert({
+                        id: team2Id,
+                        team_name: club2.team_name,
+                        tournament_name: tournamentName,
+                        matches_played: 1,
+                        wins: team2Score > team1Score ? 1 : 0,
+                        draws: team2Score === team1Score ? 1 : 0,
+                        losses: team2Score < team1Score ? 1 : 0,
+                        goals_for: team2Score,
+                        goals_against: team1Score,
+                        points: team2Score > team1Score ? 3 : (team2Score === team1Score ? 1 : 0)
+                    });
                 }
             }
         }
@@ -688,6 +761,56 @@
             if (error) throw error;
         }
 
+        // Load point table
+        async function loadPointTable() {
+            const tbody = document.getElementById('pointTableBody');
+            tbody.innerHTML = '<td><td colspan="10" style="text-align:center; padding:40px;"><div class="spinner"></div> Loading...</td></tr>';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('tournament_teams')
+                    .select('*')
+                    .eq('tournament_name', tournamentName)
+                    .order('points', { ascending: false })
+                    .order('goal_difference', { ascending: false })
+                    .order('goals_for', { ascending: false });
+                
+                if (error) throw error;
+                
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:40px;">No data available. Please submit a match first.</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = data.map((team, index) => {
+                    const gd = (team.goals_for || 0) - (team.goals_against || 0);
+                    return `
+                        <tr>
+                            <td style="padding:12px; text-align:center; font-weight:600; color:#e94560;">#${index + 1}</td>
+                            <td style="padding:12px;">
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <img src="${teamLogos[team.team_name] || `https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=35&name=${team.team_name.charAt(0)}`}" style="width:30px; height:30px; border-radius:50%;">
+                                    <span style="font-weight:600;">${team.team_name}</span>
+                                </div>
+                            </td>
+                            <td style="padding:12px; text-align:center;">${team.matches_played || 0}</td>
+                            <td style="padding:12px; text-align:center;">${team.wins || 0}</td>
+                            <td style="padding:12px; text-align:center;">${team.draws || 0}</td>
+                            <td style="padding:12px; text-align:center;">${team.losses || 0}</td>
+                            <td style="padding:12px; text-align:center;">${team.goals_for || 0}</td>
+                            <td style="padding:12px; text-align:center;">${team.goals_against || 0}</td>
+                            <td style="padding:12px; text-align:center; ${gd >= 0 ? 'color:#2ecc71;' : 'color:#e74c3c;'} font-weight:600;">${gd >= 0 ? '+' : ''}${gd}</td>
+                            <td style="padding:12px; text-align:center; font-weight:700; color:#e94560; font-size:16px;">${team.points || 0}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+            } catch (err) {
+                console.error('Error loading point table:', err);
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:40px;">Error loading data</td></tr>';
+            }
+        }
+
         // Submit match result
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const team1Id = document.getElementById('team1Select').value;
@@ -715,7 +838,6 @@
                 await updateTournamentTeamStats(team1Id, team2Id, team1Score, team2Score);
                 
                 // Process player results
-                const playerResults = [];
                 const rows = document.querySelectorAll('.player-row');
                 
                 for (const row of rows) {
@@ -726,16 +848,14 @@
                     
                     if (player1Id && player1Id !== '') {
                         await updatePlayerStats(player1Id, player1Score, player2Score);
-                        playerResults.push({ playerId: player1Id, score: player1Score, opponentScore: player2Score });
                     }
                     if (player2Id && player2Id !== '') {
                         await updatePlayerStats(player2Id, player2Score, player1Score);
-                        playerResults.push({ playerId: player2Id, score: player2Score, opponentScore: player1Score });
                     }
                 }
                 
                 // Save to match_results table
-                await saveMatchResult(team1Id, team2Id, team1Score, team2Score, playerResults);
+                await saveMatchResult(team1Id, team2Id, team1Score, team2Score, []);
                 
                 showMessage('✅ Match result submitted successfully!', 'success');
                 
@@ -746,6 +866,9 @@
                 document.getElementById('team2Points').value = '0';
                 document.getElementById('playersContainer').innerHTML = '<div class="loading" style="text-align:center;padding:20px;">Select teams to load players...</div>';
                 playerRows = 6;
+                
+                // Refresh point table
+                await loadPointTable();
                 
             } catch (error) {
                 console.error('Error:', error);
@@ -760,6 +883,7 @@
         document.getElementById('team1Select').addEventListener('change', () => renderPlayerRows());
         document.getElementById('team2Select').addEventListener('change', () => renderPlayerRows());
         document.getElementById('addPlayerRowBtn').addEventListener('click', () => addPlayerRow());
+        document.getElementById('refreshPointTable').addEventListener('click', () => loadPointTable());
 
         // Load navbar and initialize
         async function loadNavbar() {
@@ -775,6 +899,7 @@
         async function init() {
             await loadNavbar();
             await loadClubs();
+            await loadPointTable();
         }
         
         init();
