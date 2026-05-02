@@ -1,3 +1,4 @@
+ht
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,32 +20,27 @@
         .form-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
         .form-header h2 i { color: #ffd700; }
         .team-selection { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; padding: 25px; background: #f8f9fa; border-bottom: 1px solid #e8ecf1; align-items: center; }
-        .team-box { background: white; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e8ecf1; }
+        .team-box { background: white; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #e8ecf1; }
         .team-box label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 10px; }
-        .team-box select { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 14px; font-family: 'Inter', sans-serif; background: white; cursor: pointer; }
-        .team-box select:focus { outline: none; border-color: #e94560; }
+        .team-box select { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 14px; background: white; cursor: pointer; }
         .vs-div { font-size: 20px; font-weight: 800; color: #e94560; background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e8ecf1; }
         .team-points { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; padding: 20px 25px; background: #ffffff; border-bottom: 1px solid #e8ecf1; align-items: center; }
         .team-point-box { text-align: center; }
         .team-point-box label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 8px; }
-        .team-point-box input { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 20px; font-weight: 700; text-align: center; font-family: 'Orbitron', monospace; }
+        .team-point-box input { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 20px; font-weight: 700; text-align: center; }
         .team-point-box input:focus { outline: none; border-color: #e94560; }
         .team-points-vs { font-size: 18px; font-weight: 800; color: #8892b0; }
         .players-section { padding: 25px; }
         .players-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e8ecf1; }
-        .players-section h3 i { color: #e94560; margin-right: 8px; }
         .player-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto; gap: 15px; align-items: center; margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 12px; }
-        .player-select { width: 100%; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; font-size: 13px; font-family: 'Inter', sans-serif; background: white; cursor: pointer; }
-        .player-select:focus { outline: none; border-color: #e94560; }
-        .player-score input { width: 80px; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 600; font-family: 'Orbitron', monospace; }
-        .player-score input:focus { outline: none; border-color: #e94560; }
+        .player-select { width: 100%; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; font-size: 13px; background: white; cursor: pointer; }
+        .player-score input { width: 80px; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 600; }
         .vs-small { font-weight: 700; color: #e94560; font-size: 14px; text-align: center; }
-        .add-player-btn { background: none; border: 1px dashed #e94560; color: #e94560; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 10px; transition: all 0.2s; }
+        .add-player-btn { background: none; border: 1px dashed #e94560; color: #e94560; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 10px; }
         .add-player-btn:hover { background: #e94560; color: white; }
         .remove-row-btn { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 16px; width: 30px; }
-        .remove-row-btn:hover { color: #c0392b; }
         .submit-section { padding: 20px 25px 25px; border-top: 1px solid #e8ecf1; }
-        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e94560, #ff6b81); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e94560, #ff6b81); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(233,69,96,0.3); }
         .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
         .message { padding: 12px; border-radius: 10px; margin: 20px 25px 0; font-size: 13px; display: flex; align-items: center; gap: 8px; }
@@ -56,8 +52,6 @@
         .point-table { width: 100%; border-collapse: collapse; }
         .point-table th { background: #f8f9fa; padding: 14px 12px; text-align: center; font-size: 12px; font-weight: 600; color: #4a5568; border-bottom: 1px solid #e8ecf1; }
         .point-table td { padding: 12px; text-align: center; font-size: 13px; border-bottom: 1px solid #f0f4f8; }
-        .team-cell { display: flex; align-items: center; gap: 10px; justify-content: flex-start; }
-        .team-logo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
         .points-cell { font-weight: 700; color: #e94560; font-size: 16px; }
         .gd-positive { color: #2ecc71; font-weight: 600; }
         .gd-negative { color: #e74c3c; font-weight: 600; }
@@ -78,9 +72,7 @@
             <p>Enter match scores - Automatically updates Tournament Teams, Clubs & Players tables</p>
         </div>
         <div class="form-container">
-            <div class="form-header">
-                <h2><i class="fas fa-trophy"></i> POP Intra Bid S-01 - Match Result</h2>
-            </div>
+            <div class="form-header"><h2><i class="fas fa-trophy"></i> POP Intra Bid S-01 - Match Result</h2></div>
             <div id="messageContainer"></div>
             <div class="team-selection">
                 <div class="team-box">
@@ -119,7 +111,7 @@
             <div style="overflow-x:auto;">
                 <table class="point-table">
                     <thead><tr><th>Rank</th><th>Team</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
-                    <tbody id="pointTableBody"><tr><td colspan="10" class="loading"><div class="spinner"></div> Loading...<\/td></tr></tbody>
+                    <tbody id="pointTableBody"><tr><td colspan="10" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
                 </table>
             </div>
         </div>
@@ -136,30 +128,21 @@
         let team1Players = [], team2Players = [];
         let playerRows = 6;
 
-        // Load clubs for dropdown
         async function loadClubs() {
             const { data } = await supabase.from('clubs').select('id, team_name').order('team_name');
             clubs = data || [];
             const team1Select = document.getElementById('team1Select');
             const team2Select = document.getElementById('team2Select');
-            team1Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}" data-name="${c.team_name}">🏴‍☠️ ${c.team_name}</option>`).join('');
-            team2Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}" data-name="${c.team_name}">🏴‍☠️ ${c.team_name}</option>`).join('');
+            team1Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}">🏴‍☠️ ${c.team_name}</option>`).join('');
+            team2Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}">🏴‍☠️ ${c.team_name}</option>`).join('');
         }
 
-        // Get team name by id
-        function getTeamNameById(teamId) {
-            const club = clubs.find(c => c.id === teamId);
-            return club ? club.team_name : null;
-        }
-
-        // Load players for a team
         async function loadTeamPlayers(teamId) {
             if (!teamId) return [];
             const { data } = await supabase.from('players').select('id, player_name').eq('club_id', teamId).order('player_name');
             return data || [];
         }
 
-        // Render player rows with dropdowns
         async function renderPlayerRows() {
             const team1Id = document.getElementById('team1Select').value;
             const team2Id = document.getElementById('team2Select').value;
@@ -194,7 +177,7 @@
             setTimeout(() => container.innerHTML = '', 5000);
         }
 
-        // ========== UPDATE TOURNAMENT TEAMS TABLE (by team_name) ==========
+        // UPDATE TOURNAMENT_TEAMS (by team_name)
         async function updateTournamentTeam(teamName, myScore, oppScore) {
             const { data: existing } = await supabase
                 .from('tournament_teams')
@@ -207,139 +190,75 @@
                 const mp = (existing.matches_played || 0) + 1;
                 const gf = (existing.goals_for || 0) + myScore;
                 const ga = (existing.goals_against || 0) + oppScore;
-                let wins = existing.wins || 0;
-                let draws = existing.draws || 0;
-                let losses = existing.losses || 0;
-                let points = existing.points || 0;
-                if (myScore > oppScore) { wins++; points += 3; }
-                else if (myScore === oppScore) { draws++; points += 1; }
-                else { losses++; }
-                await supabase
-                    .from('tournament_teams')
-                    .update({ matches_played: mp, wins, draws, losses, goals_for: gf, goals_against: ga, points })
-                    .eq('team_name', teamName)
-                    .eq('tournament_name', tournamentName);
-            } else {
-                // If not exists, create new entry with team_name
-                const wins = myScore > oppScore ? 1 : 0;
-                const draws = myScore === oppScore ? 1 : 0;
-                const losses = myScore < oppScore ? 1 : 0;
-                const points = wins * 3 + draws;
-                await supabase
-                    .from('tournament_teams')
-                    .insert({
-                        id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(),
-                        team_name: teamName,
-                        tournament_name: tournamentName,
-                        matches_played: 1,
-                        wins, draws, losses,
-                        goals_for: myScore,
-                        goals_against: oppScore,
-                        points
-                    });
-            }
-        }
-
-        // ========== UPDATE CLUBS TABLE ==========
-        async function updateClub(teamId, myScore, oppScore) {
-            const { data: club } = await supabase.from('clubs').select('*').eq('id', teamId).single();
-            if (club) {
-                const mp = (club.matches_played || 0) + 1;
-                const gf = (club.gf || 0) + myScore;
-                const ga = (club.ga || 0) + oppScore;
-                let wins = club.win || 0;
-                let draws = club.draw || 0;
-                let losses = club.loss || 0;
-                let pts = club.pts || 0;
+                let wins = existing.wins || 0, draws = existing.draws || 0, losses = existing.losses || 0, pts = existing.points || 0;
                 if (myScore > oppScore) { wins++; pts += 3; }
                 else if (myScore === oppScore) { draws++; pts += 1; }
                 else { losses++; }
-                await supabase
-                    .from('clubs')
-                    .update({ matches_played: mp, win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts })
-                    .eq('id', teamId);
+                await supabase.from('tournament_teams').update({ matches_played: mp, wins, draws, losses, goals_for: gf, goals_against: ga, points: pts }).eq('team_name', teamName).eq('tournament_name', tournamentName);
+            } else {
+                const wins = myScore > oppScore ? 1 : 0, draws = myScore === oppScore ? 1 : 0, losses = myScore < oppScore ? 1 : 0, pts = wins * 3 + draws;
+                await supabase.from('tournament_teams').insert({ id: crypto.randomUUID(), team_name: teamName, tournament_name: tournamentName, matches_played: 1, wins, draws, losses, goals_for: myScore, goals_against: oppScore, points: pts });
             }
         }
 
-        // ========== UPDATE PLAYERS TABLE ==========
+        // UPDATE CLUBS
+        async function updateClub(teamId, myScore, oppScore) {
+            const { data: club } = await supabase.from('clubs').select('*').eq('id', teamId).single();
+            if (club) {
+                const gf = (club.gf || 0) + myScore;
+                const ga = (club.ga || 0) + oppScore;
+                let wins = club.win || 0, draws = club.draw || 0, losses = club.loss || 0, pts = club.pts || 0;
+                if (myScore > oppScore) { wins++; pts += 3; }
+                else if (myScore === oppScore) { draws++; pts += 1; }
+                else { losses++; }
+                await supabase.from('clubs').update({ win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts }).eq('id', teamId);
+            }
+        }
+
+        // UPDATE PLAYERS
         async function updatePlayer(playerId, myScore, oppScore) {
             if (!playerId) return;
             const { data: player } = await supabase.from('players').select('*').eq('id', playerId).single();
             if (player) {
-                const mp = (player.matches_played || 0) + 1;
                 const gf = (player.gf || 0) + myScore;
                 const ga = (player.ga || 0) + oppScore;
-                let wins = player.win || 0;
-                let draws = player.draw || 0;
-                let losses = player.loss || 0;
-                let pts = player.pts || 0;
+                let wins = player.win || 0, draws = player.draw || 0, losses = player.loss || 0, pts = player.pts || 0;
                 if (myScore > oppScore) { wins++; pts += 3; }
                 else if (myScore === oppScore) { draws++; pts += 1; }
                 else { losses++; }
-                await supabase
-                    .from('players')
-                    .update({ matches_played: mp, win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts })
-                    .eq('id', playerId);
+                await supabase.from('players').update({ win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts }).eq('id', playerId);
             }
         }
 
-        // Load point table from tournament_teams
+        // LOAD POINT TABLE
         async function loadPointTable() {
-            const { data } = await supabase
-                .from('tournament_teams')
-                .select('*')
-                .eq('tournament_name', tournamentName)
-                .order('points', { ascending: false })
-                .order('goals_for', { ascending: false });
+            const { data } = await supabase.from('tournament_teams').select('*').eq('tournament_name', tournamentName).order('points', { ascending: false }).order('goals_for', { ascending: false });
             const tbody = document.getElementById('pointTableBody');
-            if (!data || data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="10" class="loading">No data yet. Submit a match.</td></tr>';
-                return;
-            }
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="10" class="loading">No data yet. Submit a match.</td></tr>'; return; }
             tbody.innerHTML = data.map((t, i) => {
                 const gd = (t.goals_for || 0) - (t.goals_against || 0);
-                return `<tr>
-                    <td style="font-weight:600;color:#e94560;">#${i+1}</td>
-                    <td><div class="team-cell"><span style="font-weight:600;">${t.team_name}</span></div></td>
-                    <td>${t.matches_played || 0}</td>
-                    <td>${t.wins || 0}</td>
-                    <td>${t.draws || 0}</td>
-                    <td>${t.losses || 0}</td>
-                    <td>${t.goals_for || 0}</td>
-                    <td>${t.goals_against || 0}</td>
-                    <td class="${gd>=0?'gd-positive':'gd-negative'}">${gd>=0?'+':''}${gd}</td>
-                    <td class="points-cell">${t.points || 0}</td>
-                </tr>`;
+                return `<tr><td style="font-weight:600;color:#e94560;">#${i+1}</td><td><span style="font-weight:600;">${t.team_name}</span></td><td>${t.matches_played || 0}</td><td>${t.wins || 0}</td><td>${t.draws || 0}</td><td>${t.losses || 0}</td><td>${t.goals_for || 0}</td><td>${t.goals_against || 0}</td><td class="${gd>=0?'gd-positive':'gd-negative'}">${gd>=0?'+':''}${gd}</td><td class="points-cell">${t.points || 0}</td></tr>`;
             }).join('');
         }
 
-        // Submit match result
+        // SUBMIT
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const team1Id = document.getElementById('team1Select').value;
             const team2Id = document.getElementById('team2Select').value;
             const t1Score = parseInt(document.getElementById('team1Points').value) || 0;
             const t2Score = parseInt(document.getElementById('team2Points').value) || 0;
-            
             if (!team1Id || !team2Id) { showMessage('Please select both teams', 'error'); return; }
             if (team1Id === team2Id) { showMessage('Select two different teams', 'error'); return; }
-            
-            const team1Name = getTeamNameById(team1Id);
-            const team2Name = getTeamNameById(team2Id);
-            
+            const team1Name = clubs.find(c => c.id === team1Id)?.team_name;
+            const team2Name = clubs.find(c => c.id === team2Id)?.team_name;
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
-            
             try {
-                // 1. Update TOURNAMENT TEAMS table (using team_name)
                 await updateTournamentTeam(team1Name, t1Score, t2Score);
                 await updateTournamentTeam(team2Name, t2Score, t1Score);
-                
-                // 2. Update CLUBS table
                 await updateClub(team1Id, t1Score, t2Score);
                 await updateClub(team2Id, t2Score, t1Score);
-                
-                // 3. Update PLAYERS table
                 const rows = document.querySelectorAll('.player-row');
                 for (const row of rows) {
                     const p1Id = row.querySelector('.player1-select')?.value;
@@ -349,54 +268,25 @@
                     if (p1Id && p1Id !== '') await updatePlayer(p1Id, p1Score, p2Score);
                     if (p2Id && p2Id !== '') await updatePlayer(p2Id, p2Score, p1Score);
                 }
-                
-                // 4. Save to match_results table
-                await supabase.from('match_results').insert({
-                    tournament_name: tournamentName,
-                    team1_id: team1Id,
-                    team2_id: team2Id,
-                    team1_score: t1Score,
-                    team2_score: t2Score,
-                    winner_id: t1Score > t2Score ? team1Id : (t2Score > t1Score ? team2Id : null),
-                    is_played: true,
-                    match_date: new Date().toISOString().split('T')[0]
-                });
-                
-                showMessage('✅ Match result submitted! Tournament Teams, Clubs & Players updated.', 'success');
-                
-                // Reset form
+                await supabase.from('match_results').insert({ tournament_name: tournamentName, team1_id: team1Id, team2_id: team2Id, team1_score: t1Score, team2_score: t2Score, winner_id: t1Score > t2Score ? team1Id : (t2Score > t1Score ? team2Id : null), is_played: true, match_date: new Date().toISOString().split('T')[0] });
+                showMessage('✅ Match result submitted! All tables updated.', 'success');
                 document.getElementById('team1Select').value = '';
                 document.getElementById('team2Select').value = '';
                 document.getElementById('team1Points').value = '0';
                 document.getElementById('team2Points').value = '0';
                 document.getElementById('playersContainer').innerHTML = '<div class="loading">Select teams to load players...</div>';
                 playerRows = 6;
-                
-                // Refresh point table
                 await loadPointTable();
-                
-            } catch (err) {
-                console.error(err);
-                showMessage('❌ Error: ' + err.message, 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-save"></i> Submit Match Result';
-            }
+            } catch (err) { console.error(err); showMessage('❌ Error: ' + err.message, 'error'); }
+            finally { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-save"></i> Submit Match Result'; }
         });
 
         document.getElementById('team1Select').addEventListener('change', () => renderPlayerRows());
         document.getElementById('team2Select').addEventListener('change', () => renderPlayerRows());
         document.getElementById('addPlayerRowBtn').addEventListener('click', () => { playerRows++; renderPlayerRows(); });
 
-        async function loadNavbar() {
-            try { const res = await fetch('/navbar.html'); document.getElementById('navbar-placeholder').innerHTML = await res.text(); } catch(e){}
-        }
-        
-        async function init() {
-            await loadNavbar();
-            await loadClubs();
-            await loadPointTable();
-        }
+        async function loadNavbar() { try { const res = await fetch('/navbar.html'); document.getElementById('navbar-placeholder').innerHTML = await res.text(); } catch(e){} }
+        async function init() { await loadNavbar(); await loadClubs(); await loadPointTable(); }
         init();
     </script>
 </body>
