@@ -1,3 +1,4 @@
+hh
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,14 +47,12 @@ const supabase = createClient(
 
 let clubs = [];
 let rowsCount = 5;
-
 const tournamentName = "pop intra bid s-01";
 
-// ✅ LOAD TEAMS
+// LOAD TEAMS
 async function loadTeams(){
 const {data,error} = await supabase.from('clubs').select('*').order('team_name');
-
-if(error){ showError(error); return; }
+if(error) return showError(error);
 
 clubs = data || [];
 
@@ -66,7 +65,7 @@ team1.innerHTML = opt;
 team2.innerHTML = opt;
 }
 
-// ✅ LOAD PLAYERS
+// LOAD PLAYERS
 async function loadPlayers(teamId){
 const {data,error} = await supabase.from('players')
 .select('*')
@@ -74,11 +73,10 @@ const {data,error} = await supabase.from('players')
 .order('player_name');
 
 if(error){ showError(error); return []; }
-
 return data || [];
 }
 
-// ✅ RENDER PLAYERS
+// RENDER PLAYERS
 async function renderPlayers(){
 
 let t1 = team1.value;
@@ -113,18 +111,19 @@ html += `
 players.innerHTML = html;
 }
 
-// ✅ COMMON ERROR SHOW
+// ERROR SHOW
 function showError(err){
 console.error(err);
 msg.innerText = "❌ ERROR: " + err.message;
 }
 
-// ✅ UPDATE TOURNAMENT
-async function updateTournament(name,my,opp){
+// UPDATE TOURNAMENT
+async function updateTournament(teamName,my,opp){
 
-const {data,error} = await supabase.from('tournament_teams')
+const {data,error} = await supabase
+.from('tournament_teams')
 .select('*')
-.eq('team_name',name)
+.eq('team_name',teamName)
 .eq('tournament_name',tournamentName)
 .maybeSingle();
 
@@ -137,7 +136,6 @@ else if(my==opp){d=1;p=1}
 else l=1;
 
 if(data){
-
 const {error:e2} = await supabase.from('tournament_teams').update({
 matches_played:data.matches_played+1,
 wins:data.wins+w,
@@ -146,17 +144,14 @@ losses:data.losses+l,
 goals_for:data.goals_for+my,
 goals_against:data.goals_against+opp,
 points:data.points+p
-})
-.eq('team_name',name)
-.eq('tournament_name',tournamentName);
+}).eq('id', data.id);
 
 if(e2) throw e2;
 
 }else{
-
 const {error:e3} = await supabase.from('tournament_teams').insert({
 id:crypto.randomUUID(),
-team_name:name,
+team_name:teamName,
 tournament_name:tournamentName,
 matches_played:1,
 wins:w,draws:d,losses:l,
@@ -169,12 +164,13 @@ if(e3) throw e3;
 }
 }
 
-// ✅ UPDATE CLUB
-async function updateClub(name,my,opp){
+// UPDATE CLUB (ID BASED FIX)
+async function updateClub(teamId,my,opp){
 
-const {data,error} = await supabase.from('clubs')
+const {data,error} = await supabase
+.from('clubs')
 .select('*')
-.eq('team_name',name)
+.eq('id',teamId)
 .maybeSingle();
 
 if(error) throw error;
@@ -193,15 +189,16 @@ loss:data.loss+l,
 gf:data.gf+my,
 ga:data.ga+opp,
 pts:data.pts+p
-}).eq('team_name',name);
+}).eq('id',teamId);
 
 if(e2) throw e2;
 }
 
-// ✅ UPDATE PLAYER
+// UPDATE PLAYER
 async function updatePlayer(name,my,opp){
 
-const {data,error} = await supabase.from('players')
+const {data,error} = await supabase
+.from('players')
 .select('*')
 .eq('player_name',name)
 .maybeSingle();
@@ -227,7 +224,7 @@ pts:data.pts+p
 if(e2) throw e2;
 }
 
-// ✅ SUBMIT
+// SUBMIT
 async function submitMatch(){
 
 msg.innerText = "⏳ Processing...";
@@ -242,18 +239,24 @@ msg.innerText = "Select teams";
 return;
 }
 
-let name1 = clubs.find(c=>c.id==t1)?.team_name;
-let name2 = clubs.find(c=>c.id==t2)?.team_name;
+let team1Obj = clubs.find(c=>c.id==t1);
+let team2Obj = clubs.find(c=>c.id==t2);
+
+let name1 = team1Obj.team_name;
+let name2 = team2Obj.team_name;
 
 let s1 = parseInt(score1.value)||0;
 let s2 = parseInt(score2.value)||0;
 
+// TOURNAMENT
 await updateTournament(name1,s1,s2);
 await updateTournament(name2,s2,s1);
 
-await updateClub(name1,s1,s2);
-await updateClub(name2,s2,s1);
+// CLUB (FIXED)
+await updateClub(t1,s1,s2);
+await updateClub(t2,s2,s1);
 
+// PLAYERS
 let rows = document.querySelectorAll('.row');
 
 for(let r of rows){
@@ -267,7 +270,7 @@ if(p1 && p1!=="Player") await updatePlayer(p1,ps1,ps2);
 if(p2 && p2!=="Player") await updatePlayer(p2,ps2,ps1);
 }
 
-msg.innerText = "✅ SUCCESS! DB Updated";
+msg.innerText = "✅ ALL TABLE UPDATED SUCCESSFULLY";
 
 }catch(err){
 showError(err);
