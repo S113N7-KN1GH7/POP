@@ -1,3 +1,4 @@
+b
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -553,7 +554,62 @@ async function loadPointTable() {
         </tr>`;
     }).join('');
 }
+async function saveMatch(team1Id, team2Id, s1, s2){
 
+const { data, error } = await supabase.from('match_results').insert({
+id: crypto.randomUUID(),
+tournament_name: tournamentName,
+team1_id: team1Id,
+team2_id: team2Id,
+team1_score: s1,
+team2_score: s2,
+winner_id: s1 > s2 ? team1Id : (s2 > s1 ? team2Id : null),
+is_played: true,
+match_date: new Date().toISOString().split('T')[0]
+}).select();
+
+if(error) throw error;
+
+return data[0]; // match row
+}
+async function savePlayers(matchId, team1Id, team2Id, s1, s2){
+
+let rows = document.querySelectorAll('.row');
+
+for(let r of rows){
+
+let p1 = r.querySelector('.p1').value.trim();
+let p2 = r.querySelector('.p2').value.trim();
+
+let ps1 = parseInt(r.querySelector('.s1').value) || 0;
+let ps2 = parseInt(r.querySelector('.s2').value) || 0;
+
+// TEAM 1 PLAYER
+if(p1){
+await supabase.from('match_player_results').insert({
+id: crypto.randomUUID(),
+match_id: matchId,
+player_name: p1,
+team_id: team1Id,
+goals: ps1,
+result: s1 > s2 ? 'win' : (s1 == s2 ? 'draw' : 'lose')
+});
+}
+
+// TEAM 2 PLAYER
+if(p2){
+await supabase.from('match_player_results').insert({
+id: crypto.randomUUID(),
+match_id: matchId,
+player_name: p2,
+team_id: team2Id,
+goals: ps2,
+result: s2 > s1 ? 'win' : (s1 == s2 ? 'draw' : 'lose')
+});
+}
+
+}
+}
 // Submit match
 async function submitMatch() {
     const team1Id = document.getElementById('team1').value;
@@ -611,7 +667,8 @@ async function submitMatch() {
         submitBtn.innerHTML = '<i class="fas fa-save"></i> Submit Match Result';
     }
 }
-
+let match = await saveMatch(t1, t2, s1, s2);
+await savePlayers(match.id, t1, t2, s1, s2);
 // Event listeners
 document.getElementById('team1').addEventListener('change', renderPlayers);
 document.getElementById('team2').addEventListener('change', renderPlayers);
@@ -624,6 +681,7 @@ async function init() {
     await loadPointTable();
 }
 init();
+
 </script>
 </body>
 </html>
