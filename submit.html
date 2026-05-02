@@ -1,4 +1,4 @@
-
+ওকে
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,18 +165,26 @@ const cleanName = name.trim();
 const {data,error} = await supabase
 .from('tournament_teams')
 .select('*')
-.ilike('team_name', cleanName)
 .eq('tournament_name', tournamentName);
 
 if(error) throw error;
 
-console.log("TOURNAMENT MATCH FOUND:", data);
+console.log("ALL TOURNAMENT ROWS:", data);
 
 if(!data || data.length===0){
-throw new Error("❌ NO TOURNAMENT MATCH: "+cleanName);
+throw new Error("❌ tournament table empty");
 }
 
-let t = data[0];
+// 🔥 manually find match (SAFE METHOD)
+let match = data.find(t =>
+t.team_name?.trim().toLowerCase() === cleanName.toLowerCase()
+);
+
+console.log("MATCHED ROW:", match);
+
+if(!match){
+throw new Error("❌ NO MATCH FOUND FOR TEAM: " + cleanName);
+}
 
 let w=0,d=0,l=0,p=0;
 
@@ -187,26 +195,25 @@ else l=1;
 const res = await supabase
 .from('tournament_teams')
 .update({
-matches_played: t.matches_played + 1,
-wins: t.wins + w,
-draws: t.draws + d,
-losses: t.losses + l,
-goals_for: t.goals_for + my,
-goals_against: t.goals_against + opp,
-points: t.points + p
+matches_played: match.matches_played + 1,
+wins: match.wins + w,
+draws: match.draws + d,
+losses: match.losses + l,
+goals_for: match.goals_for + my,
+goals_against: match.goals_against + opp,
+points: match.points + p
 })
-.eq('id', t.id)
-.select(); // 🔥 IMPORTANT
+.eq('id', match.id)
+.select();
 
-console.log("TOURNAMENT UPDATE RESULT:", res);
+console.log("UPDATE RESULT:", res);
 
 if(res.error) throw res.error;
 
 if(!res.data || res.data.length===0){
-throw new Error("❌ TOURNAMENT UPDATE FAILED (RLS or NO ROW UPDATED)");
+throw new Error("❌ UPDATE BLOCKED (RLS or ID issue)");
 }
 }
-
 // ---------------- PLAYER UPDATE ----------------
 async function updatePlayer(name,my,opp){
 
