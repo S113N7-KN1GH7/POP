@@ -1,293 +1,255 @@
-ht
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match Result Submit | Pirates of Pitch - POP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #f5f7fb; color: #1a1a2e; }
-        .main-content { padding: 25px 30px; max-width: 1400px; margin: 0 auto; }
-        .page-header { margin-bottom: 25px; }
-        .page-header h1 { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
-        .page-header h1 i { color: #e94560; font-size: 32px; }
-        .page-header p { color: #8892b0; font-size: 14px; margin-top: 5px; }
-        .form-container { background: #ffffff; border-radius: 20px; border: 1px solid #e8ecf1; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; }
-        .form-header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 18px 25px; color: white; }
-        .form-header h2 { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .form-header h2 i { color: #ffd700; }
-        .team-selection { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; padding: 25px; background: #f8f9fa; border-bottom: 1px solid #e8ecf1; align-items: center; }
-        .team-box { background: white; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #e8ecf1; }
-        .team-box label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 10px; }
-        .team-box select { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 14px; background: white; cursor: pointer; }
-        .vs-div { font-size: 20px; font-weight: 800; color: #e94560; background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #e8ecf1; }
-        .team-points { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; padding: 20px 25px; background: #ffffff; border-bottom: 1px solid #e8ecf1; align-items: center; }
-        .team-point-box { text-align: center; }
-        .team-point-box label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 8px; }
-        .team-point-box input { width: 100%; padding: 12px; border: 1px solid #e8ecf1; border-radius: 10px; font-size: 20px; font-weight: 700; text-align: center; }
-        .team-point-box input:focus { outline: none; border-color: #e94560; }
-        .team-points-vs { font-size: 18px; font-weight: 800; color: #8892b0; }
-        .players-section { padding: 25px; }
-        .players-section h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e8ecf1; }
-        .player-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto; gap: 15px; align-items: center; margin-bottom: 15px; padding: 12px; background: #f8f9fa; border-radius: 12px; }
-        .player-select { width: 100%; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; font-size: 13px; background: white; cursor: pointer; }
-        .player-score input { width: 80px; padding: 10px; border: 1px solid #e8ecf1; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 600; }
-        .vs-small { font-weight: 700; color: #e94560; font-size: 14px; text-align: center; }
-        .add-player-btn { background: none; border: 1px dashed #e94560; color: #e94560; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 10px; }
-        .add-player-btn:hover { background: #e94560; color: white; }
-        .remove-row-btn { background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 16px; width: 30px; }
-        .submit-section { padding: 20px 25px 25px; border-top: 1px solid #e8ecf1; }
-        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e94560, #ff6b81); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(233,69,96,0.3); }
-        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .message { padding: 12px; border-radius: 10px; margin: 20px 25px 0; font-size: 13px; display: flex; align-items: center; gap: 8px; }
-        .message.success { background: #e6f7e6; color: #2ecc71; border: 1px solid #2ecc71; }
-        .message.error { background: #fee; color: #e74c3c; border: 1px solid #e74c3c; }
-        .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .point-table-container { background: #ffffff; border-radius: 20px; border: 1px solid #e8ecf1; overflow: hidden; margin-top: 40px; }
-        .point-table { width: 100%; border-collapse: collapse; }
-        .point-table th { background: #f8f9fa; padding: 14px 12px; text-align: center; font-size: 12px; font-weight: 600; color: #4a5568; border-bottom: 1px solid #e8ecf1; }
-        .point-table td { padding: 12px; text-align: center; font-size: 13px; border-bottom: 1px solid #f0f4f8; }
-        .points-cell { font-weight: 700; color: #e94560; font-size: 16px; }
-        .gd-positive { color: #2ecc71; font-weight: 600; }
-        .gd-negative { color: #e74c3c; font-weight: 600; }
-        .loading { text-align: center; padding: 40px; color: #8892b0; }
-        @media (max-width: 900px) {
-            .player-row { grid-template-columns: 1fr; gap: 10px; }
-            .team-selection { grid-template-columns: 1fr; }
-            .team-points { grid-template-columns: 1fr; }
-            .vs-div, .team-points-vs { display: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POP Match Submit</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:Inter;background:#f5f7fb;padding:20px}
+.container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:15px}
+select,input{width:100%;padding:10px;margin-top:5px;margin-bottom:10px}
+button{padding:12px;background:#e94560;color:#fff;border:none;border-radius:10px;cursor:pointer}
+.row{display:grid;grid-template-columns:1fr 80px 1fr;gap:10px;margin-bottom:10px}
+</style>
 </head>
+
 <body>
-    <div id="navbar-placeholder"></div>
-    <main class="main-content">
-        <div class="page-header">
-            <h1><i class="fas fa-futbol"></i> Match Result Submit</h1>
-            <p>Enter match scores - Automatically updates Tournament Teams, Clubs & Players tables</p>
-        </div>
-        <div class="form-container">
-            <div class="form-header"><h2><i class="fas fa-trophy"></i> POP Intra Bid S-01 - Match Result</h2></div>
-            <div id="messageContainer"></div>
-            <div class="team-selection">
-                <div class="team-box">
-                    <label><i class="fas fa-building"></i> Team 1</label>
-                    <select id="team1Select"><option value="">-- Select Team --</option></select>
-                </div>
-                <div class="vs-div">VS</div>
-                <div class="team-box">
-                    <label><i class="fas fa-building"></i> Team 2</label>
-                    <select id="team2Select"><option value="">-- Select Team --</option></select>
-                </div>
-            </div>
-            <div class="team-points">
-                <div class="team-point-box">
-                    <label><i class="fas fa-star"></i> Team 1 Score</label>
-                    <input type="number" id="team1Points" placeholder="0" min="0" value="0">
-                </div>
-                <div class="team-points-vs">vs</div>
-                <div class="team-point-box">
-                    <label><i class="fas fa-star"></i> Team 2 Score</label>
-                    <input type="number" id="team2Points" placeholder="0" min="0" value="0">
-                </div>
-            </div>
-            <div class="players-section">
-                <h3><i class="fas fa-users"></i> Players Match Result</h3>
-                <div id="playersContainer"><div class="loading">Select teams to load players...</div></div>
-                <button type="button" id="addPlayerRowBtn" class="add-player-btn" style="display:none;"><i class="fas fa-plus"></i> Add Player Row</button>
-            </div>
-            <div class="submit-section">
-                <button id="submitBtn" class="submit-btn"><i class="fas fa-save"></i> Submit Match Result</button>
-            </div>
-        </div>
 
-        <div class="point-table-container">
-            <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); padding:15px 20px;"><h3 style="color:white;"><i class="fas fa-ranking-star"></i> Tournament Point Table - POP Intra Bid S-01</h3></div>
-            <div style="overflow-x:auto;">
-                <table class="point-table">
-                    <thead><tr><th>Rank</th><th>Team</th><th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
-                    <tbody id="pointTableBody"><tr><td colspan="10" class="loading"><div class="spinner"></div> Loading...</td></tr></tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+<div class="container">
+<h2>Match Submit</h2>
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
-        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+<select id="team1"></select>
+<select id="team2"></select>
 
-        const tournamentName = 'pop intra bid s-01';
-        let clubs = [];
-        let team1Players = [], team2Players = [];
-        let playerRows = 6;
+<input type="number" id="score1" placeholder="Team1 Score">
+<input type="number" id="score2" placeholder="Team2 Score">
 
-        async function loadClubs() {
-            const { data } = await supabase.from('clubs').select('id, team_name').order('team_name');
-            clubs = data || [];
-            const team1Select = document.getElementById('team1Select');
-            const team2Select = document.getElementById('team2Select');
-            team1Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}">🏴‍☠️ ${c.team_name}</option>`).join('');
-            team2Select.innerHTML = '<option value="">-- Select Team --</option>' + clubs.map(c => `<option value="${c.id}">🏴‍☠️ ${c.team_name}</option>`).join('');
-        }
+<div id="players"></div>
 
-        async function loadTeamPlayers(teamId) {
-            if (!teamId) return [];
-            const { data } = await supabase.from('players').select('id, player_name').eq('club_id', teamId).order('player_name');
-            return data || [];
-        }
+<button onclick="submitMatch()">Submit</button>
 
-        async function renderPlayerRows() {
-            const team1Id = document.getElementById('team1Select').value;
-            const team2Id = document.getElementById('team2Select').value;
-            if (!team1Id && !team2Id) {
-                document.getElementById('playersContainer').innerHTML = '<div class="loading">Select teams to load players...</div>';
-                document.getElementById('addPlayerRowBtn').style.display = 'none';
-                return;
-            }
-            team1Players = await loadTeamPlayers(team1Id);
-            team2Players = await loadTeamPlayers(team2Id);
-            const team1Options = '<option value="">-- Select Player --</option>' + team1Players.map(p => `<option value="${p.id}">🏴‍☠️ ${p.player_name}</option>`).join('');
-            const team2Options = '<option value="">-- Select Player --</option>' + team2Players.map(p => `<option value="${p.id}">🏴‍☠️ ${p.player_name}</option>`).join('');
-            let html = `<div style="background:#f0f4f8; border-radius:12px; padding:12px; margin-bottom:15px; display:grid; grid-template-columns:1fr auto 1fr auto 1fr auto; gap:15px; text-align:center; font-weight:600; font-size:12px;"><div>Team 1 Player</div><div>Score</div><div></div><div>Score</div><div>Team 2 Player</div><div></div></div>`;
-            for (let i = 0; i < playerRows; i++) {
-                html += `<div class="player-row" data-row="${i}">
-                    <select class="player-select player1-select" data-row="${i}">${team1Options}</select>
-                    <div class="player-score"><input type="number" class="player1-score" data-row="${i}" placeholder="0" min="0" value="0"></div>
-                    <div class="vs-small">VS</div>
-                    <div class="player-score"><input type="number" class="player2-score" data-row="${i}" placeholder="0" min="0" value="0"></div>
-                    <select class="player-select player2-select" data-row="${i}">${team2Options}</select>
-                    ${i >= 6 ? `<button type="button" class="remove-row-btn" data-row="${i}"><i class="fas fa-trash"></i></button>` : '<div></div>'}
-                </div>`;
-            }
-            document.getElementById('playersContainer').innerHTML = html;
-            document.getElementById('addPlayerRowBtn').style.display = 'block';
-            document.querySelectorAll('.remove-row-btn').forEach(btn => btn.addEventListener('click', (e) => { const row = parseInt(btn.dataset.row); document.querySelector(`.player-row[data-row="${row}"]`).remove(); }));
-        }
+<p id="msg"></p>
+</div>
 
-        function showMessage(msg, type) {
-            const container = document.getElementById('messageContainer');
-            container.innerHTML = `<div class="message ${type}"><i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}</div>`;
-            setTimeout(() => container.innerHTML = '', 5000);
-        }
+<script type="module">
 
-        // UPDATE TOURNAMENT_TEAMS (by team_name)
-        async function updateTournamentTeam(teamName, myScore, oppScore) {
-            const { data: existing } = await supabase
-                .from('tournament_teams')
-                .select('*')
-                .eq('team_name', teamName)
-                .eq('tournament_name', tournamentName)
-                .single();
-            
-            if (existing) {
-                const mp = (existing.matches_played || 0) + 1;
-                const gf = (existing.goals_for || 0) + myScore;
-                const ga = (existing.goals_against || 0) + oppScore;
-                let wins = existing.wins || 0, draws = existing.draws || 0, losses = existing.losses || 0, pts = existing.points || 0;
-                if (myScore > oppScore) { wins++; pts += 3; }
-                else if (myScore === oppScore) { draws++; pts += 1; }
-                else { losses++; }
-                await supabase.from('tournament_teams').update({ matches_played: mp, wins, draws, losses, goals_for: gf, goals_against: ga, points: pts }).eq('team_name', teamName).eq('tournament_name', tournamentName);
-            } else {
-                const wins = myScore > oppScore ? 1 : 0, draws = myScore === oppScore ? 1 : 0, losses = myScore < oppScore ? 1 : 0, pts = wins * 3 + draws;
-                await supabase.from('tournament_teams').insert({ id: crypto.randomUUID(), team_name: teamName, tournament_name: tournamentName, matches_played: 1, wins, draws, losses, goals_for: myScore, goals_against: oppScore, points: pts });
-            }
-        }
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        // UPDATE CLUBS
-        async function updateClub(teamId, myScore, oppScore) {
-            const { data: club } = await supabase.from('clubs').select('*').eq('id', teamId).single();
-            if (club) {
-                const gf = (club.gf || 0) + myScore;
-                const ga = (club.ga || 0) + oppScore;
-                let wins = club.win || 0, draws = club.draw || 0, losses = club.loss || 0, pts = club.pts || 0;
-                if (myScore > oppScore) { wins++; pts += 3; }
-                else if (myScore === oppScore) { draws++; pts += 1; }
-                else { losses++; }
-                await supabase.from('clubs').update({ win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts }).eq('id', teamId);
-            }
-        }
+const supabase = createClient(
+'https://uwybeitqpnaqmcmqwbkv.supabase.co',
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g'
+);
 
-        // UPDATE PLAYERS
-        async function updatePlayer(playerId, myScore, oppScore) {
-            if (!playerId) return;
-            const { data: player } = await supabase.from('players').select('*').eq('id', playerId).single();
-            if (player) {
-                const gf = (player.gf || 0) + myScore;
-                const ga = (player.ga || 0) + oppScore;
-                let wins = player.win || 0, draws = player.draw || 0, losses = player.loss || 0, pts = player.pts || 0;
-                if (myScore > oppScore) { wins++; pts += 3; }
-                else if (myScore === oppScore) { draws++; pts += 1; }
-                else { losses++; }
-                await supabase.from('players').update({ win: wins, draw: draws, loss: losses, gf: gf, ga: ga, pts: pts }).eq('id', playerId);
-            }
-        }
+let clubs = [];
+let p1 = [], p2 = [];
+let rows = 5;
 
-        // LOAD POINT TABLE
-        async function loadPointTable() {
-            const { data } = await supabase.from('tournament_teams').select('*').eq('tournament_name', tournamentName).order('points', { ascending: false }).order('goals_for', { ascending: false });
-            const tbody = document.getElementById('pointTableBody');
-            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="10" class="loading">No data yet. Submit a match.</td></tr>'; return; }
-            tbody.innerHTML = data.map((t, i) => {
-                const gd = (t.goals_for || 0) - (t.goals_against || 0);
-                return `<tr><td style="font-weight:600;color:#e94560;">#${i+1}</td><td><span style="font-weight:600;">${t.team_name}</span></td><td>${t.matches_played || 0}</td><td>${t.wins || 0}</td><td>${t.draws || 0}</td><td>${t.losses || 0}</td><td>${t.goals_for || 0}</td><td>${t.goals_against || 0}</td><td class="${gd>=0?'gd-positive':'gd-negative'}">${gd>=0?'+':''}${gd}</td><td class="points-cell">${t.points || 0}</td></tr>`;
-            }).join('');
-        }
+const tournamentName = "pop intra bid s-01";
 
-        // SUBMIT
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const team1Id = document.getElementById('team1Select').value;
-            const team2Id = document.getElementById('team2Select').value;
-            const t1Score = parseInt(document.getElementById('team1Points').value) || 0;
-            const t2Score = parseInt(document.getElementById('team2Points').value) || 0;
-            if (!team1Id || !team2Id) { showMessage('Please select both teams', 'error'); return; }
-            if (team1Id === team2Id) { showMessage('Select two different teams', 'error'); return; }
-            const team1Name = clubs.find(c => c.id === team1Id)?.team_name;
-            const team2Name = clubs.find(c => c.id === team2Id)?.team_name;
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span> Submitting...';
-            try {
-                await updateTournamentTeam(team1Name, t1Score, t2Score);
-                await updateTournamentTeam(team2Name, t2Score, t1Score);
-                await updateClub(team1Id, t1Score, t2Score);
-                await updateClub(team2Id, t2Score, t1Score);
-                const rows = document.querySelectorAll('.player-row');
-                for (const row of rows) {
-                    const p1Id = row.querySelector('.player1-select')?.value;
-                    const p2Id = row.querySelector('.player2-select')?.value;
-                    const p1Score = parseInt(row.querySelector('.player1-score')?.value) || 0;
-                    const p2Score = parseInt(row.querySelector('.player2-score')?.value) || 0;
-                    if (p1Id && p1Id !== '') await updatePlayer(p1Id, p1Score, p2Score);
-                    if (p2Id && p2Id !== '') await updatePlayer(p2Id, p2Score, p1Score);
-                }
-                await supabase.from('match_results').insert({ tournament_name: tournamentName, team1_id: team1Id, team2_id: team2Id, team1_score: t1Score, team2_score: t2Score, winner_id: t1Score > t2Score ? team1Id : (t2Score > t1Score ? team2Id : null), is_played: true, match_date: new Date().toISOString().split('T')[0] });
-                showMessage('✅ Match result submitted! All tables updated.', 'success');
-                document.getElementById('team1Select').value = '';
-                document.getElementById('team2Select').value = '';
-                document.getElementById('team1Points').value = '0';
-                document.getElementById('team2Points').value = '0';
-                document.getElementById('playersContainer').innerHTML = '<div class="loading">Select teams to load players...</div>';
-                playerRows = 6;
-                await loadPointTable();
-            } catch (err) { console.error(err); showMessage('❌ Error: ' + err.message, 'error'); }
-            finally { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-save"></i> Submit Match Result'; }
-        });
+async function loadTeams(){
+let {data} = await supabase.from('clubs').select('*').order('team_name');
 
-        document.getElementById('team1Select').addEventListener('change', () => renderPlayerRows());
-        document.getElementById('team2Select').addEventListener('change', () => renderPlayerRows());
-        document.getElementById('addPlayerRowBtn').addEventListener('click', () => { playerRows++; renderPlayerRows(); });
+clubs = data;
 
-        async function loadNavbar() { try { const res = await fetch('/navbar.html'); document.getElementById('navbar-placeholder').innerHTML = await res.text(); } catch(e){} }
-        async function init() { await loadNavbar(); await loadClubs(); await loadPointTable(); }
-        init();
-    </script>
+let opt = '<option value="">Select Team</option>';
+data.forEach(t=>{
+opt += `<option value="${t.id}">${t.team_name}</option>`;
+});
+
+team1.innerHTML = opt;
+team2.innerHTML = opt;
+}
+
+async function loadPlayers(teamId){
+let {data} = await supabase.from('players')
+.select('*')
+.eq('club_id',teamId)
+.order('player_name');
+
+return data || [];
+}
+
+async function renderPlayers(){
+
+let t1 = team1.value;
+let t2 = team2.value;
+
+if(!t1 || !t2){
+players.innerHTML = "Select teams";
+return;
+}
+
+p1 = await loadPlayers(t1);
+p2 = await loadPlayers(t2);
+
+let opt1 = '<option>Player</option>';
+let opt2 = '<option>Player</option>';
+
+p1.forEach(p=> opt1 += `<option>${p.player_name}</option>`);
+p2.forEach(p=> opt2 += `<option>${p.player_name}</option>`);
+
+let html = '';
+
+for(let i=0;i<rows;i++){
+html += `
+<div class="row">
+<select class="p1">${opt1}</select>
+<input type="number" class="s1" value="0">
+<select class="p2">${opt2}</select>
+<input type="number" class="s2" value="0">
+</div>
+`;
+}
+
+players.innerHTML = html;
+}
+
+async function updateTournament(name,my,opp){
+
+let {data} = await supabase.from('tournament_teams')
+.select('*')
+.eq('team_name',name)
+.eq('tournament_name',tournamentName)
+.maybeSingle();
+
+let w=0,d=0,l=0,p=0;
+
+if(my>opp){w=1;p=3}
+else if(my==opp){d=1;p=1}
+else l=1;
+
+if(data){
+await supabase.from('tournament_teams').update({
+matches_played:data.matches_played+1,
+wins:data.wins+w,
+draws:data.draws+d,
+losses:data.losses+l,
+goals_for:data.goals_for+my,
+goals_against:data.goals_against+opp,
+points:data.points+p
+})
+.eq('team_name',name)
+.eq('tournament_name',tournamentName);
+}else{
+await supabase.from('tournament_teams').insert({
+id:crypto.randomUUID(),
+team_name:name,
+tournament_name:tournamentName,
+matches_played:1,
+wins:w,draws:d,losses:l,
+goals_for:my,
+goals_against:opp,
+points:p
+});
+}
+
+}
+
+async function updateClub(name,my,opp){
+
+let {data} = await supabase.from('clubs')
+.select('*')
+.eq('team_name',name)
+.maybeSingle();
+
+if(!data) return;
+
+let w=0,d=0,l=0,p=0;
+
+if(my>opp){w=1;p=3}
+else if(my==opp){d=1;p=1}
+else l=1;
+
+await supabase.from('clubs').update({
+win:data.win+w,
+draw:data.draw+d,
+loss:data.loss+l,
+gf:data.gf+my,
+ga:data.ga+opp,
+pts:data.pts+p
+})
+.eq('team_name',name);
+
+}
+
+async function updatePlayer(name,my,opp){
+
+let {data} = await supabase.from('players')
+.select('*')
+.eq('player_name',name)
+.maybeSingle();
+
+if(!data) return;
+
+let w=0,d=0,l=0,p=0;
+
+if(my>opp){w=1;p=3}
+else if(my==opp){d=1;p=1}
+else l=1;
+
+await supabase.from('players').update({
+win:data.win+w,
+draw:data.draw+d,
+loss:data.loss+l,
+gf:data.gf+my,
+ga:data.ga+opp,
+pts:data.pts+p
+})
+.eq('player_name',name);
+
+}
+
+async function submitMatch(){
+
+let t1 = team1.value;
+let t2 = team2.value;
+
+if(!t1 || !t2){
+msg.innerText = "Select teams";
+return;
+}
+
+let name1 = clubs.find(c=>c.id==t1).team_name;
+let name2 = clubs.find(c=>c.id==t2).team_name;
+
+let s1 = parseInt(score1.value)||0;
+let s2 = parseInt(score2.value)||0;
+
+// teams
+await updateTournament(name1,s1,s2);
+await updateTournament(name2,s2,s1);
+
+// clubs
+await updateClub(name1,s1,s2);
+await updateClub(name2,s2,s1);
+
+// players
+let rows = document.querySelectorAll('.row');
+
+for(let r of rows){
+
+let p1 = r.querySelector('.p1').value.trim();
+let p2 = r.querySelector('.p2').value.trim();
+
+let ps1 = parseInt(r.querySelector('.s1').value)||0;
+let ps2 = parseInt(r.querySelector('.s2').value)||0;
+
+if(p1 && p1!=="Player") await updatePlayer(p1,ps1,ps2);
+if(p2 && p2!=="Player") await updatePlayer(p2,ps2,ps1);
+}
+
+msg.innerText = "✅ Done!";
+}
+
+team1.onchange = renderPlayers;
+team2.onchange = renderPlayers;
+
+loadTeams();
+
+</script>
+
 </body>
 </html>
