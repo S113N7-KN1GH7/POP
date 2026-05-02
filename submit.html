@@ -1,4 +1,3 @@
-hh
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +5,12 @@ hh
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POP Match Submit</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-body{font-family:Inter;background:#f5f7fb;padding:20px}
+body{font-family:sans-serif;background:#f5f7fb;padding:20px}
 .container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:15px}
-select,input{width:100%;padding:10px;margin-top:5px;margin-bottom:10px}
-button{padding:12px;background:#e94560;color:#fff;border:none;border-radius:10px;cursor:pointer}
+select,input{width:100%;padding:10px;margin:5px 0}
+button{padding:12px;background:#e94560;color:#fff;border:none;border-radius:10px}
 .row{display:grid;grid-template-columns:1fr 80px 1fr 80px;gap:10px;margin-bottom:10px}
-#msg{margin-top:10px;font-weight:600}
 </style>
 </head>
 
@@ -42,116 +38,101 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const supabase = createClient(
 'https://uwybeitqpnaqmcmqwbkv.supabase.co',
-'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g'
+'eyJhbGc...'
 );
 
-let clubs = [];
-let rowsCount = 5;
-const tournamentName = "pop intra bid s-01";
+let clubs=[];
+const tournamentName="pop intra bid s-01";
 
 // LOAD TEAMS
 async function loadTeams(){
-const {data,error} = await supabase.from('clubs').select('*').order('team_name');
+let {data,error}=await supabase.from('clubs').select('*').order('team_name');
 if(error) return showError(error);
 
-clubs = data || [];
+clubs=data;
 
-let opt = '<option value="">Select Team</option>';
-clubs.forEach(t=>{
-opt += `<option value="${t.id}">${t.team_name}</option>`;
-});
+let opt='<option value="">Select Team</option>';
+data.forEach(t=> opt+=`<option value="${t.id}">${t.team_name}</option>`);
 
-team1.innerHTML = opt;
-team2.innerHTML = opt;
+team1.innerHTML=opt;
+team2.innerHTML=opt;
 }
 
-// LOAD PLAYERS
-async function loadPlayers(teamId){
-const {data,error} = await supabase.from('players')
+// ERROR
+function showError(e){
+console.error(e);
+msg.innerText="❌ "+e.message;
+}
+
+// 🔥 NAME BASED CLUB UPDATE
+async function updateClubByName(name,my,opp){
+
+const {data,error}=await supabase
+.from('clubs')
 .select('*')
-.eq('club_id',teamId)
-.order('player_name');
-
-if(error){ showError(error); return []; }
-return data || [];
-}
-
-// RENDER PLAYERS
-async function renderPlayers(){
-
-let t1 = team1.value;
-let t2 = team2.value;
-
-if(!t1 || !t2){
-players.innerHTML = "Select teams";
-return;
-}
-
-let p1 = await loadPlayers(t1);
-let p2 = await loadPlayers(t2);
-
-let opt1 = '<option>Player</option>';
-let opt2 = '<option>Player</option>';
-
-p1.forEach(p=> opt1 += `<option>${p.player_name}</option>`);
-p2.forEach(p=> opt2 += `<option>${p.player_name}</option>`);
-
-let html = '';
-
-for(let i=0;i<rowsCount;i++){
-html += `
-<div class="row">
-<select class="p1">${opt1}</select>
-<input type="number" class="s1" value="0">
-<select class="p2">${opt2}</select>
-<input type="number" class="s2" value="0">
-</div>`;
-}
-
-players.innerHTML = html;
-}
-
-// ERROR SHOW
-function showError(err){
-console.error(err);
-msg.innerText = "❌ ERROR: " + err.message;
-}
-
-// UPDATE TOURNAMENT
-async function updateTournament(teamName,my,opp){
-
-const {data,error} = await supabase
-.from('tournament_teams')
-.select('*')
-.eq('team_name',teamName)
-.eq('tournament_name',tournamentName)
-.maybeSingle();
+.ilike('team_name',name)
+.limit(1);
 
 if(error) throw error;
+if(!data || data.length===0) throw new Error("Club not found: "+name);
+
+let club=data[0];
 
 let w=0,d=0,l=0,p=0;
-
 if(my>opp){w=1;p=3}
 else if(my==opp){d=1;p=1}
 else l=1;
 
-if(data){
-const {error:e2} = await supabase.from('tournament_teams').update({
-matches_played:data.matches_played+1,
-wins:data.wins+w,
-draws:data.draws+d,
-losses:data.losses+l,
-goals_for:data.goals_for+my,
-goals_against:data.goals_against+opp,
-points:data.points+p
-}).eq('id', data.id);
+const {error:e2}=await supabase.from('clubs').update({
+win:club.win+w,
+draw:club.draw+d,
+loss:club.loss+l,
+gf:club.gf+my,
+ga:club.ga+opp,
+pts:club.pts+p
+}).eq('id',club.id);
+
+if(e2) throw e2;
+}
+
+// 🔥 NAME BASED TOURNAMENT UPDATE
+async function updateTournamentByName(name,my,opp){
+
+const {data,error}=await supabase
+.from('tournament_teams')
+.select('*')
+.ilike('team_name',name)
+.eq('tournament_name',tournamentName)
+.limit(1);
+
+if(error) throw error;
+
+let w=0,d=0,l=0,p=0;
+if(my>opp){w=1;p=3}
+else if(my==opp){d=1;p=1}
+else l=1;
+
+if(data && data.length>0){
+
+let t=data[0];
+
+const {error:e2}=await supabase.from('tournament_teams').update({
+matches_played:t.matches_played+1,
+wins:t.wins+w,
+draws:t.draws+d,
+losses:t.losses+l,
+goals_for:t.goals_for+my,
+goals_against:t.goals_against+opp,
+points:t.points+p
+}).eq('id',t.id);
 
 if(e2) throw e2;
 
 }else{
-const {error:e3} = await supabase.from('tournament_teams').insert({
+
+const {error:e3}=await supabase.from('tournament_teams').insert({
 id:crypto.randomUUID(),
-team_name:teamName,
+team_name:name,
 tournament_name:tournamentName,
 matches_played:1,
 wins:w,draws:d,losses:l,
@@ -164,125 +145,40 @@ if(e3) throw e3;
 }
 }
 
-// UPDATE CLUB (ID BASED FIX)
-async function updateClub(teamId,my,opp){
-
-const {data,error} = await supabase
-.from('clubs')
-.select('*')
-.eq('id',teamId)
-.maybeSingle();
-
-if(error) throw error;
-if(!data) return;
-
-let w=0,d=0,l=0,p=0;
-
-if(my>opp){w=1;p=3}
-else if(my==opp){d=1;p=1}
-else l=1;
-
-const {error:e2} = await supabase.from('clubs').update({
-win:data.win+w,
-draw:data.draw+d,
-loss:data.loss+l,
-gf:data.gf+my,
-ga:data.ga+opp,
-pts:data.pts+p
-}).eq('id',teamId);
-
-if(e2) throw e2;
-}
-
-// UPDATE PLAYER
-async function updatePlayer(name,my,opp){
-
-const {data,error} = await supabase
-.from('players')
-.select('*')
-.eq('player_name',name)
-.maybeSingle();
-
-if(error) throw error;
-if(!data) return;
-
-let w=0,d=0,l=0,p=0;
-
-if(my>opp){w=1;p=3}
-else if(my==opp){d=1;p=1}
-else l=1;
-
-const {error:e2} = await supabase.from('players').update({
-win:data.win+w,
-draw:data.draw+d,
-loss:data.loss+l,
-gf:data.gf+my,
-ga:data.ga+opp,
-pts:data.pts+p
-}).eq('player_name',name);
-
-if(e2) throw e2;
-}
-
 // SUBMIT
 async function submitMatch(){
 
-msg.innerText = "⏳ Processing...";
+msg.innerText="⏳ Processing...";
 
 try{
 
-let t1 = team1.value;
-let t2 = team2.value;
+let t1=team1.value;
+let t2=team2.value;
 
-if(!t1 || !t2){
-msg.innerText = "Select teams";
-return;
-}
+if(!t1||!t2) return msg.innerText="Select teams";
 
-let team1Obj = clubs.find(c=>c.id==t1);
-let team2Obj = clubs.find(c=>c.id==t2);
+let name1=clubs.find(c=>c.id==t1).team_name.trim();
+let name2=clubs.find(c=>c.id==t2).team_name.trim();
 
-let name1 = team1Obj.team_name;
-let name2 = team2Obj.team_name;
+let s1=parseInt(score1.value)||0;
+let s2=parseInt(score2.value)||0;
 
-let s1 = parseInt(score1.value)||0;
-let s2 = parseInt(score2.value)||0;
+// 🔥 NAME BASED
+await updateTournamentByName(name1,s1,s2);
+await updateTournamentByName(name2,s2,s1);
 
-// TOURNAMENT
-await updateTournament(name1,s1,s2);
-await updateTournament(name2,s2,s1);
+await updateClubByName(name1,s1,s2);
+await updateClubByName(name2,s2,s1);
 
-// CLUB (FIXED)
-await updateClub(t1,s1,s2);
-await updateClub(t2,s2,s1);
+msg.innerText="✅ 100% DONE (NAME MATCHED)";
 
-// PLAYERS
-let rows = document.querySelectorAll('.row');
-
-for(let r of rows){
-let p1 = r.querySelector('.p1').value.trim();
-let p2 = r.querySelector('.p2').value.trim();
-
-let ps1 = parseInt(r.querySelector('.s1').value)||0;
-let ps2 = parseInt(r.querySelector('.s2').value)||0;
-
-if(p1 && p1!=="Player") await updatePlayer(p1,ps1,ps2);
-if(p2 && p2!=="Player") await updatePlayer(p2,ps2,ps1);
-}
-
-msg.innerText = "✅ ALL TABLE UPDATED SUCCESSFULLY";
-
-}catch(err){
-showError(err);
+}catch(e){
+showError(e);
 }
 }
 
-// EVENTS
-submitBtn.addEventListener('click', submitMatch);
-team1.addEventListener('change', renderPlayers);
-team2.addEventListener('change', renderPlayers);
+submitBtn.onclick=submitMatch;
 
-// INIT
 loadTeams();
 
 </script>
