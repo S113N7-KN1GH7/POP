@@ -1,4 +1,4 @@
-h
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,13 +160,23 @@ if(res.status>=400) throw new Error("Club update failed");
 // ---------------- TOURNAMENT UPDATE ----------------
 async function updateTournament(name,my,opp){
 
-const {data,error}=await supabase
+const cleanName = name.trim();
+
+const {data,error} = await supabase
 .from('tournament_teams')
 .select('*')
-.ilike('team_name',name.trim())
-.eq('tournament_name',tournamentName);
+.ilike('team_name', cleanName)
+.eq('tournament_name', tournamentName);
 
 if(error) throw error;
+
+console.log("TOURNAMENT MATCH FOUND:", data);
+
+if(!data || data.length===0){
+throw new Error("❌ NO TOURNAMENT MATCH: "+cleanName);
+}
+
+let t = data[0];
 
 let w=0,d=0,l=0,p=0;
 
@@ -174,38 +184,26 @@ if(my>opp){w=1;p=3}
 else if(my==opp){d=1;p=1}
 else l=1;
 
-if(data && data.length>0){
-
-let t=data[0];
-
-const res=await supabase.from('tournament_teams')
+const res = await supabase
+.from('tournament_teams')
 .update({
-matches_played:t.matches_played+1,
-wins:t.wins+w,
-draws:t.draws+d,
-losses:t.losses+l,
-goals_for:t.goals_for+my,
-goals_against:t.goals_against+opp,
-points:t.points+p
+matches_played: t.matches_played + 1,
+wins: t.wins + w,
+draws: t.draws + d,
+losses: t.losses + l,
+goals_for: t.goals_for + my,
+goals_against: t.goals_against + opp,
+points: t.points + p
 })
-.eq('id',t.id);
+.eq('id', t.id)
+.select(); // 🔥 IMPORTANT
 
-console.log("TOURNAMENT UPDATE:",res);
+console.log("TOURNAMENT UPDATE RESULT:", res);
 
 if(res.error) throw res.error;
 
-}else{
-
-await supabase.from('tournament_teams').insert({
-id:crypto.randomUUID(),
-team_name:name,
-tournament_name:tournamentName,
-matches_played:1,
-wins:w,draws:d,losses:l,
-goals_for:my,
-goals_against:opp,
-points:p
-});
+if(!res.data || res.data.length===0){
+throw new Error("❌ TOURNAMENT UPDATE FAILED (RLS or NO ROW UPDATED)");
 }
 }
 
