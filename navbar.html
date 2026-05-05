@@ -1,10 +1,10 @@
-<!-- navbar.html - Complete Fixed & Beautiful Navbar -->
+<!-- navbar.html - Clean Navbar with Sign In/Logout -->
 <nav class="top-navbar">
     <div class="logo-area">
         <div class="logo-icon">🏴‍☠️</div>
         <div>
             <div class="logo-text">PIRATES OF <span>PITCH</span></div>
-            <div class="logo-sub">OFFICIAL GAMING LEAGUE</div>
+            <div class="logo-sub">POP</div>
         </div>
     </div>
     
@@ -26,16 +26,10 @@
 </nav>
 
 <style>
-    /* ========== NAVBAR STYLES ========== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
+    /* Navbar Styles */
     .top-navbar {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        border-bottom: 1px solid rgba(233, 69, 96, 0.15);
+        background: #ffffff;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         padding: 0 40px;
         position: sticky;
         top: 0;
@@ -43,26 +37,18 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 75px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-        backdrop-filter: blur(10px);
+        height: 65px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
-
-    /* Logo Area */
     .logo-area {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
         cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-    .logo-area:hover {
-        transform: scale(1.02);
     }
     .logo-icon {
-        font-size: 38px;
+        font-size: 32px;
         animation: sway 3s ease-in-out infinite;
-        filter: drop-shadow(0 2px 5px rgba(233, 69, 96, 0.2));
     }
     @keyframes sway {
         0%, 100% { transform: rotate(0deg); }
@@ -70,13 +56,12 @@
     }
     .logo-text {
         font-family: 'Orbitron', monospace;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
-        background: linear-gradient(135deg, #1a1a2e 0%, #e94560 100%);
+        background: linear-gradient(135deg, #1a1a2e, #e94560);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        letter-spacing: 1px;
     }
     .logo-text span {
         color: #e94560;
@@ -85,71 +70,39 @@
     .logo-sub {
         font-size: 9px;
         color: #8892b0;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
         margin-top: 2px;
-        text-transform: uppercase;
     }
-
-    /* Navigation Links */
     .nav-links {
         display: flex;
         align-items: center;
-        gap: 8px;
-        background: rgba(248, 250, 252, 0.8);
-        padding: 5px;
-        border-radius: 50px;
-        backdrop-filter: blur(5px);
+        gap: 5px;
     }
     .nav-link {
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 22px;
-        border-radius: 40px;
+        padding: 8px 18px;
+        border-radius: 30px;
         color: #4a5568;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 14px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-    .nav-link::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(233, 69, 96, 0.15), transparent);
-        transition: left 0.5s;
-    }
-    .nav-link:hover::before {
-        left: 100%;
-    }
-    .nav-link i {
-        font-size: 15px;
-        transition: transform 0.3s ease;
-    }
-    .nav-link:hover i {
-        transform: translateY(-2px);
+        transition: all 0.2s;
     }
     .nav-link:hover {
-        background: #e94560;
-        color: #ffffff;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(233, 69, 96, 0.3);
+        background: #f0f4f8;
+        color: #e94560;
+        transform: translateY(-1px);
     }
     .nav-link.active {
         background: #e94560;
         color: #ffffff;
-        box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        box-shadow: 0 2px 8px rgba(233,69,96,0.25);
     }
-    .nav-link.active i {
-        transform: scale(1.1);
+    .nav-link i {
+        font-size: 14px;
     }
-
-    /* Auth Buttons */
     .auth-buttons {
         display: flex;
         align-items: center;
@@ -158,192 +111,147 @@
     .auth-loading {
         padding: 8px 16px;
         color: #8892b0;
-        font-size: 14px;
     }
-    /* Logged In State */
+    /* Sign In Button */
+    .signin-btn {
+        padding: 8px 24px;
+        background: #e94560;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+        color: white;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 6px rgba(233,69,96,0.2);
+    }
+    .signin-btn:hover {
+        background: #ff6b81;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(233,69,96,0.3);
+    }
+    /* User Info when logged in */
     .user-info {
         display: flex;
         align-items: center;
         gap: 12px;
-        background: linear-gradient(135deg, #f0f4f8, #e8ecf1);
+        background: #f0f4f8;
         padding: 5px 18px 5px 8px;
-        border-radius: 50px;
-        border: 1px solid rgba(233, 69, 96, 0.2);
-        transition: all 0.3s ease;
-    }
-    .user-info:hover {
-        background: linear-gradient(135deg, #e8ecf1, #e0e4e8);
-        transform: translateY(-1px);
+        border-radius: 40px;
     }
     .user-avatar {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         object-fit: cover;
         border: 2px solid #e94560;
-        background: white;
     }
     .user-name {
         font-size: 13px;
         font-weight: 600;
         color: #1a1a2e;
-        max-width: 130px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
     .logout-nav-btn {
-        background: rgba(233, 69, 96, 0.1);
+        background: none;
         border: none;
         color: #e94560;
         cursor: pointer;
-        padding: 6px 14px;
-        border-radius: 30px;
         font-size: 13px;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        padding: 5px 12px;
+        border-radius: 25px;
+        transition: all 0.2s;
         display: flex;
         align-items: center;
         gap: 6px;
     }
     .logout-nav-btn:hover {
-        background: #e94560;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+        background: rgba(233,69,96,0.1);
     }
-    /* Logged Out State */
-    .login-nav-btn, .signup-nav-btn, .club-nav-btn {
-        padding: 8px 22px;
-        border-radius: 40px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 13px;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .login-nav-btn {
-        background: transparent;
-        border: 1.5px solid #e94560;
-        color: #e94560;
-    }
-    .login-nav-btn:hover {
-        background: #e94560;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
-    }
-    .signup-nav-btn {
-        background: linear-gradient(135deg, #e94560, #ff6b81);
-        color: white;
-        box-shadow: 0 2px 8px rgba(233, 69, 96, 0.25);
-    }
-    .signup-nav-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(233, 69, 96, 0.35);
-    }
-    .club-nav-btn {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-    }
-    .club-nav-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.35);
-    }
-
-    /* Mobile Menu Button */
     .mobile-menu-btn {
         display: none;
-        background: linear-gradient(135deg, #e94560, #ff6b81);
+        background: none;
         border: none;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        color: white;
+        font-size: 22px;
         cursor: pointer;
-        font-size: 20px;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(233, 69, 96, 0.3);
-    }
-    .mobile-menu-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        color: #1a1a2e;
     }
 
-    /* Responsive Design */
-    @media (max-width: 1050px) {
-        .nav-link span { display: none; }
-        .nav-link { padding: 8px 16px; }
-        .nav-link i { font-size: 18px; }
-    }
     @media (max-width: 900px) {
-        .top-navbar { padding: 0 25px; }
-        .logo-sub { display: none; }
+        .top-navbar { padding: 0 20px; }
         .nav-link span { display: none; }
         .nav-link { padding: 8px 14px; }
+        .nav-link i { font-size: 18px; }
+        .user-name { display: none; }
+        .user-info { padding: 5px 12px 5px 8px; }
+        .signin-btn span { display: none; }
+        .signin-btn { padding: 8px 14px; }
     }
     @media (max-width: 768px) {
-        .top-navbar { height: 65px; padding: 0 20px; }
-        .logo-text { font-size: 16px; }
-        .logo-icon { font-size: 30px; }
+        .logo-sub { display: none; }
         .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
         .nav-links {
             position: fixed;
             top: 65px;
             left: -100%;
-            width: 280px;
+            width: 260px;
             height: calc(100vh - 65px);
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            background: #ffffff;
             flex-direction: column;
-            padding: 25px 20px;
-            gap: 12px;
-            border-radius: 0 20px 20px 0;
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+            gap: 10px;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.1);
+            transition: left 0.3s;
             z-index: 999;
             align-items: stretch;
-            backdrop-filter: blur(20px);
-            border-right: 2px solid #e94560;
         }
         .nav-links.show { left: 0; }
-        .nav-link {
-            justify-content: flex-start;
-            padding: 12px 20px;
-            border-radius: 12px;
-        }
+        .nav-link { justify-content: flex-start; padding: 12px 18px; }
         .nav-link span { display: inline; }
-        .nav-link i { font-size: 18px; width: 28px; }
-        .user-info { padding: 5px 12px 5px 8px; }
-        .user-name { max-width: 100px; font-size: 12px; }
-        .logout-nav-btn span { display: none; }
-        .logout-nav-btn { padding: 6px 10px; }
-        .login-nav-btn span, .signup-nav-btn span, .club-nav-btn span { display: none; }
-        .login-nav-btn, .signup-nav-btn, .club-nav-btn { padding: 8px 14px; }
+        .user-info { padding: 5px 12px; }
+        .user-name { display: none; }
     }
     @media (max-width: 480px) {
         .top-navbar { padding: 0 15px; }
         .logo-text { font-size: 14px; }
         .logo-icon { font-size: 26px; }
-        .login-nav-btn, .signup-nav-btn, .club-nav-btn { padding: 6px 10px; }
-        .user-avatar { width: 30px; height: 30px; }
+        .signin-btn { padding: 6px 12px; font-size: 12px; }
+        .signin-btn i { margin: 0; }
     }
 </style>
 
 <script>
 (function() {
-    // ========== UPDATE AUTH UI FUNCTION ==========
+    // Active page highlight
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) link.classList.add('active');
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('show');
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.top-navbar') && navLinks?.classList.contains('show')) {
+                navLinks.classList.remove('show');
+            }
+        });
+    }
+
+    // Auth UI update
     async function updateAuthUI() {
         const authContainer = document.getElementById('authButtons');
         if (!authContainer) return;
         
-        // Check if supabase is available
         if (typeof supabase === 'undefined' || !supabase.auth) {
-            authContainer.innerHTML = `
-                <a href="login.html" class="login-nav-btn"><i class="fas fa-sign-in-alt"></i><span>Login</span></a>
-                <a href="signup.html" class="signup-nav-btn"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
-            `;
+            authContainer.innerHTML = `<a href="login.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i><span>Sign In</span></a>`;
             return;
         }
         
@@ -351,132 +259,45 @@
             const { data: { user }, error } = await supabase.auth.getUser();
             
             if (user && !error) {
-                // USER IS LOGGED IN - Get user info
-                let playerName = user.user_metadata?.player_name || user.email.split('@')[0];
-                let playerEmail = user.email;
-                let avatarUrl = `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=36&name=${encodeURIComponent(playerName)}`;
-                let userType = 'player';
+                let userName = user.user_metadata?.player_name || user.email.split('@')[0];
+                let avatarUrl = `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=34&name=${encodeURIComponent(userName)}`;
                 
-                // Try to get player photo from players table
                 try {
-                    const { data: player } = await supabase
-                        .from('players')
-                        .select('photo, player_name')
-                        .eq('id', user.id)
-                        .single();
+                    const { data: player } = await supabase.from('players').select('photo, player_name').eq('id', user.id).single();
                     if (player?.photo) avatarUrl = player.photo;
-                    if (player?.player_name) playerName = player.player_name;
-                } catch(e) {
-                    // Maybe user is club admin
-                    try {
-                        const { data: club } = await supabase
-                            .from('clubs')
-                            .select('team_name, team_logo')
-                            .eq('id', user.id)
-                            .single();
-                        if (club) {
-                            playerName = club.team_name;
-                            if (club.team_logo) avatarUrl = club.team_logo;
-                            userType = 'club';
-                        }
-                    } catch(e2) {}
-                }
+                    if (player?.player_name) userName = player.player_name;
+                } catch(e) {}
                 
-                // Show user info with logout button
                 authContainer.innerHTML = `
-                    <div class="user-info" id="userInfoDropdown">
-                        <img class="user-avatar" src="${avatarUrl}" alt="${playerName}">
-                        <span class="user-name" title="${playerEmail}">${playerName.substring(0, 15)}</span>
-                        <button id="navbarLogoutBtn" class="logout-nav-btn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+                    <div class="user-info">
+                        <img class="user-avatar" src="${avatarUrl}" alt="${userName}">
+                        <span class="user-name">${userName.substring(0, 12)}</span>
+                        <button id="navbarLogoutBtn" class="logout-nav-btn"><i class="fas fa-sign-out-alt"></i></button>
                     </div>
                 `;
                 
-                // Add logout event
-                const logoutBtn = document.getElementById('navbarLogoutBtn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        await supabase.auth.signOut();
-                        localStorage.removeItem('pop123_user');
-                        localStorage.removeItem('pop123_club');
-                        window.location.href = 'index.html';
-                    });
-                }
+                document.getElementById('navbarLogoutBtn')?.addEventListener('click', async () => {
+                    await supabase.auth.signOut();
+                    localStorage.removeItem('pop123_user');
+                    localStorage.removeItem('pop123_club');
+                    window.location.href = 'index.html';
+                });
             } else {
-                // USER IS NOT LOGGED IN
-                authContainer.innerHTML = `
-                    <a href="login.html" class="login-nav-btn"><i class="fas fa-sign-in-alt"></i><span>Login</span></a>
-                    <a href="signup.html" class="signup-nav-btn"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
-                    <a href="club-login.html" class="club-nav-btn"><i class="fas fa-building"></i><span>Club</span></a>
-                `;
+                authContainer.innerHTML = `<a href="login.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i><span>Sign In</span></a>`;
             }
         } catch (err) {
-            console.error('Auth check error:', err);
-            authContainer.innerHTML = `
-                <a href="login.html" class="login-nav-btn"><i class="fas fa-sign-in-alt"></i><span>Login</span></a>
-                <a href="signup.html" class="signup-nav-btn"><i class="fas fa-user-plus"></i><span>Sign Up</span></a>
-            `;
+            authContainer.innerHTML = `<a href="login.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i><span>Sign In</span></a>`;
         }
     }
-    
-    // ========== HIGHLIGHT ACTIVE PAGE ==========
-    function highlightActivePage() {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    }
-    
-    // ========== MOBILE MENU ==========
-    function setupMobileMenu() {
-        const mobileBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        if (!mobileBtn || !navLinks) return;
-        
-        mobileBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle('show');
-            mobileBtn.innerHTML = navLinks.classList.contains('show') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.top-navbar') && navLinks.classList.contains('show')) {
-                navLinks.classList.remove('show');
-                mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-        
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('show');
-                mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-    }
-    
-    // ========== WAIT FOR SUPABASE AND INIT ==========
-    let supabaseCheckAttempts = 0;
-    function waitForSupabaseAndInit() {
+
+    function waitForSupabase() {
         if (typeof supabase !== 'undefined' && supabase.auth) {
             updateAuthUI();
-            // Listen for auth state changes (login/logout)
-            supabase.auth.onAuthStateChange(() => {
-                updateAuthUI();
-            });
-        } else if (supabaseCheckAttempts < 20) {
-            supabaseCheckAttempts++;
-            setTimeout(waitForSupabaseAndInit, 200);
+            supabase.auth.onAuthStateChange(() => updateAuthUI());
         } else {
-            updateAuthUI();
+            setTimeout(waitForSupabase, 100);
         }
     }
-    
-    // Run all functions
-    highlightActivePage();
-    setupMobileMenu();
-    waitForSupabaseAndInit();
+    waitForSupabase();
 })();
 </script>
