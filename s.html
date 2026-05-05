@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Match Text Submit</title>
+<title>Match Parser + Save</title>
 
 <style>
 body{font-family:sans-serif;background:#f5f5f5;padding:20px}
-.box{max-width:700px;margin:auto;background:#fff;padding:20px;border-radius:10px}
-textarea{width:100%;height:200px;margin-top:10px}
-button{padding:10px 20px;background:#e94560;color:#fff;border:none;margin-top:10px}
+.box{max-width:800px;margin:auto;background:#fff;padding:20px;border-radius:10px}
+textarea{width:100%;height:220px;margin-top:10px}
+button{padding:10px 20px;background:#e94560;color:#fff;border:none;margin-top:10px;cursor:pointer}
 .result{margin-top:20px}
 .ok{color:green;font-weight:bold}
 .bad{color:red;font-weight:bold}
+.match{padding:8px;border-bottom:1px solid #eee}
 </style>
 
 </head>
@@ -18,7 +19,7 @@ button{padding:10px 20px;background:#e94560;color:#fff;border:none;margin-top:10
 
 <div class="box">
 
-<h2>Match Submit</h2>
+<h2>Match Submit System</h2>
 
 <select id="source">
 <option>In-club</option>
@@ -28,11 +29,13 @@ button{padding:10px 20px;background:#e94560;color:#fff;border:none;margin-top:10
 <option>Befc</option>
 </select>
 
-<textarea id="text" placeholder="Paste match text here..."></textarea>
+<textarea id="text" placeholder="Paste full match text..."></textarea>
 
-<button onclick="submitMatch()">Submit</button>
+<br>
+<button onclick="preview()">Preview</button>
+<button onclick="save()">Save to DB</button>
 
-<div id="preview" class="result"></div>
+<div id="previewBox" class="result"></div>
 
 </div>
 
@@ -45,7 +48,9 @@ const supabase = createClient(
 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g'
 );
 
-// 🔍 PARSE FUNCTION
+let parsedGames = [];
+
+// 🔍 PARSER
 function parse(text){
 
 let lines = text.split('\n');
@@ -55,18 +60,31 @@ lines.forEach(l=>{
 
 if(l.includes('🆚')){
 
-let c = l.replace(/🔑|⚔️|—/g,'').trim();
-let p = c.split('🆚');
+let clean = l.replace(/🔑|⚔️|—/g,'').trim();
 
-let l1 = p[0].match(/(.+)\s(\d+)$/);
-let r1 = p[1].match(/^(\d+)\s(.+)/);
+// score match
+let m = clean.match(/(.+)\s(\d+)\s*🆚\s*(\d+)\s(.+)/);
 
-if(l1 && r1){
+if(m){
 out.push({
-home:l1[1].trim(),
-hs:parseInt(l1[2]),
-as:parseInt(r1[1]),
-away:r1[2].trim()
+home:m[1].trim(),
+hs:parseInt(m[2]),
+as:parseInt(m[3]),
+away:m[4].trim(),
+played:true
+});
+return;
+}
+
+// no score
+let p = clean.split('🆚');
+if(p.length==2){
+out.push({
+home:p[0].trim(),
+hs:null,
+as:null,
+away:p[1].trim(),
+played:false
 });
 }
 
@@ -77,67 +95,70 @@ away:r1[2].trim()
 return out;
 }
 
-// 🔎 FIND PLAYER
+// 🔎 find player
 async function findPlayer(name){
-
-const {data} = await supabase.from('players').select('*');
-
-return data.find(p =>
-p.player_name.trim().toLowerCase() === name.trim().toLowerCase()
-);
-
+let {data} = await supabase.from('players').select('*');
+return data.find(p=>p.player_name.toLowerCase().trim()===name.toLowerCase().trim());
 }
 
 // 👁️ PREVIEW
-async function preview(){
+window.preview = async function(){
 
 let txt = document.getElementById('text').value;
-let games = parse(txt);
+
+parsedGames = parse(txt);
 
 let html = '';
 
-for(let g of games){
+for(let g of parsedGames){
 
 let p1 = await findPlayer(g.home);
 let p2 = await findPlayer(g.away);
 
 html += `
-<div>
-<span class="${p1?'ok':'bad'}">${g.home}</span> ${g.hs} 🆚 ${g.as}
+<div class="match">
+<span class="${p1?'ok':'bad'}">${g.home}</span>
+${g.played ? g.hs + ' 🆚 ' + g.as : '🆚'}
 <span class="${p2?'ok':'bad'}">${g.away}</span>
 </div>`;
 }
 
-document.getElementById('preview').innerHTML = html;
+document.getElementById('previewBox').innerHTML = html || "❌ No matches found";
 }
 
-// 💾 SUBMIT
-async function submitMatch(){
+// 💾 SAVE
+window.save = async function(){
 
 let text = document.getElementById('text').value;
 let source = document.getElementById('source').value;
 
-// SAVE RAW
+if(parsedGames.length==0){
+alert("Preview first!");
+return;
+}
+
+// save raw
 let raw = await supabase.from('match_raw')
 .insert({source, full_text:text})
 .select();
 
 let matchId = raw.data[0].id;
 
-let games = parse(text);
+// loop
+for(let g of parsedGames){
 
-for(let g of games){
+if(!g.played) continue;
 
 let p1 = await findPlayer(g.home);
 let p2 = await findPlayer(g.away);
 
 if(!p1 || !p2) continue;
 
-// RESULT
+// result
 let r1 = g.hs>g.as?'win':g.hs==g.as?'draw':'lose';
 let r2 = g.as>g.hs?'win':g.hs==g.as?'draw':'lose';
 
-// SAVE PLAYER MATCH
+// save match
 await supabase.from('match_player_results').insert([
 {
 match_id:matchId,
@@ -159,16 +180,16 @@ result:r2
 }
 ]);
 
-// UPDATE RANK
+// update rank
 await updateRank(p1.id,g.hs,g.as);
 await updateRank(p2.id,g.as,g.hs);
 
 }
 
-alert("✅ MATCH SAVED!");
+alert("✅ SAVED TO DATABASE");
 }
 
-// 📊 UPDATE RANK
+// 📊 RANK UPDATE
 async function updateRank(id,gf,ga){
 
 let {data} = await supabase.from('player_rankings')
@@ -204,9 +225,6 @@ points:p
 }
 
 }
-
-// 🔄 LIVE PREVIEW
-document.getElementById('text').addEventListener('input', preview);
 
 </script>
 
