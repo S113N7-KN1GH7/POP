@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pirates of Pitch | POP - Ultimate Gaming Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -14,44 +14,60 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fb;
-            color: #1a1a2e;
+            font-family: 'Rajdhani', 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* Animated Background */
-        .bg-animation {
+        /* Premium Animated Background */
+        .premium-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f1a 100%);
         }
-        .bg-animation::before {
+        .premium-bg::before {
             content: '';
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.08), transparent 50%);
-            animation: floatBG 20s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.15), transparent 50%);
+            animation: pulseGlow 8s ease-in-out infinite;
         }
-        .bg-animation::after {
+        .premium-bg::after {
             content: '';
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 80% 50%, rgba(102, 126, 234, 0.06), transparent 50%);
-            animation: floatBG 15s ease-in-out infinite reverse;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%, rgba(102, 252, 241, 0.1), transparent 50%);
+            animation: pulseGlow2 10s ease-in-out infinite;
         }
-        @keyframes floatBG {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-5%, -5%); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        @keyframes pulseGlow2 {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.15); }
         }
 
-        /* Particles */
+        /* Grid Pattern Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e94560' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Animated Particles */
         .particles {
             position: fixed;
             top: 0;
@@ -63,14 +79,15 @@
         }
         .particle {
             position: absolute;
-            background: rgba(233, 69, 96, 0.3);
+            background: linear-gradient(135deg, #e94560, #ff6b81);
             border-radius: 50%;
+            opacity: 0;
             animation: floatParticle linear infinite;
         }
         @keyframes floatParticle {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
@@ -81,7 +98,7 @@
             padding: 0 40px;
         }
 
-        /* Hero Section */
+        /* Hero Section - Premium */
         .hero-section {
             display: flex;
             align-items: center;
@@ -89,37 +106,57 @@
             min-height: calc(100vh - 80px);
             gap: 60px;
             padding: 80px 0;
+            position: relative;
         }
         .hero-content {
             flex: 1;
+            z-index: 2;
         }
         .hero-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 107, 129, 0.05));
-            border: 1px solid rgba(233, 69, 96, 0.2);
-            padding: 8px 20px;
-            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(233, 69, 96, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            padding: 8px 24px;
+            border-radius: 50px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: #e94560;
             margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+        .hero-badge i {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         .hero-title {
-            font-size: 56px;
+            font-size: 72px;
             font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            line-height: 1.1;
+            margin-bottom: 25px;
             font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
         }
-        .hero-title span {
-            background: linear-gradient(135deg, #e94560, #ff6b81);
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #e94560, #ff6b81, #667eea);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .hero-desc {
             font-size: 18px;
-            color: #5a6e8a;
+            color: #b0b0c0;
             line-height: 1.6;
             margin-bottom: 35px;
             max-width: 550px;
@@ -127,61 +164,84 @@
         .hero-stats {
             display: flex;
             gap: 50px;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
         .hero-stat {
             text-align: left;
+            position: relative;
         }
         .hero-stat .number {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 800;
             font-family: 'Orbitron', monospace;
-            color: #e94560;
+            background: linear-gradient(135deg, #fff, #e94560);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         .hero-stat .label {
             font-size: 13px;
-            color: #8892b0;
+            color: #a0a0b0;
             margin-top: 5px;
+            letter-spacing: 1px;
         }
         .hero-buttons {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
         }
-        .btn-primary {
-            padding: 14px 35px;
+        .btn-premium {
+            padding: 15px 40px;
             background: linear-gradient(135deg, #e94560, #ff6b81);
-            border-radius: 40px;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             color: white;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-        .btn-primary:hover {
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b81, #e94560);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+        .btn-premium:hover::before {
+            left: 0;
+        }
+        .btn-premium:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+            box-shadow: 0 8px 30px rgba(233, 69, 96, 0.6);
         }
-        .btn-secondary {
-            padding: 14px 35px;
+        .btn-outline-premium {
+            padding: 15px 40px;
             background: transparent;
-            border: 1.5px solid rgba(233, 69, 96, 0.4);
-            border-radius: 40px;
+            border: 2px solid rgba(233, 69, 96, 0.5);
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            color: #1a1a2e;
+            font-weight: 700;
+            color: white;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
-        .btn-secondary:hover {
+        .btn-outline-premium:hover {
             border-color: #e94560;
-            background: rgba(233, 69, 96, 0.05);
+            background: rgba(233, 69, 96, 0.1);
             transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.2);
         }
         .hero-image {
             flex: 1;
@@ -191,122 +251,167 @@
             width: 100%;
             max-width: 500px;
             border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+            filter: drop-shadow(0 0 20px rgba(233,69,96,0.2));
+            transition: all 0.5s;
+        }
+        .hero-image img:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 30px rgba(233,69,96,0.4));
         }
         .floating-card {
             position: absolute;
-            background: #ffffff;
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
-            border-radius: 16px;
+            background: rgba(20, 20, 35, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 12px 24px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            gap: 12px;
+            border: 1px solid rgba(233, 69, 96, 0.3);
             animation: float 4s ease-in-out infinite;
+            z-index: 10;
         }
         .floating-card i {
-            font-size: 20px;
+            font-size: 24px;
             color: #e94560;
         }
         .floating-card span {
-            font-size: 13px;
-            font-weight: 500;
-            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 600;
         }
-        .card-1 { top: 15%; left: -10%; animation-delay: 0s; }
-        .card-2 { bottom: 20%; right: -5%; animation-delay: 1s; }
-        .card-3 { top: 45%; right: 5%; animation-delay: 2s; }
+        .card-1 { top: 10%; left: -15%; animation-delay: 0s; }
+        .card-2 { bottom: 20%; right: -10%; animation-delay: 1.5s; }
+        .card-3 { top: 45%; right: 0%; animation-delay: 2.5s; }
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
 
-        /* Stats Cards Section */
-        .stats-cards {
+        /* Premium Stats Cards */
+        .premium-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
-            padding: 60px 0;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            margin: 20px 0;
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .stat-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 30px 25px;
+        .premium-stat-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px 25px;
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
         }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-color: rgba(233, 69, 96, 0.2);
+        .premium-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(233,69,96,0.1), transparent);
+            transition: left 0.6s;
         }
-        .stat-card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(233, 69, 96, 0.1);
-            border-radius: 18px;
+        .premium-stat-card:hover::before {
+            left: 100%;
+        }
+        .premium-stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(233, 69, 96, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(233,69,96,0.2), rgba(255,107,129,0.1));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
         }
-        .stat-card-icon i {
-            font-size: 30px;
+        .stat-icon i {
+            font-size: 35px;
             color: #e94560;
         }
-        .stat-card-number {
-            font-size: 36px;
+        .stat-number {
+            font-size: 42px;
             font-weight: 800;
             font-family: 'Orbitron', monospace;
-            margin-bottom: 8px;
-            color: #1a1a2e;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #e94560);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .stat-card-label {
+        .stat-label {
             font-size: 14px;
-            color: #8892b0;
-            font-weight: 500;
+            color: #b0b0c0;
+            letter-spacing: 1px;
         }
 
-        /* Section Header */
+        /* Live Matches Section */
+        .live-matches {
+            padding: 80px 0;
+        }
         .section-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         .section-header h2 {
-            font-size: 32px;
+            font-size: 42px;
             font-weight: 700;
             font-family: 'Orbitron', monospace;
             margin-bottom: 15px;
-            color: #1a1a2e;
         }
         .section-header h2 i {
             color: #e94560;
-            margin-right: 10px;
+            margin-right: 15px;
         }
         .section-header p {
-            color: #8892b0;
+            color: #b0b0c0;
             font-size: 16px;
         }
+        .live-badge {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            color: #e94560;
+            margin-bottom: 15px;
+        }
 
-        /* Leaderboard Preview */
-        .leaderboard-preview {
-            padding: 60px 0;
+        /* Leaderboard Premium */
+        .leaderboard-premium {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        .leaderboard-header {
+            background: linear-gradient(135deg, rgba(233,69,96,0.2), rgba(255,107,129,0.1));
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .leaderboard-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .leaderboard-header h3 i {
+            color: #ffd700;
         }
         .leaderboard-table {
-            background: #ffffff;
-            border-radius: 20px;
-            border: 1px solid rgba(0,0,0,0.05);
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-        }
-        .leaderboard-table table {
             width: 100%;
             border-collapse: collapse;
         }
@@ -315,18 +420,22 @@
             text-align: center;
             font-size: 13px;
             font-weight: 600;
-            color: #8892b0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            background: #f8f9fa;
+            color: #b0b0c0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.2);
         }
         .leaderboard-table td {
             padding: 15px;
             text-align: center;
             font-size: 14px;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
         .leaderboard-table tr:hover {
-            background: #f8f9fa;
+            background: rgba(255,255,255,0.03);
+        }
+        .rank-cell {
+            font-weight: 700;
+            color: #e94560;
         }
         .team-cell {
             display: flex;
@@ -334,136 +443,100 @@
             gap: 12px;
             justify-content: flex-start;
         }
-        .team-rank {
-            font-weight: 700;
-            color: #e94560;
-            width: 40px;
-        }
         .team-logo {
             width: 35px;
             height: 35px;
             border-radius: 50%;
-            object-fit: cover;
-            background: #f0f4f8;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
         }
-        .team-name {
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-        .points-cell {
+        .points-highlight {
             font-weight: 700;
             color: #e94560;
-            font-size: 16px;
-        }
-        .gd-positive {
-            color: #2ecc71;
-            font-weight: 600;
-        }
-        .gd-negative {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-        .view-all-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 30px;
-            background: transparent;
-            border: 1px solid #e94560;
-            border-radius: 40px;
-            color: #e94560;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 30px;
-            transition: all 0.3s;
-        }
-        .view-all-btn:hover {
-            background: #e94560;
-            color: white;
-            transform: translateY(-2px);
+            font-size: 18px;
         }
 
-        /* Top Players Section */
-        .top-players {
-            padding: 60px 0;
-            border-top: 1px solid rgba(0,0,0,0.06);
+        /* Players Carousel */
+        .players-showcase {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         .players-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
         }
-        .player-card {
-            background: #ffffff;
-            border-radius: 20px;
+        .player-premium-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s;
         }
-        .player-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-color: rgba(233, 69, 96, 0.2);
+        .player-premium-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(233, 69, 96, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
-        .player-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 25px 20px;
+        .player-card-header {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+            padding: 30px 20px;
             text-align: center;
             position: relative;
         }
         .player-avatar {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 3px solid #ffffff;
+            border: 3px solid #e94560;
             object-fit: cover;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         .player-name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #ffffff;
             margin-bottom: 5px;
         }
-        .player-club {
-            font-size: 11px;
-            color: rgba(255,255,255,0.8);
+        .player-rank {
+            font-size: 12px;
+            color: #e94560;
         }
         .player-stats {
             padding: 20px;
         }
-        .player-stat-row {
+        .player-stat-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         .player-stat-label {
-            font-size: 12px;
-            color: #8892b0;
+            font-size: 13px;
+            color: #b0b0c0;
         }
         .player-stat-value {
             font-weight: 700;
-            color: #1a1a2e;
         }
         .player-points {
-            background: #e94560;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            margin: 15px 20px 20px;
+            padding: 12px;
+            border-radius: 50px;
             text-align: center;
-            margin: 15px 20px;
+            font-weight: 700;
         }
 
         /* Features Section */
-        .features-section {
-            padding: 60px 0;
-            border-top: 1px solid rgba(0,0,0,0.06);
+        .features-premium {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         .features-grid {
             display: grid;
@@ -471,119 +544,104 @@
             gap: 30px;
             margin-top: 40px;
         }
-        .feature-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 35px 25px;
+        .feature-premium-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 30px;
             text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s;
         }
-        .feature-card:hover {
+        .feature-premium-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-color: rgba(233, 69, 96, 0.2);
+            border-color: rgba(233, 69, 96, 0.3);
         }
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, rgba(233,69,96,0.1), rgba(255,107,129,0.05));
-            border-radius: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(233,69,96,0.2), rgba(255,107,129,0.1));
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
         }
         .feature-icon i {
-            font-size: 32px;
+            font-size: 40px;
             color: #e94560;
         }
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #1a1a2e;
+        .feature-premium-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
         }
-        .feature-card p {
-            color: #8892b0;
+        .feature-premium-card p {
+            color: #b0b0c0;
             font-size: 14px;
             line-height: 1.6;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        /* CTA Premium */
+        .cta-premium {
+            background: linear-gradient(135deg, rgba(233,69,96,0.15), rgba(102,126,234,0.1));
             border-radius: 30px;
-            padding: 60px 40px;
+            padding: 70px 50px;
             text-align: center;
             margin: 60px 0;
-            color: white;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            position: relative;
+            overflow: hidden;
         }
-        .cta-section h2 {
-            font-size: 32px;
-            font-weight: 700;
+        .cta-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(233,69,96,0.1), transparent);
+            animation: rotateGlow 20s linear infinite;
+        }
+        @keyframes rotateGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cta-premium h2 {
+            font-size: 42px;
             margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
-        .cta-section p {
-            opacity: 0.9;
+        .cta-premium p {
+            color: #b0b0c0;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
         .cta-buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-        }
-        .cta-btn-primary {
-            padding: 14px 35px;
-            background: white;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            color: #667eea;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .cta-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .cta-btn-secondary {
-            padding: 14px 35px;
-            background: transparent;
-            border: 1.5px solid white;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            color: white;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .cta-btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-3px);
+            position: relative;
+            z-index: 1;
         }
 
         /* Footer */
-        .footer {
-            background: #1a1a2e;
-            color: white;
-            padding: 50px 40px 30px;
-            margin-top: 40px;
+        .footer-premium {
+            background: linear-gradient(135deg, #0a0a0f, #0f0f1a);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 60px 40px 30px;
         }
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            gap: 50px;
         }
         .footer-logo .logo-icon {
-            font-size: 40px;
+            font-size: 50px;
             margin-bottom: 15px;
         }
         .footer-logo h3 {
@@ -592,59 +650,78 @@
             margin-bottom: 10px;
         }
         .footer-logo p {
-            color: #a0a0b0;
+            color: #b0b0c0;
             font-size: 13px;
         }
         .footer-links h4 {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 20px;
             color: #e94560;
         }
         .footer-links a {
             display: block;
-            color: #a0a0b0;
+            color: #b0b0c0;
             text-decoration: none;
             margin-bottom: 12px;
-            font-size: 13px;
+            font-size: 14px;
             transition: all 0.3s;
         }
         .footer-links a:hover {
             color: #e94560;
             transform: translateX(5px);
         }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            background: #e94560;
+            transform: translateY(-3px);
+        }
         .footer-bottom {
             text-align: center;
             padding-top: 40px;
             margin-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #a0a0b0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #b0b0c0;
             font-size: 12px;
         }
 
         @media (max-width: 1024px) {
-            .hero-section { flex-direction: column; text-align: center; padding: 40px 0; }
+            .hero-section { flex-direction: column; text-align: center; }
             .hero-desc { margin-left: auto; margin-right: auto; }
             .hero-stats { justify-content: center; }
             .hero-buttons { justify-content: center; }
-            .stats-cards { grid-template-columns: repeat(2, 1fr); }
+            .premium-stats { grid-template-columns: repeat(2, 1fr); }
             .features-grid { grid-template-columns: repeat(2, 1fr); }
             .floating-card { display: none; }
             .main-content { padding: 0 25px; }
+            .hero-title { font-size: 48px; }
         }
         @media (max-width: 768px) {
             .hero-title { font-size: 36px; }
-            .stats-cards { grid-template-columns: 1fr; }
+            .premium-stats { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
-            .leaderboard-table th, .leaderboard-table td { padding: 10px 8px; font-size: 11px; }
-            .team-name { font-size: 12px; }
-            .cta-section { padding: 40px 25px; }
-            .cta-section h2 { font-size: 24px; }
-            .players-grid { grid-template-columns: 1fr; }
+            .cta-premium h2 { font-size: 28px; }
+            .cta-premium { padding: 40px 25px; }
+            .section-header h2 { font-size: 28px; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
+    <div class="premium-bg"></div>
+    <div class="grid-overlay"></div>
     <div class="particles" id="particles"></div>
 
     <div id="navbar-placeholder"></div>
@@ -654,33 +731,33 @@
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <i class="fas fa-fire"></i> OFFICIAL GAMING LEAGUE
+                    <i class="fas fa-bolt"></i> OFFICIAL GAMING LEAGUE
+                    <i class="fas fa-fire"></i>
                 </div>
                 <h1 class="hero-title">
-                    Pirates of <span>The Pitch</span>
+                    PIRATES OF <br><span class="gradient-text">THE PITCH</span>
                 </h1>
                 <p class="hero-desc">
-                    Join the ultimate eFootball battle arena. Compete, conquer, and become 
-                    the legendary pirate of the virtual pitch. Create your club, recruit players, 
-                    and climb the global leaderboard!
+                    Step into the ultimate eFootball arena. Build your legacy, dominate the leaderboards, 
+                    and claim your throne as the legendary pirate of the virtual pitch.
                 </p>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <div class="number" id="totalPlayers">500+</div>
-                        <div class="label">Active Players</div>
+                        <div class="number" id="heroPlayers">500+</div>
+                        <div class="label">ACTIVE PLAYERS</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="number" id="totalClubs">50+</div>
-                        <div class="label">Registered Clubs</div>
+                        <div class="number" id="heroClubs">50+</div>
+                        <div class="label">REGISTERED CLUBS</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="number" id="totalMatches">10K+</div>
-                        <div class="label">Matches Played</div>
+                        <div class="number" id="heroMatches">10K+</div>
+                        <div class="label">MATCHES PLAYED</div>
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <a href="signup.html" class="btn-primary"><i class="fas fa-skull-crossbones"></i> Join as Player</a>
-                    <a href="club-register.html" class="btn-secondary"><i class="fas fa-building"></i> Register Club</a>
+                    <a href="signup.html" class="btn-premium"><i class="fas fa-skull-crossbones"></i> JOIN THE CREW</a>
+                    <a href="club-register.html" class="btn-outline-premium"><i class="fas fa-building"></i> CREATE CLUB</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -700,126 +777,132 @@
             </div>
         </section>
 
-        <!-- Stats Cards -->
-        <section class="stats-cards">
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="fas fa-trophy"></i></div>
-                <div class="stat-card-number" id="statClubs">0</div>
-                <div class="stat-card-label">Total Clubs</div>
+        <!-- Stats Section -->
+        <section class="premium-stats">
+            <div class="premium-stat-card">
+                <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                <div class="stat-number" id="statClubs">0</div>
+                <div class="stat-label">TOTAL CLUBS</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="fas fa-users"></i></div>
-                <div class="stat-card-number" id="statPlayers">0</div>
-                <div class="stat-card-label">Total Players</div>
+            <div class="premium-stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" id="statPlayers">0</div>
+                <div class="stat-label">TOTAL PLAYERS</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="fas fa-futbol"></i></div>
-                <div class="stat-card-number" id="statMatches">0</div>
-                <div class="stat-card-label">Matches Played</div>
+            <div class="premium-stat-card">
+                <div class="stat-icon"><i class="fas fa-futbol"></i></div>
+                <div class="stat-number" id="statMatches">0</div>
+                <div class="stat-label">MATCHES PLAYED</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="fas fa-calendar"></i></div>
-                <div class="stat-card-number" id="statTournaments">0</div>
-                <div class="stat-card-label">Active Tournaments</div>
-            </div>
-        </section>
-
-        <!-- Leaderboard Preview -->
-        <section class="leaderboard-preview">
-            <div class="section-header">
-                <h2><i class="fas fa-trophy"></i> Top Clubs Leaderboard</h2>
-                <p>Top performing clubs in POP Intra Bid S-01 tournament</p>
-            </div>
-            <div class="leaderboard-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Team</th>
-                            <th>MP</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GF</th>
-                            <th>GA</th>
-                            <th>GD</th>
-                            <th>Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboardBody">
-                        <tr><td colspan="10" style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading...<\/td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="text-align: center;">
-                <a href="point-table.html" class="view-all-btn"><i class="fas fa-arrow-right"></i> View Full Point Table</a>
+            <div class="premium-stat-card">
+                <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                <div class="stat-number" id="statTournaments">0</div>
+                <div class="stat-label">ACTIVE TOURNAMENTS</div>
             </div>
         </section>
 
-        <!-- Top Players Section -->
-        <section class="top-players">
+        <!-- Live Matches & Leaderboard -->
+        <section class="live-matches">
             <div class="section-header">
-                <h2><i class="fas fa-star"></i> Top Players</h2>
-                <p>Highest rated players in the league</p>
+                <div class="live-badge"><i class="fas fa-circle" style="color: #2ecc71; font-size: 10px;"></i> LIVE NOW</div>
+                <h2><i class="fas fa-trophy"></i> CHAMPIONSHIP STANDINGS</h2>
+                <p>Top clubs battling for the crown in POP Intra Bid S-01</p>
+            </div>
+            <div class="leaderboard-premium">
+                <div class="leaderboard-header">
+                    <h3><i class="fas fa-crown"></i> POP Intra Bid S-01 - Point Table</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>RANK</th>
+                                <th>TEAM</th>
+                                <th>MP</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GF</th>
+                                <th>GA</th>
+                                <th>GD</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody">
+                            <tr><td colspan="10" style="text-align:center; padding:50px;"><i class="fas fa-spinner fa-spin"></i> Loading standings...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="point-table.html" class="btn-outline-premium" style="padding: 12px 35px;"><i class="fas fa-arrow-right"></i> VIEW FULL TABLE</a>
+            </div>
+        </section>
+
+        <!-- Top Players Showcase -->
+        <section class="players-showcase">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> ELITE PLAYERS</h2>
+                <p>The most dominant players in the league</p>
             </div>
             <div class="players-grid" id="topPlayersGrid">
-                <div style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading players...<\/div>
+                <div style="text-align:center; padding:50px;"><i class="fas fa-spinner fa-spin"></i> Loading elite players...</div>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section class="features-section">
+        <!-- Features -->
+        <section class="features-premium">
             <div class="section-header">
-                <h2><i class="fas fa-star"></i> Why Choose POP?</h2>
-                <p>The ultimate gaming experience awaits you</p>
+                <h2><i class="fas fa-gem"></i> PREMIUM FEATURES</h2>
+                <p>Everything you need to dominate the pitch</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-trophy"></i></div>
                     <h3>Competitive Leagues</h3>
-                    <p>Join ranked matches and climb the global leaderboard to prove your skills.</p>
+                    <p>Ranked matches with global leaderboards. Prove you're the best.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Real-time Statistics</h3>
-                    <p>Track your performance with detailed stats including goals, wins, and rankings.</p>
+                    <h3>Advanced Analytics</h3>
+                    <p>Track every goal, win, and performance metric in real-time.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-users"></i></div>
-                    <h3>Club System</h3>
-                    <p>Create your own club, recruit players, and manage your team like a pro.</p>
+                    <h3>Club Management</h3>
+                    <p>Build your dream team, recruit players, and rise through ranks.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-user-plus"></i></div>
-                    <h3>Easy Registration</h3>
-                    <p>Quick signup process for both players and clubs with instant access.</p>
+                    <h3>Quick Registration</h3>
+                    <p>Sign up in seconds and start your journey immediately.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-edit"></i></div>
-                    <h3>Profile Management</h3>
-                    <p>Customize your profile, upload photos, and manage your gaming info.</p>
+                    <h3>Custom Profiles</h3>
+                    <p>Personalize with photos, gaming IDs, and device info.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-premium-card">
                     <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Secure Platform</h3>
-                    <p>Your data is safe with our secure authentication system.</p>
+                    <p>Enterprise-grade security with Supabase authentication.</p>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <h2>Ready to Begin Your Journey?</h2>
-            <p>Join the fastest growing eFootball community - Pirates of the Pitch</p>
+        <!-- CTA -->
+        <section class="cta-premium">
+            <h2>READY TO RISE?</h2>
+            <p>Join the fastest growing eFootball community in Bangladesh</p>
             <div class="cta-buttons">
-                <a href="signup.html" class="cta-btn-primary"><i class="fas fa-user-plus"></i> Sign Up Now</a>
-                <a href="club-register.html" class="cta-btn-secondary"><i class="fas fa-building"></i> Create Club</a>
+                <a href="signup.html" class="btn-premium"><i class="fas fa-user-plus"></i> SIGN UP NOW</a>
+                <a href="club-register.html" class="btn-outline-premium"><i class="fas fa-building"></i> CREATE A CLUB</a>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer-premium">
         <div class="footer-content">
             <div class="footer-logo">
                 <div class="logo-icon">🏴‍☠️</div>
@@ -838,13 +921,17 @@
                 <a href="login.html">Login</a>
                 <a href="signup.html">Sign Up</a>
                 <a href="club-register.html">Club Register</a>
+                <a href="result-submit.html">Submit Result</a>
             </div>
             <div class="footer-links">
                 <h4>Connect</h4>
-                <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#"><i class="fab fa-discord"></i> Discord</a>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -854,14 +941,15 @@
 
     <script>
         // Create floating particles
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 80; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            particle.style.width = Math.random() * 4 + 2 + 'px';
-            particle.style.height = particle.style.width;
+            const size = Math.random() * 5 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
             particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = Math.random() * 10 + 8 + 's';
-            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = Math.random() * 12 + 8 + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
             document.getElementById('particles').appendChild(particle);
         }
     </script>
@@ -875,27 +963,23 @@
 
         const tournamentName = "pop intra bid s-01";
 
-        // Load stats
         async function loadStats() {
             const { count: clubsCount } = await supabase.from('clubs').select('*', { count: 'exact', head: true });
             document.getElementById('statClubs').innerText = clubsCount || 0;
+            document.getElementById('heroClubs').innerText = (clubsCount || 50) + '+';
             
             const { count: playersCount } = await supabase.from('players').select('*', { count: 'exact', head: true });
             document.getElementById('statPlayers').innerText = playersCount || 0;
+            document.getElementById('heroPlayers').innerText = (playersCount || 500) + '+';
             
             const { count: matchesCount } = await supabase.from('match_results').select('*', { count: 'exact', head: true });
             document.getElementById('statMatches').innerText = matchesCount || 0;
+            document.getElementById('heroMatches').innerText = (matchesCount || 10000) + '+';
             
             const { count: tournamentsCount } = await supabase.from('tournaments').select('*', { count: 'exact', head: true }).eq('status', 'active');
             document.getElementById('statTournaments').innerText = tournamentsCount || 1;
-            
-            // Update hero stats
-            document.getElementById('totalPlayers').innerText = (playersCount || 500) + '+';
-            document.getElementById('totalClubs').innerText = (clubsCount || 50) + '+';
-            document.getElementById('totalMatches').innerText = (matchesCount || 10000) + '+';
         }
 
-        // Load leaderboard
         async function loadLeaderboard() {
             const { data } = await supabase
                 .from('tournament_teams')
@@ -912,22 +996,22 @@
             
             tbody.innerHTML = data.map((team, i) => {
                 const gd = (team.goals_for || 0) - (team.goals_against || 0);
+                const logoLetter = team.team_name.charAt(0);
                 return `<tr>
-                    <td style="color:#e94560; font-weight:700;">#${i+1}</td>
-                    <td><div class="team-cell"><span class="team-name">${team.team_name}</span></div></td>
+                    <td class="rank-cell">#${i+1}</td>
+                    <td><div class="team-cell"><div class="team-logo">${logoLetter}</div><span>${team.team_name}</span></div></td>
                     <td>${team.matches_played || 0}</td>
                     <td>${team.wins || 0}</td>
                     <td>${team.draws || 0}</td>
                     <td>${team.losses || 0}</td>
                     <td>${team.goals_for || 0}</td>
                     <td>${team.goals_against || 0}</td>
-                    <td class="${gd >= 0 ? 'gd-positive' : 'gd-negative'}">${gd >= 0 ? '+' : ''}${gd}</td>
-                    <td class="points-cell">${team.points || 0}</td>
+                    <td class="${gd >= 0 ? 'gd-positive' : 'gd-negative'}" style="color:${gd>=0?'#2ecc71':'#e74c3c'}">${gd >= 0 ? '+' : ''}${gd}</td>
+                    <td class="points-highlight">${team.points || 0}</td>
                 </tr>`;
             }).join('');
         }
 
-        // Load top players
         async function loadTopPlayers() {
             const { data } = await supabase
                 .from('players')
@@ -941,39 +1025,42 @@
                 return;
             }
             
-            container.innerHTML = data.map(player => `
-                <div class="player-card">
-                    <div class="player-header">
-                        <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=80&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
+            container.innerHTML = data.map((player, index) => `
+                <div class="player-premium-card">
+                    <div class="player-card-header">
+                        <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=100&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
                         <h3 class="player-name">${player.player_name}</h3>
-                        <p class="player-club">${player.device_name || 'Professional Player'}</p>
+                        <p class="player-rank"><i class="fas fa-crown"></i> Rank #${index + 1}</p>
                     </div>
                     <div class="player-stats">
-                        <div class="player-stat-row">
+                        <div class="player-stat-item">
                             <span class="player-stat-label"><i class="fas fa-trophy"></i> Wins</span>
                             <span class="player-stat-value">${player.win || 0}</span>
                         </div>
-                        <div class="player-stat-row">
+                        <div class="player-stat-item">
                             <span class="player-stat-label"><i class="fas fa-frown"></i> Losses</span>
                             <span class="player-stat-value">${player.loss || 0}</span>
                         </div>
-                        <div class="player-stat-row">
+                        <div class="player-stat-item">
                             <span class="player-stat-label"><i class="fas fa-handshake"></i> Draws</span>
                             <span class="player-stat-value">${player.draw || 0}</span>
                         </div>
-                        <div class="player-stat-row">
+                        <div class="player-stat-item">
                             <span class="player-stat-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
                             <span class="player-stat-value">${player.gf || 0} / ${player.ga || 0}</span>
                         </div>
+                        <div class="player-stat-item">
+                            <span class="player-stat-label"><i class="fas fa-id-card"></i> Konami ID</span>
+                            <span class="player-stat-value">${player.konami_user_id || 'N/A'}</span>
+                        </div>
                     </div>
                     <div class="player-points">
-                        <i class="fas fa-star"></i> ${player.pts || 0} Points
+                        <i class="fas fa-star"></i> ${player.pts || 0} POINTS
                     </div>
                 </div>
             `).join('');
         }
 
-        // Load navbar
         async function loadNavbar() {
             try {
                 const response = await fetch('/navbar.html');
