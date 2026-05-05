@@ -1,631 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match Result Submit | Pirates of Pitch - POP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<title>Match Text Submit</title>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fb;
-            color: #1a1a2e;
-            overflow-x: hidden;
-        }
+<style>
+body{font-family:sans-serif;background:#f5f5f5;padding:20px}
+.box{max-width:700px;margin:auto;background:#fff;padding:20px;border-radius:10px}
+textarea{width:100%;height:200px;margin-top:10px}
+button{padding:10px 20px;background:#e94560;color:#fff;border:none;margin-top:10px}
+.result{margin-top:20px}
+.ok{color:green;font-weight:bold}
+.bad{color:red;font-weight:bold}
+</style>
 
-        .main-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 40px;
-        }
-
-        /* Page Header */
-        .page-header {
-            margin-bottom: 30px;
-        }
-        .page-header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .page-header h1 i {
-            color: #e94560;
-            font-size: 36px;
-        }
-        .page-header p {
-            color: #6b7280;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        /* Form Container */
-        .form-container {
-            background: #ffffff;
-            border-radius: 24px;
-            border: 1px solid rgba(0,0,0,0.06);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-        .form-header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 18px 25px;
-            color: white;
-        }
-        .form-header h2 {
-            font-size: 18px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .form-header h2 i {
-            color: #ffd700;
-        }
-
-        .form-body {
-            padding: 25px;
-        }
-
-        /* Tournament Selector */
-        .tournament-selector {
-            margin-bottom: 25px;
-        }
-        .tournament-selector label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 8px;
-        }
-        .tournament-selector select {
-            width: 100%;
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border: 1px solid #e8ecf1;
-            border-radius: 12px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-        }
-        .tournament-selector select:focus {
-            outline: none;
-            border-color: #e94560;
-        }
-
-        /* Text Input Box */
-        .text-input-box {
-            margin-bottom: 25px;
-        }
-        .text-input-box label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            margin-bottom: 8px;
-        }
-        .text-input-box textarea {
-            width: 100%;
-            padding: 15px;
-            background: #f8f9fa;
-            border: 1px solid #e8ecf1;
-            border-radius: 12px;
-            font-size: 13px;
-            font-family: 'Inter', sans-serif;
-            resize: vertical;
-            min-height: 200px;
-        }
-        .text-input-box textarea:focus {
-            outline: none;
-            border-color: #e94560;
-        }
-
-        /* Parse Button */
-        .parse-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 25px;
-        }
-        .parse-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-        }
-
-        /* Preview Table */
-        .preview-section {
-            margin-top: 20px;
-            margin-bottom: 25px;
-            display: none;
-        }
-        .preview-section h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .preview-section h3 i {
-            color: #e94560;
-        }
-        .preview-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #f8f9fa;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .preview-table th {
-            padding: 12px;
-            text-align: center;
-            background: #e8ecf1;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .preview-table td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #e8ecf1;
-            font-size: 13px;
-        }
-        .match-status {
-            font-size: 16px;
-        }
-        .match-status.matched { color: #2ecc71; }
-        .match-status.not-matched { color: #e74c3c; cursor: pointer; }
-        .player-select {
-            padding: 5px 10px;
-            border-radius: 8px;
-            border: 1px solid #e8ecf1;
-            font-size: 12px;
-        }
-        .team-points-row {
-            background: linear-gradient(135deg, rgba(233,69,96,0.05), rgba(255,107,129,0.03));
-            font-weight: 600;
-        }
-        .team-points-row td {
-            padding: 15px;
-        }
-
-        /* Save Button */
-        .save-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #e94560, #ff6b81);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(233,69,96,0.3);
-        }
-        .save-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Message */
-        .message {
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .message.success {
-            background: #e6f7e6;
-            color: #2ecc71;
-            border: 1px solid #2ecc71;
-        }
-        .message.error {
-            background: #fee;
-            color: #e74c3c;
-            border: 1px solid #e74c3c;
-        }
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin-right: 8px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .main-content { padding: 20px; }
-            .preview-table th, .preview-table td { padding: 8px 4px; font-size: 10px; }
-            .page-header h1 { font-size: 24px; }
-        }
-    </style>
 </head>
 <body>
-    <div id="navbar-placeholder"></div>
 
-    <main class="main-content">
-        <div class="page-header">
-            <h1><i class="fas fa-futbol"></i> Match Result Submit</h1>
-            <p>Paste match details with 🆚 format. System will auto-detect players and scores.</p>
-        </div>
+<div class="box">
 
-        <div class="form-container">
-            <div class="form-header">
-                <h2><i class="fas fa-trophy"></i> Submit Match Result</h2>
-            </div>
-            <div class="form-body">
-                <!-- Tournament Selector -->
-                <div class="tournament-selector">
-                    <label><i class="fas fa-calendar-alt"></i> Select Tournament</label>
-                    <select id="tournamentSelect">
-                        <option value="In-club">🏠 In-club</option>
-                        <option value="Cobeg">⚔️ Cobeg</option>
-                        <option value="Efob">🏆 Efob</option>
-                        <option value="Efcob">🔥 Efcob</option>
-                        <option value="Befc">💀 Befc</option>
-                    </select>
-                </div>
+<h2>Match Submit</h2>
 
-                <!-- Text Input Box -->
-                <div class="text-input-box">
-                    <label><i class="fas fa-file-alt"></i> Match Details (Paste here)</label>
-                    <textarea id="matchText" placeholder='Example:
-POP Intra Bid || knockout semi final 
+<select id="source">
+<option>In-club</option>
+<option>Cobeg</option>
+<option>Efob</option>
+<option>Efcob</option>
+<option>Befc</option>
+</select>
 
-DEAD FOR SURE ⚔️ Team Flame
+<textarea id="text" placeholder="Paste match text here..."></textarea>
 
-📅 4 may 2026 | 01:00 Am
+<button onclick="submitMatch()">Submit</button>
 
-⸻
+<div id="preview" class="result"></div>
 
-𝐌𝐀𝐓𝐂𝐇 𝐅𝐈𝐗𝐓𝐔𝐑𝐄𝐒
+</div>
 
-Mazid bin sultan 3 🆚 5 Juboraj Islam Rup
-Akram anas saad 2 🆚 1 Parvez Hossain 
+<script type="module">
 
-⸻
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-DEAD FOR SURE 12 🆚 6 Team Flame'></textarea>
-                </div>
+const supabase = createClient(
+'https://uwybeitqpnaqmcmqwbkv.supabase.co',
+'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g'
+);
 
-                <!-- Parse Button -->
-                <button id="parseBtn" class="parse-btn"><i class="fas fa-search"></i> Parse Match Data</button>
+// 🔍 PARSE FUNCTION
+function parse(text){
 
-                <!-- Preview Section -->
-                <div id="previewSection" class="preview-section">
-                    <h3><i class="fas fa-list"></i> Extracted Match Data</h3>
-                    <div style="overflow-x: auto;">
-                        <table class="preview-table" id="previewTable">
-                            <thead>
-                                <tr><th>Home Player</th><th>Score</th><th></th><th>Score</th><th>Away Player</th><th>Status</th></tr>
-                            </thead>
-                            <tbody id="previewBody"></tbody>
-                        </table>
-                    </div>
-                </div>
+let lines = text.split('\n');
+let out = [];
 
-                <!-- Save Button -->
-                <button id="saveBtn" class="save-btn" style="display: none;"><i class="fas fa-save"></i> Save All Matches</button>
-                <div id="messageContainer"></div>
-            </div>
-        </div>
-    </main>
+lines.forEach(l=>{
 
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+if(l.includes('🆚')){
 
-        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
-        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+let c = l.replace(/🔑|⚔️|—/g,'').trim();
+let p = c.split('🆚');
 
-        let parsedMatches = [];
-        let teamPointsData = null;
+let l1 = p[0].match(/(.+)\s(\d+)$/);
+let r1 = p[1].match(/^(\d+)\s(.+)/);
 
-        // Load navbar
-        async function loadNavbar() {
-            try {
-                const response = await fetch('/navbar.html');
-                const navbarHtml = await response.text();
-                document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
-            } catch(e) { console.log('Navbar load skipped'); }
-        }
+if(l1 && r1){
+out.push({
+home:l1[1].trim(),
+hs:parseInt(l1[2]),
+as:parseInt(r1[1]),
+away:r1[2].trim()
+});
+}
 
-        // Search player in database
-        async function searchPlayer(playerName) {
-            const { data, error } = await supabase
-                .from('players')
-                .select('id, player_name')
-                .ilike('player_name', `%${playerName.trim()}%`)
-                .limit(1);
-            
-            if (error || !data || data.length === 0) {
-                return null;
-            }
-            return data[0];
-        }
+}
 
-        // Parse match text
-        function parseMatchText(text, tournamentName) {
-            const lines = text.split('\n');
-            const matches = [];
-            let currentTeam1 = '';
-            let currentTeam2 = '';
-            let team1Score = null;
-            let team2Score = null;
-            
-            // First, find team names and team points
-            for (let line of lines) {
-                // Check for team vs team format (e.g., "DEAD FOR SURE ⚔️ Team Flame" or "DEAD FOR SURE 12 🆚 6 Team Flame")
-                const teamVsTeamMatch = line.match(/([A-Za-z0-9\s]+?)\s*(?:(\d+)\s*🆚\s*(\d+))?\s*(?:⚔️|vs|VS)\s*([A-Za-z0-9\s]+)/i);
-                if (teamVsTeamMatch) {
-                    currentTeam1 = teamVsTeamMatch[1].trim();
-                    currentTeam2 = teamVsTeamMatch[4].trim();
-                    if (teamVsTeamMatch[2] && teamVsTeamMatch[3]) {
-                        team1Score = parseInt(teamVsTeamMatch[2]);
-                        team2Score = parseInt(teamVsTeamMatch[3]);
-                    }
-                }
-            }
-            
-            // Parse player matches
-            for (let line of lines) {
-                // Match pattern: "Player Name 3 🆚 5 Opponent Name"
-                const match = line.match(/(.+?)\s+(\d+)\s*🆚\s*(\d+)\s+(.+)/);
-                if (match) {
-                    const homePlayer = match[1].trim();
-                    const homeScore = parseInt(match[2]);
-                    const awayScore = parseInt(match[3]);
-                    const awayPlayer = match[4].trim();
-                    
-                    matches.push({
-                        home_player_name: homePlayer,
-                        home_score: homeScore,
-                        away_score: awayScore,
-                        away_player_name: awayPlayer,
-                        home_player_id: null,
-                        away_player_id: null,
-                        is_matched_home: false,
-                        is_matched_away: false
-                    });
-                }
-            }
-            
-            return { matches, team1_name: currentTeam1, team2_name: currentTeam2, team1_score: team1Score, team2_score: team2Score };
-        }
+});
 
-        // Render preview table
-        async function renderPreview() {
-            const tournament = document.getElementById('tournamentSelect').value;
-            const text = document.getElementById('matchText').value;
-            
-            if (!text.trim()) {
-                document.getElementById('previewSection').style.display = 'none';
-                document.getElementById('saveBtn').style.display = 'none';
-                return;
-            }
-            
-            const parsed = parseMatchText(text, tournament);
-            parsedMatches = parsed.matches;
-            teamPointsData = { team1_name: parsed.team1_name, team2_name: parsed.team2_name, team1_score: parsed.team1_score, team2_score: parsed.team2_score };
-            
-            // Search for player IDs
-            for (let i = 0; i < parsedMatches.length; i++) {
-                const match = parsedMatches[i];
-                const homePlayer = await searchPlayer(match.home_player_name);
-                const awayPlayer = await searchPlayer(match.away_player_name);
-                
-                parsedMatches[i].home_player_id = homePlayer?.id || null;
-                parsedMatches[i].away_player_id = awayPlayer?.id || null;
-                parsedMatches[i].is_matched_home = !!homePlayer;
-                parsedMatches[i].is_matched_away = !!awayPlayer;
-                if (homePlayer) parsedMatches[i].home_player_name_db = homePlayer.player_name;
-                if (awayPlayer) parsedMatches[i].away_player_name_db = awayPlayer.player_name;
-            }
-            
-            const tbody = document.getElementById('previewBody');
-            let html = '';
-            
-            for (let i = 0; i < parsedMatches.length; i++) {
-                const m = parsedMatches[i];
-                html += `<tr>
-                    <td>${m.home_player_name}${m.is_matched_home ? `<br><small style="color:#2ecc71;">✅ ${m.home_player_name_db}</small>` : `<br><select class="player-select" data-home="${i}" data-type="home"><option value="">Select Player</option></select>`}</td>
-                    <td><strong>${m.home_score}</strong></td>
-                    <td>🆚</td>
-                    <td><strong>${m.away_score}</strong></td>
-                    <td>${m.away_player_name}${m.is_matched_away ? `<br><small style="color:#2ecc71;">✅ ${m.away_player_name_db}</small>` : `<br><select class="player-select" data-away="${i}" data-type="away"><option value="">Select Player</option></select>`}</td>
-                    <td class="match-status ${m.is_matched_home && m.is_matched_away ? 'matched' : 'not-matched'}">${m.is_matched_home && m.is_matched_away ? '✅ Matched' : '❌ Not Matched'}</td>
-                </tr>`;
-            }
-            
-            // Add team points row if available
-            if (teamPointsData.team1_name && teamPointsData.team2_name) {
-                html += `<tr class="team-points-row">
-                    <td colspan="6"><strong>🏆 Team Points:</strong> ${teamPointsData.team1_name} ${teamPointsData.team1_score !== null ? teamPointsData.team1_score : '?'} 🆚 ${teamPointsData.team2_score !== null ? teamPointsData.team2_score : '?'} ${teamPointsData.team2_name}</td>
-                </tr>`;
-            }
-            
-            tbody.innerHTML = html;
-            
-            // Load player options for unmatched players
-            const { data: allPlayers } = await supabase.from('players').select('id, player_name').order('player_name');
-            if (allPlayers) {
-                document.querySelectorAll('.player-select').forEach(select => {
-                    const homeIdx = select.dataset.home;
-                    const awayIdx = select.dataset.away;
-                    const type = select.dataset.type;
-                    
-                    allPlayers.forEach(player => {
-                        const option = document.createElement('option');
-                        option.value = player.id;
-                        option.textContent = player.player_name;
-                        select.appendChild(option);
-                    });
-                    
-                    select.addEventListener('change', async (e) => {
-                        const playerId = e.target.value;
-                        if (homeIdx !== undefined && type === 'home') {
-                            parsedMatches[parseInt(homeIdx)].home_player_id = playerId;
-                            parsedMatches[parseInt(homeIdx)].is_matched_home = !!playerId;
-                        } else if (awayIdx !== undefined && type === 'away') {
-                            parsedMatches[parseInt(awayIdx)].away_player_id = playerId;
-                            parsedMatches[parseInt(awayIdx)].is_matched_away = !!playerId;
-                        }
-                        renderPreview();
-                    });
-                });
-            }
-            
-            document.getElementById('previewSection').style.display = 'block';
-            document.getElementById('saveBtn').style.display = 'block';
-        }
+return out;
+}
 
-        // Update player stats
-        async function updatePlayerStats(playerId, myScore, oppScore) {
-            const { data: player } = await supabase.from('players').select('*').eq('id', playerId).single();
-            if (!player) return;
-            
-            const totalMatches = (player.total_matches || 0) + 1;
-            const goalsFor = (player.gf || 0) + myScore;
-            const goalsAgainst = (player.ga || 0) + oppScore;
-            
-            let wins = player.win || 0;
-            let draws = player.draw || 0;
-            let losses = player.loss || 0;
-            let points = player.pts || 0;
-            
-            if (myScore > oppScore) {
-                wins++;
-                points += 3;
-            } else if (myScore === oppScore) {
-                draws++;
-                points += 1;
-            } else {
-                losses++;
-            }
-            
-            await supabase.from('players').update({
-                total_matches: totalMatches,
-                win: wins,
-                draw: draws,
-                loss: losses,
-                gf: goalsFor,
-                ga: goalsAgainst,
-                pts: points
-            }).eq('id', playerId);
-        }
+// 🔎 FIND PLAYER
+async function findPlayer(name){
 
-        // Save match to database
-        async function saveMatch() {
-            const tournament = document.getElementById('tournamentSelect').value;
-            const saveBtn = document.getElementById('saveBtn');
-            const messageDiv = document.getElementById('messageContainer');
-            
-            saveBtn.disabled = true;
-            saveBtn.innerHTML = '<span class="spinner"></span> Saving...';
-            
-            try {
-                // Save main match record
-                const { data: matchData, error: matchError } = await supabase
-                    .from('matches')
-                    .insert({
-                        tournament_name: tournament,
-                        team1_name: teamPointsData?.team1_name || null,
-                        team2_name: teamPointsData?.team2_name || null,
-                        team1_score: teamPointsData?.team1_score || null,
-                        team2_score: teamPointsData?.team2_score || null,
-                        match_date: new Date().toISOString().split('T')[0],
-                        raw_text: document.getElementById('matchText').value
-                    })
-                    .select()
-                    .single();
-                
-                if (matchError) throw matchError;
-                
-                // Save player match results and update stats
-                for (const match of parsedMatches) {
-                    if (match.home_player_id && match.away_player_id) {
-                        // Save to player_match_results
-                        const winner = match.home_score > match.away_score ? 'home' : (match.away_score > match.home_score ? 'away' : 'draw');
-                        
-                        await supabase.from('player_match_results').insert({
-                            match_id: matchData.id,
-                            home_player_name: match.home_player_name,
-                            home_player_id: match.home_player_id,
-                            home_score: match.home_score,
-                            away_player_name: match.away_player_name,
-                            away_player_id: match.away_player_id,
-                            away_score: match.away_score,
-                            winner: winner,
-                            is_matched: true
-                        });
-                        
-                        // Update player stats
-                        await updatePlayerStats(match.home_player_id, match.home_score, match.away_score);
-                        await updatePlayerStats(match.away_player_id, match.away_score, match.home_score);
-                    }
-                }
-                
-                messageDiv.innerHTML = '<div class="message success"><i class="fas fa-check-circle"></i> ✅ Match results saved successfully! Rankings updated.</div>';
-                setTimeout(() => messageDiv.innerHTML = '', 5000);
-                
-                // Reset form
-                document.getElementById('matchText').value = '';
-                document.getElementById('previewSection').style.display = 'none';
-                document.getElementById('saveBtn').style.display = 'none';
-                
-            } catch (error) {
-                console.error('Save error:', error);
-                messageDiv.innerHTML = `<div class="message error"><i class="fas fa-exclamation-circle"></i> ❌ Error: ${error.message}</div>`;
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.innerHTML = '<i class="fas fa-save"></i> Save All Matches';
-            }
-        }
+const {data} = await supabase.from('players').select('*');
 
-        // Event listeners
-        document.getElementById('parseBtn').addEventListener('click', () => renderPreview());
-        document.getElementById('saveBtn').addEventListener('click', () => saveMatch());
+return data.find(p =>
+p.player_name.trim().toLowerCase() === name.trim().toLowerCase()
+);
 
-        // Initialize
-        async function init() {
-            await loadNavbar();
-        }
-        init();
-    </script>
+}
+
+// 👁️ PREVIEW
+async function preview(){
+
+let txt = document.getElementById('text').value;
+let games = parse(txt);
+
+let html = '';
+
+for(let g of games){
+
+let p1 = await findPlayer(g.home);
+let p2 = await findPlayer(g.away);
+
+html += `
+<div>
+<span class="${p1?'ok':'bad'}">${g.home}</span> ${g.hs} 🆚 ${g.as}
+<span class="${p2?'ok':'bad'}">${g.away}</span>
+</div>`;
+}
+
+document.getElementById('preview').innerHTML = html;
+}
+
+// 💾 SUBMIT
+async function submitMatch(){
+
+let text = document.getElementById('text').value;
+let source = document.getElementById('source').value;
+
+// SAVE RAW
+let raw = await supabase.from('match_raw')
+.insert({source, full_text:text})
+.select();
+
+let matchId = raw.data[0].id;
+
+let games = parse(text);
+
+for(let g of games){
+
+let p1 = await findPlayer(g.home);
+let p2 = await findPlayer(g.away);
+
+if(!p1 || !p2) continue;
+
+// RESULT
+let r1 = g.hs>g.as?'win':g.hs==g.as?'draw':'lose';
+let r2 = g.as>g.hs?'win':g.hs==g.as?'draw':'lose';
+
+// SAVE PLAYER MATCH
+await supabase.from('match_player_results').insert([
+{
+match_id:matchId,
+player_id:p1.id,
+player_name:p1.player_name,
+opponent_name:g.away,
+goals_for:g.hs,
+goals_against:g.as,
+result:r1
+},
+{
+match_id:matchId,
+player_id:p2.id,
+player_name:p2.player_name,
+opponent_name:g.home,
+goals_for:g.as,
+goals_against:g.hs,
+result:r2
+}
+]);
+
+// UPDATE RANK
+await updateRank(p1.id,g.hs,g.as);
+await updateRank(p2.id,g.as,g.hs);
+
+}
+
+alert("✅ MATCH SAVED!");
+}
+
+// 📊 UPDATE RANK
+async function updateRank(id,gf,ga){
+
+let {data} = await supabase.from('player_rankings')
+.select('*')
+.eq('player_id',id)
+.maybeSingle();
+
+let w=0,d=0,l=0,p=0;
+
+if(gf>ga){w=1;p=3}
+else if(gf==ga){d=1;p=1}
+else l=1;
+
+if(data){
+await supabase.from('player_rankings').update({
+total_matches:data.total_matches+1,
+wins:data.wins+w,
+draws:data.draws+d,
+losses:data.losses+l,
+goals_for:data.goals_for+gf,
+goals_against:data.goals_against+ga,
+points:data.points+p
+}).eq('player_id',id);
+}else{
+await supabase.from('player_rankings').insert({
+player_id:id,
+total_matches:1,
+wins:w,draws:d,losses:l,
+goals_for:gf,
+goals_against:ga,
+points:p
+});
+}
+
+}
+
+// 🔄 LIVE PREVIEW
+document.getElementById('text').addEventListener('input', preview);
+
+</script>
+
 </body>
 </html>
