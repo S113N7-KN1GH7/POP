@@ -15,8 +15,8 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0a0f;
-            color: #ffffff;
+            background: #f5f7fb;
+            color: #1a1a2e;
             overflow-x: hidden;
         }
 
@@ -35,7 +35,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.12), transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.08), transparent 50%);
             animation: floatBG 20s ease-in-out infinite;
         }
         .bg-animation::after {
@@ -43,7 +43,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 80% 50%, rgba(102, 252, 241, 0.08), transparent 50%);
+            background: radial-gradient(circle at 80% 50%, rgba(102, 126, 234, 0.06), transparent 50%);
             animation: floatBG 15s ease-in-out infinite reverse;
         }
         @keyframes floatBG {
@@ -63,14 +63,14 @@
         }
         .particle {
             position: absolute;
-            background: rgba(233, 69, 96, 0.4);
+            background: rgba(233, 69, 96, 0.3);
             border-radius: 50%;
             animation: floatParticle linear infinite;
         }
         @keyframes floatParticle {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
@@ -88,25 +88,24 @@
             justify-content: space-between;
             min-height: calc(100vh - 80px);
             gap: 60px;
-            padding: 60px 0;
+            padding: 80px 0;
         }
         .hero-content {
             flex: 1;
         }
         .hero-badge {
             display: inline-block;
-            background: rgba(233, 69, 96, 0.15);
-            border: 1px solid rgba(233, 69, 96, 0.3);
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 107, 129, 0.05));
+            border: 1px solid rgba(233, 69, 96, 0.2);
             padding: 8px 20px;
             border-radius: 40px;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             color: #e94560;
             margin-bottom: 25px;
-            backdrop-filter: blur(10px);
         }
         .hero-title {
-            font-size: 64px;
+            font-size: 56px;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
@@ -120,7 +119,7 @@
         }
         .hero-desc {
             font-size: 18px;
-            color: #a0a0b0;
+            color: #5a6e8a;
             line-height: 1.6;
             margin-bottom: 35px;
             max-width: 550px;
@@ -141,7 +140,7 @@
         }
         .hero-stat .label {
             font-size: 13px;
-            color: #a0a0b0;
+            color: #8892b0;
             margin-top: 5px;
         }
         .hero-buttons {
@@ -169,11 +168,11 @@
         .btn-secondary {
             padding: 14px 35px;
             background: transparent;
-            border: 1.5px solid rgba(233, 69, 96, 0.5);
+            border: 1.5px solid rgba(233, 69, 96, 0.4);
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            color: white;
+            color: #1a1a2e;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
@@ -181,7 +180,7 @@
         }
         .btn-secondary:hover {
             border-color: #e94560;
-            background: rgba(233, 69, 96, 0.1);
+            background: rgba(233, 69, 96, 0.05);
             transform: translateY(-3px);
         }
         .hero-image {
@@ -192,18 +191,19 @@
             width: 100%;
             max-width: 500px;
             border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .floating-card {
             position: absolute;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(15px);
+            background: #ffffff;
+            backdrop-filter: blur(10px);
             padding: 12px 20px;
             border-radius: 16px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             animation: float 4s ease-in-out infinite;
         }
         .floating-card i {
@@ -213,6 +213,7 @@
         .floating-card span {
             font-size: 13px;
             font-weight: 500;
+            color: #1a1a2e;
         }
         .card-1 { top: 15%; left: -10%; animation-delay: 0s; }
         .card-2 { bottom: 20%; right: -5%; animation-delay: 1s; }
@@ -228,28 +229,28 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
             padding: 60px 0;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
             margin: 20px 0;
         }
         .stat-card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             border-radius: 20px;
-            padding: 25px;
+            padding: 30px 25px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             transition: all 0.3s;
         }
         .stat-card:hover {
             transform: translateY(-5px);
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(233, 69, 96, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: rgba(233, 69, 96, 0.2);
         }
         .stat-card-icon {
             width: 60px;
             height: 60px;
-            background: rgba(233, 69, 96, 0.15);
+            background: rgba(233, 69, 96, 0.1);
             border-radius: 18px;
             display: flex;
             align-items: center;
@@ -265,40 +266,45 @@
             font-weight: 800;
             font-family: 'Orbitron', monospace;
             margin-bottom: 8px;
+            color: #1a1a2e;
         }
         .stat-card-label {
             font-size: 14px;
-            color: #a0a0b0;
+            color: #8892b0;
+            font-weight: 500;
         }
 
-        /* Leaderboard Preview */
-        .leaderboard-preview {
-            padding: 60px 0;
-        }
+        /* Section Header */
         .section-header {
             text-align: center;
             margin-bottom: 40px;
         }
         .section-header h2 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             font-family: 'Orbitron', monospace;
             margin-bottom: 15px;
+            color: #1a1a2e;
         }
         .section-header h2 i {
             color: #e94560;
             margin-right: 10px;
         }
         .section-header p {
-            color: #a0a0b0;
+            color: #8892b0;
             font-size: 16px;
         }
+
+        /* Leaderboard Preview */
+        .leaderboard-preview {
+            padding: 60px 0;
+        }
         .leaderboard-table {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
         }
         .leaderboard-table table {
             width: 100%;
@@ -309,18 +315,18 @@
             text-align: center;
             font-size: 13px;
             font-weight: 600;
-            color: #a0a0b0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            background: rgba(0,0,0,0.2);
+            color: #8892b0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background: #f8f9fa;
         }
         .leaderboard-table td {
             padding: 15px;
             text-align: center;
             font-size: 14px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         .leaderboard-table tr:hover {
-            background: rgba(255,255,255,0.03);
+            background: #f8f9fa;
         }
         .team-cell {
             display: flex;
@@ -338,22 +344,32 @@
             height: 35px;
             border-radius: 50%;
             object-fit: cover;
+            background: #f0f4f8;
         }
         .team-name {
             font-weight: 600;
+            color: #1a1a2e;
         }
         .points-cell {
             font-weight: 700;
             color: #e94560;
             font-size: 16px;
         }
+        .gd-positive {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .gd-negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
         .view-all-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 12px 30px;
-            background: rgba(233, 69, 96, 0.1);
-            border: 1px solid rgba(233, 69, 96, 0.3);
+            background: transparent;
+            border: 1px solid #e94560;
             border-radius: 40px;
             color: #e94560;
             text-decoration: none;
@@ -367,10 +383,87 @@
             transform: translateY(-2px);
         }
 
+        /* Top Players Section */
+        .top-players {
+            padding: 60px 0;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .player-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s;
+        }
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: rgba(233, 69, 96, 0.2);
+        }
+        .player-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .player-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .player-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .player-club {
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+        }
+        .player-stats {
+            padding: 20px;
+        }
+        .player-stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .player-stat-label {
+            font-size: 12px;
+            color: #8892b0;
+        }
+        .player-stat-value {
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .player-points {
+            background: #e94560;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            margin: 15px 20px;
+        }
+
         /* Features Section */
         .features-section {
             padding: 60px 0;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(0,0,0,0.06);
         }
         .features-grid {
             display: grid;
@@ -379,23 +472,23 @@
             margin-top: 40px;
         }
         .feature-card {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             border-radius: 20px;
             padding: 35px 25px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
             transition: all 0.3s;
         }
         .feature-card:hover {
             transform: translateY(-5px);
-            background: rgba(255,255,255,0.06);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
             border-color: rgba(233, 69, 96, 0.2);
         }
         .feature-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, rgba(233,69,96,0.2), rgba(255,107,129,0.1));
+            background: linear-gradient(135deg, rgba(233,69,96,0.1), rgba(255,107,129,0.05));
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -409,21 +502,22 @@
         .feature-card h3 {
             font-size: 20px;
             margin-bottom: 12px;
+            color: #1a1a2e;
         }
         .feature-card p {
-            color: #a0a0b0;
+            color: #8892b0;
             font-size: 14px;
             line-height: 1.6;
         }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, rgba(233,69,96,0.1), rgba(102,126,234,0.05));
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 30px;
             padding: 60px 40px;
             text-align: center;
             margin: 60px 0;
-            border: 1px solid rgba(233, 69, 96, 0.2);
+            color: white;
         }
         .cta-section h2 {
             font-size: 32px;
@@ -431,7 +525,7 @@
             margin-bottom: 15px;
         }
         .cta-section p {
-            color: #a0a0b0;
+            opacity: 0.9;
             margin-bottom: 30px;
         }
         .cta-buttons {
@@ -440,11 +534,44 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+        .cta-btn-primary {
+            padding: 14px 35px;
+            background: white;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .cta-btn-secondary {
+            padding: 14px 35px;
+            background: transparent;
+            border: 1.5px solid white;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cta-btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
 
         /* Footer */
         .footer {
-            background: rgba(10,10,15,0.95);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #1a1a2e;
+            color: white;
             padding: 50px 40px 30px;
             margin-top: 40px;
         }
@@ -489,7 +616,7 @@
             text-align: center;
             padding-top: 40px;
             margin-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255,255,255,0.1);
             color: #a0a0b0;
             font-size: 12px;
         }
@@ -505,13 +632,14 @@
             .main-content { padding: 0 25px; }
         }
         @media (max-width: 768px) {
-            .hero-title { font-size: 40px; }
+            .hero-title { font-size: 36px; }
             .stats-cards { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .leaderboard-table th, .leaderboard-table td { padding: 10px 8px; font-size: 11px; }
             .team-name { font-size: 12px; }
             .cta-section { padding: 40px 25px; }
             .cta-section h2 { font-size: 24px; }
+            .players-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -538,15 +666,15 @@
                 </p>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <div class="number">500+</div>
+                        <div class="number" id="totalPlayers">500+</div>
                         <div class="label">Active Players</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="number">50+</div>
+                        <div class="number" id="totalClubs">50+</div>
                         <div class="label">Registered Clubs</div>
                     </div>
                     <div class="hero-stat">
-                        <div class="number">10K+</div>
+                        <div class="number" id="totalMatches">10K+</div>
                         <div class="label">Matches Played</div>
                     </div>
                 </div>
@@ -576,22 +704,22 @@
         <section class="stats-cards">
             <div class="stat-card">
                 <div class="stat-card-icon"><i class="fas fa-trophy"></i></div>
-                <div class="stat-card-number" id="totalClubs">0</div>
+                <div class="stat-card-number" id="statClubs">0</div>
                 <div class="stat-card-label">Total Clubs</div>
             </div>
             <div class="stat-card">
                 <div class="stat-card-icon"><i class="fas fa-users"></i></div>
-                <div class="stat-card-number" id="totalPlayers">0</div>
+                <div class="stat-card-number" id="statPlayers">0</div>
                 <div class="stat-card-label">Total Players</div>
             </div>
             <div class="stat-card">
                 <div class="stat-card-icon"><i class="fas fa-futbol"></i></div>
-                <div class="stat-card-number" id="totalMatches">0</div>
+                <div class="stat-card-number" id="statMatches">0</div>
                 <div class="stat-card-label">Matches Played</div>
             </div>
             <div class="stat-card">
                 <div class="stat-card-icon"><i class="fas fa-calendar"></i></div>
-                <div class="stat-card-number" id="activeTournaments">0</div>
+                <div class="stat-card-number" id="statTournaments">0</div>
                 <div class="stat-card-label">Active Tournaments</div>
             </div>
         </section>
@@ -619,12 +747,23 @@
                         </tr>
                     </thead>
                     <tbody id="leaderboardBody">
-                        <tr><td colspan="10" style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>
+                        <tr><td colspan="10" style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading...<\/td></tr>
                     </tbody>
                 </table>
             </div>
             <div style="text-align: center;">
                 <a href="point-table.html" class="view-all-btn"><i class="fas fa-arrow-right"></i> View Full Point Table</a>
+            </div>
+        </section>
+
+        <!-- Top Players Section -->
+        <section class="top-players">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Top Players</h2>
+                <p>Highest rated players in the league</p>
+            </div>
+            <div class="players-grid" id="topPlayersGrid">
+                <div style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading players...<\/div>
             </div>
         </section>
 
@@ -673,8 +812,8 @@
             <h2>Ready to Begin Your Journey?</h2>
             <p>Join the fastest growing eFootball community - Pirates of the Pitch</p>
             <div class="cta-buttons">
-                <a href="signup.html" class="btn-primary"><i class="fas fa-user-plus"></i> Sign Up Now</a>
-                <a href="club-register.html" class="btn-secondary"><i class="fas fa-building"></i> Create Club</a>
+                <a href="signup.html" class="cta-btn-primary"><i class="fas fa-user-plus"></i> Sign Up Now</a>
+                <a href="club-register.html" class="cta-btn-secondary"><i class="fas fa-building"></i> Create Club</a>
             </div>
         </section>
     </main>
@@ -738,26 +877,27 @@
 
         // Load stats
         async function loadStats() {
-            // Get total clubs
             const { count: clubsCount } = await supabase.from('clubs').select('*', { count: 'exact', head: true });
-            document.getElementById('totalClubs').innerText = clubsCount || 0;
+            document.getElementById('statClubs').innerText = clubsCount || 0;
             
-            // Get total players
             const { count: playersCount } = await supabase.from('players').select('*', { count: 'exact', head: true });
-            document.getElementById('totalPlayers').innerText = playersCount || 0;
+            document.getElementById('statPlayers').innerText = playersCount || 0;
             
-            // Get total matches
             const { count: matchesCount } = await supabase.from('match_results').select('*', { count: 'exact', head: true });
-            document.getElementById('totalMatches').innerText = matchesCount || 0;
+            document.getElementById('statMatches').innerText = matchesCount || 0;
             
-            // Get active tournaments
             const { count: tournamentsCount } = await supabase.from('tournaments').select('*', { count: 'exact', head: true }).eq('status', 'active');
-            document.getElementById('activeTournaments').innerText = tournamentsCount || 1;
+            document.getElementById('statTournaments').innerText = tournamentsCount || 1;
+            
+            // Update hero stats
+            document.getElementById('totalPlayers').innerText = (playersCount || 500) + '+';
+            document.getElementById('totalClubs').innerText = (clubsCount || 50) + '+';
+            document.getElementById('totalMatches').innerText = (matchesCount || 10000) + '+';
         }
 
         // Load leaderboard
         async function loadLeaderboard() {
-            const { data, error } = await supabase
+            const { data } = await supabase
                 .from('tournament_teams')
                 .select('*')
                 .eq('tournament_name', tournamentName)
@@ -765,7 +905,7 @@
                 .limit(10);
             
             const tbody = document.getElementById('leaderboardBody');
-            if (error || !data || data.length === 0) {
+            if (!data || data.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No data available</td></tr>';
                 return;
             }
@@ -787,6 +927,52 @@
             }).join('');
         }
 
+        // Load top players
+        async function loadTopPlayers() {
+            const { data } = await supabase
+                .from('players')
+                .select('*')
+                .order('pts', { ascending: false })
+                .limit(6);
+            
+            const container = document.getElementById('topPlayersGrid');
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:40px;">No players data available</div>';
+                return;
+            }
+            
+            container.innerHTML = data.map(player => `
+                <div class="player-card">
+                    <div class="player-header">
+                        <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=80&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
+                        <h3 class="player-name">${player.player_name}</h3>
+                        <p class="player-club">${player.device_name || 'Professional Player'}</p>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-trophy"></i> Wins</span>
+                            <span class="player-stat-value">${player.win || 0}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-frown"></i> Losses</span>
+                            <span class="player-stat-value">${player.loss || 0}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-handshake"></i> Draws</span>
+                            <span class="player-stat-value">${player.draw || 0}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
+                            <span class="player-stat-value">${player.gf || 0} / ${player.ga || 0}</span>
+                        </div>
+                    </div>
+                    <div class="player-points">
+                        <i class="fas fa-star"></i> ${player.pts || 0} Points
+                    </div>
+                </div>
+            `).join('');
+        }
+
         // Load navbar
         async function loadNavbar() {
             try {
@@ -800,6 +986,7 @@
             await loadNavbar();
             await loadStats();
             await loadLeaderboard();
+            await loadTopPlayers();
         }
         init();
     </script>
