@@ -6,6 +6,7 @@
     <title>Pirates of Pitch | POP - Ultimate Gaming Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
@@ -191,6 +192,58 @@
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
+        }
+
+        /* Banner Swiper */
+        .banner-section {
+            margin: 20px 0 40px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .top-banner-swiper {
+            height: 350px;
+            border-radius: 24px;
+        }
+        .top-banner-swiper .swiper-slide {
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .top-banner-swiper .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .top-banner-swiper .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.5;
+        }
+        .top-banner-swiper .swiper-pagination-bullet-active {
+            background: #e94560;
+            opacity: 1;
+        }
+        .banner-content {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            z-index: 10;
+        }
+        .banner-badge {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .banner-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         /* Stats Bar */
@@ -642,6 +695,9 @@
             .hero-title { font-size: 42px; }
             .stats-bar { flex-wrap: wrap; gap: 10px; }
             .stat-divider { display: none; }
+            .top-banner-swiper { height: 250px; }
+            .banner-title { font-size: 24px; }
+            .banner-content { left: 25px; bottom: 25px; }
         }
         @media (max-width: 768px) {
             .hero-title { font-size: 32px; }
@@ -654,6 +710,9 @@
             .stat-item { padding: 5px 12px; }
             .stat-number-sm { font-size: 16px; }
             .player-card { min-width: 220px; }
+            .top-banner-swiper { height: 200px; }
+            .banner-title { font-size: 18px; }
+            .banner-badge { font-size: 9px; }
         }
     </style>
 </head>
@@ -695,20 +754,39 @@
                     <a href="club-register.html" class="btn-secondary"><i class="fas fa-building"></i> CREATE CLUB</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=500" alt="Gaming">
-                <div class="floating-card card-1">
-                    <i class="fas fa-trophy"></i>
-                    <span>Champion's League</span>
+           
+        </section>
+
+        <!-- Banner Swiper Section -->
+        <section class="banner-section">
+            <div class="swiper top-banner-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide relative">
+                        <img src="https://images.unsplash.com/photo-1518605368461-1e1e1273919e?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-70">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="banner-content">
+                            <span class="banner-badge">New Season</span>
+                            <h2 class="banner-title">Welcome to POP</h2>
+                        </div>
+                    </div>
+                    <div class="swiper-slide relative">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-70">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="banner-content">
+                            <span class="banner-badge">Elite Community</span>
+                            <h2 class="banner-title">Register Your Club</h2>
+                        </div>
+                    </div>
+                    <div class="swiper-slide relative">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-70">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="banner-content">
+                            <span class="banner-badge">Championship</span>
+                            <h2 class="banner-title">Join The Battle</h2>
+                        </div>
+                    </div>
                 </div>
-                <div class="floating-card card-2">
-                    <i class="fas fa-futbol"></i>
-                    <span>Live Matches</span>
-                </div>
-                <div class="floating-card card-3">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Live Stats</span>
-                </div>
+                <div class="swiper-pagination"></div>
             </div>
         </section>
 
@@ -750,7 +828,7 @@
         <!-- Point Table - New Style -->
         <div class="point-table-container">
             <div class="point-table-header">
-                <h3><i class="fas fa-trophy"></i> POP Intra Bid S-02 | Championship Standings</h3>
+                <h3><i class="fas fa-trophy"></i> POP Intra Bid S-01 | Championship Standings</h3>
             </div>
             <div class="point-table-wrapper">
                 <table class="point-table">
@@ -778,7 +856,7 @@
         <!-- POP Intra Bid S-01 Top Players Carousel -->
         <section class="players-carousel">
             <div class="section-header">
-                <h2><i class="fas fa-star"></i> POP Intra Bid S-02</h2>
+                <h2><i class="fas fa-star"></i> POP Intra Bid S-01</h2>
                 <p>Top performers of the tournament</p>
             </div>
             <div class="players-slider" id="playersSlider">
@@ -872,6 +950,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -880,6 +959,21 @@
         const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
         const tournamentName = "pop intra bid s-01";
+
+        // Initialize Swiper
+        const bannerSwiper = new Swiper('.top-banner-swiper', {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'slide',
+            speed: 800,
+        });
 
         async function loadStats() {
             const { count: clubsCount } = await supabase.from('clubs').select('*', { count: 'exact', head: true });
@@ -962,26 +1056,12 @@
                         <p class="player-tournament"><i class="fas fa-trophy"></i> POP Intra Bid S-01</p>
                     </div>
                     <div class="player-stats">
-                        <div class="player-stat-row">
-                            <span class="player-stat-label">Rank</span>
-                            <span class="player-stat-value">#${idx + 1}</span>
-                        </div>
-                        <div class="player-stat-row">
-                            <span class="player-stat-label"><i class="fas fa-trophy"></i> Wins</span>
-                            <span class="player-stat-value">${player.win || 0}</span>
-                        </div>
-                        <div class="player-stat-row">
-                            <span class="player-stat-label"><i class="fas fa-frown"></i> Losses</span>
-                            <span class="player-stat-value">${player.loss || 0}</span>
-                        </div>
-                        <div class="player-stat-row">
-                            <span class="player-stat-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
-                            <span class="player-stat-value">${player.gf || 0} / ${player.ga || 0}</span>
-                        </div>
+                        <div class="player-stat-row"><span class="player-stat-label">Rank</span><span class="player-stat-value">#${idx + 1}</span></div>
+                        <div class="player-stat-row"><span class="player-stat-label"><i class="fas fa-trophy"></i> Wins</span><span class="player-stat-value">${player.win || 0}</span></div>
+                        <div class="player-stat-row"><span class="player-stat-label"><i class="fas fa-frown"></i> Losses</span><span class="player-stat-value">${player.loss || 0}</span></div>
+                        <div class="player-stat-row"><span class="player-stat-label"><i class="fas fa-futbol"></i> Goals (F/A)</span><span class="player-stat-value">${player.gf || 0} / ${player.ga || 0}</span></div>
                     </div>
-                    <div class="player-points">
-                        <i class="fas fa-star"></i> ${player.pts || 0} POINTS
-                    </div>
+                    <div class="player-points"><i class="fas fa-star"></i> ${player.pts || 0} POINTS</div>
                 </div>
             `).join('');
         }
