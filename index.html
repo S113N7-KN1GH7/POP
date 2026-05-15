@@ -2,521 +2,1018 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>POP | Pirates of Pitch - Ultimate eFootball Tournament</title>
-    
-    <!-- SEO & Social Meta -->
-    <meta name="description" content="Join the ultimate eFootball tournament. Compete against the best clubs and players. Register your club, track rankings, and dominate the pitch.">
-    <meta property="og:title" content="POP | Pirates of Pitch - Ultimate eFootball Tournament">
-    <meta property="og:description" content="Join the elite ranks of POP players. Compete against the best clubs for ultimate eFootball glory.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://pop-kohl-nu.vercel.app/">
-    
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirates of Pitch | POP - Ultimate Gaming Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            background: #f5f7fb;
+            color: #1a1a2e;
             overflow-x: hidden;
         }
-        
-        /* Custom Scrollbar */
-        .custom-scroll::-webkit-scrollbar { width: 5px; }
-        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in { animation: fadeIn 0.5s ease-out; }
-        
-        @keyframes marqueeScroll {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
-        }
-        .marquee-container {
-            display: flex;
-            overflow: hidden;
+
+        /* White Theme Background */
+        .white-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            position: relative;
+            height: 100%;
+            z-index: -2;
+            background: #f5f7fb;
         }
-        .marquee-content {
+        .white-bg::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(233, 69, 96, 0.03), transparent 60%);
+        }
+        .white-bg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 60%, rgba(102, 126, 234, 0.02), transparent 60%);
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Hero Section */
+        .hero-section {
             display: flex;
-            min-width: max-content;
-            animation: marqueeScroll 25s linear infinite;
-            will-change: transform;
+            align-items: center;
+            justify-content: space-between;
+            min-height: calc(100vh - 80px);
+            gap: 60px;
+            padding: 80px 0;
         }
-        .marquee-content:hover { animation-play-state: paused; }
-        .marquee-mask {
-            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        .hero-content {
+            flex: 1;
         }
-        
-        /* Hide Scrollbar */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Gold Gradient Text */
-        .gold-gradient {
-            background: linear-gradient(to right, #fbbf24, #f59e0b);
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #e94560;
+            margin-bottom: 25px;
+        }
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', monospace;
+            color: #1a1a2e;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
-        /* Navbar Logo */
-        .nav-logo {
-            height: 3.2rem;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .hero-desc {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 520px;
         }
-        @media (max-width: 640px) { .nav-logo { height: 2.2rem; } }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .hero-stat .number {
+            font-size: 34px;
+            font-weight: 800;
+            font-family: 'Orbitron', monospace;
+            color: #e94560;
+        }
+        .hero-stat .label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 12px 32px;
+            background: #e94560;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.2);
+        }
+        .btn-primary:hover {
+            background: #ff6b81;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            padding: 12px 32px;
+            background: transparent;
+            border: 1.5px solid rgba(233, 69, 96, 0.4);
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #1a1a2e;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-secondary:hover {
+            border-color: #e94560;
+            background: rgba(233, 69, 96, 0.05);
+            transform: translateY(-2px);
+        }
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        .floating-card {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            padding: 10px 20px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            animation: float 4s ease-in-out infinite;
+        }
+        .floating-card i {
+            font-size: 18px;
+            color: #e94560;
+        }
+        .floating-card span {
+            font-size: 12px;
+            font-weight: 500;
+            color: #1a1a2e;
+        }
+        .card-1 { top: 10%; left: -10%; animation-delay: 0s; }
+        .card-2 { bottom: 20%; right: -8%; animation-delay: 1.2s; }
+        .card-3 { top: 45%; right: 5%; animation-delay: 2.4s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin: 20px 0 40px;
+            border: 1px solid rgba(233, 69, 96, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        .stat-item:hover {
+            background: rgba(233, 69, 96, 0.08);
+        }
+        .stat-icon-sm {
+            width: 38px;
+            height: 38px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-icon-sm i {
+            font-size: 18px;
+            color: #e94560;
+        }
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-number-sm {
+            font-size: 20px;
+            font-weight: 800;
+            font-family: 'Orbitron', monospace;
+            line-height: 1.2;
+            color: #1a1a2e;
+        }
+        .stat-label-sm {
+            font-size: 10px;
+            color: #6b7280;
+            letter-spacing: 0.5px;
+        }
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+        .section-header h2 i {
+            color: #e94560;
+            margin-right: 10px;
+        }
+        .section-header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* Point Table - Modern Card Style */
+        .point-table-container {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+        .point-table-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 18px 25px;
+        }
+        .point-table-header h3 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .point-table-header h3 i {
+            color: #ffd700;
+        }
+        .point-table-wrapper {
+            overflow-x: auto;
+            padding: 0;
+        }
+        .point-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .point-table th {
+            padding: 16px 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fafbfc;
+        }
+        .point-table td {
+            padding: 14px 12px;
+            text-align: center;
+            font-size: 13px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #1a1a2e;
+        }
+        .point-table tr:last-child td {
+            border-bottom: none;
+        }
+        .point-table tr:hover {
+            background: rgba(233, 69, 96, 0.03);
+        }
+        .rank-badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            border-radius: 50%;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 28px;
+            text-align: center;
+        }
+        .rank-badge.top-1 {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+        .rank-badge.top-2 {
+            background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+        }
+        .rank-badge.top-3 {
+            background: linear-gradient(135deg, #cd7f32, #b87333);
+        }
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+        .team-badge {
+            width: 32px;
+            height: 32px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #e94560;
+        }
+        .points-highlight {
+            font-weight: 700;
+            color: #e94560;
+            font-size: 16px;
+        }
+        .gd-positive {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .gd-negative {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        /* Players Carousel - New Premium Design */
+        .players-carousel {
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .players-slider {
+            display: flex;
+            gap: 25px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 5px 20px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: #e94560 #e5e7eb;
+        }
+        .players-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+        .players-slider::-webkit-scrollbar-track {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        .players-slider::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 10px;
+        }
+        .player-card {
+            min-width: 260px;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .player-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: rgba(233, 69, 96, 0.3);
+        }
+        .player-card-top {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            padding: 20px 15px;
+            text-align: center;
+            position: relative;
+        }
+        .player-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            object-fit: cover;
+            margin: 0 auto 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .player-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .player-tournament {
+            font-size: 10px;
+            color: rgba(255,255,255,0.85);
+        }
+        .player-stats {
+            padding: 15px;
+            background: #ffffff;
+        }
+        .player-stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .player-stat-row:last-child {
+            border-bottom: none;
+        }
+        .player-stat-label {
+            font-size: 11px;
+            color: #6b7280;
+        }
+        .player-stat-value {
+            font-weight: 700;
+            color: #1a1a2e;
+            font-size: 13px;
+        }
+        .player-points {
+            background: rgba(233, 69, 96, 0.08);
+            margin: 0 15px 15px;
+            padding: 8px;
+            border-radius: 30px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: #e94560;
+        }
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .slider-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            color: #e94560;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .slider-btn:hover {
+            background: #e94560;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .feature-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 24px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(233, 69, 96, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+        }
+        .feature-icon i {
+            font-size: 28px;
+            color: #e94560;
+        }
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+        .feature-card p {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(233,69,96,0.08), rgba(102,126,234,0.04));
+            border-radius: 24px;
+            padding: 50px 40px;
+            text-align: center;
+            margin: 60px 0;
+            border: 1px solid rgba(233, 69, 96, 0.15);
+        }
+        .cta-section h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+        .cta-section p {
+            color: #6b7280;
+            margin-bottom: 28px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding: 45px 40px 30px;
+        }
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo .logo-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+        .footer-logo h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+        .footer-logo p {
+            color: #6b7280;
+            font-size: 12px;
+        }
+        .footer-links h4 {
+            font-size: 15px;
+            margin-bottom: 18px;
+            color: #e94560;
+        }
+        .footer-links a {
+            display: block;
+            color: #6b7280;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .footer-links a:hover {
+            color: #e94560;
+            transform: translateX(4px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 35px;
+            margin-top: 35px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-section { flex-direction: column; text-align: center; padding: 50px 0; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .hero-stats { justify-content: center; }
+            .hero-buttons { justify-content: center; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .floating-card { display: none; }
+            .main-content { padding: 0 25px; }
+            .hero-title { font-size: 42px; }
+            .stats-bar { flex-wrap: wrap; gap: 10px; }
+            .stat-divider { display: none; }
+        }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 32px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .cta-section { padding: 35px 25px; }
+            .cta-section h2 { font-size: 22px; }
+            .section-header h2 { font-size: 26px; }
+            .point-table th, .point-table td { padding: 10px 6px; font-size: 10px; }
+            .stats-bar { border-radius: 20px; padding: 15px; }
+            .stat-item { padding: 5px 12px; }
+            .stat-number-sm { font-size: 16px; }
+            .player-card { min-width: 220px; }
+        }
     </style>
 </head>
 <body>
+    <div class="white-bg"></div>
 
-<!-- ==================== FLOATING HEADER ==================== -->
-<header class="fixed top-3 sm:top-4 left-0 right-0 z-40 px-3 sm:px-4 transition-all duration-300 w-full flex justify-center">
-    <nav class="w-full max-w-7xl py-2 sm:py-2.5 px-4 bg-gray-200/90 backdrop-blur-xl border border-gray-300/60 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex justify-between items-center gap-3">
-        
-        <!-- Logo -->
-        <a href="index.html" class="group flex items-center flex-shrink-0">
-            <img src="https://i.postimg.cc/13m3RLBD/IMG-20260504-231818.png" alt="POP Logo" class="nav-logo w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-all duration-300">
-        </a>
+    <div id="navbar-placeholder"></div>
 
-        <!-- Right Side Items -->
-        <div class="flex gap-2 sm:gap-4 items-center">
-            <a href="login.html" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full font-bold text-[11px] sm:text-sm shadow-[0_4px_12px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_16px_rgba(16,185,129,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap">
-                <i class="fas fa-gamepad text-emerald-100"></i> <span class="hidden sm:inline">Player Login</span><span class="sm:hidden">Player</span>
-            </a>
-            
-            <a href="club-login.html" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-full font-bold text-[11px] sm:text-sm shadow-[0_4px_12px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_16px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap">
-                <i class="fas fa-user-tie text-blue-100"></i> <span class="hidden sm:inline">Manager Login</span><span class="sm:hidden">Manager</span>
-            </a>
-            
-            <!-- Hamburger Menu Button -->
-            <button id="open-sidebar-btn" class="ml-1 p-2 sm:p-2.5 rounded-full bg-white/90 hover:bg-white text-gray-800 transition-all duration-300 flex items-center justify-center hover:shadow-sm border border-gray-200">
-                <i class="fas fa-bars-staggered text-base sm:text-lg"></i>
-            </button>
-        </div>
-    </nav>
-</header>
-
-<!-- Sidebar Overlay -->
-<div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-
-<!-- Sidebar Menu -->
-<div id="sidebar-menu" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 ease-out flex flex-col rounded-l-3xl">
-    <div class="p-5 flex justify-between items-center bg-slate-50 rounded-tl-3xl border-b border-gray-100">
-        <h2 class="text-xl font-extrabold text-gray-800 tracking-tight flex items-center">
-            <div class="bg-blue-100 p-2 rounded-lg mr-3 shadow-inner">
-                <i class="fas fa-layer-group text-blue-600"></i>
-            </div>
-            Menu
-        </h2>
-        <button id="close-sidebar-btn" class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all duration-200">
-            <i class="fas fa-times text-xl"></i>
-        </button>
-    </div>
-    
-    <div class="p-4 flex flex-col gap-2 overflow-y-auto custom-scroll flex-grow">
-        <a href="index.html" class="group flex items-center p-3 rounded-2xl hover:bg-rose-50 transition-all duration-200 border border-transparent hover:border-rose-100">
-            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-rose-100 text-rose-600 group-hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-home"></i>
-            </div>
-            <span class="ml-4 font-semibold text-gray-700 group-hover:text-rose-700">Home</span>
-        </a>
-        
-        <a href="point-table.html" class="group flex items-center p-3 rounded-2xl hover:bg-emerald-50 transition-all duration-200 border border-transparent hover:border-emerald-100">
-            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 group-hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-table-list"></i>
-            </div>
-            <span class="ml-4 font-semibold text-gray-700 group-hover:text-emerald-700">Club Ranking</span>
-        </a>
-
-        <a href="player-rankings.html" class="group flex items-center p-3 rounded-2xl hover:bg-blue-50 transition-all duration-200 border border-transparent hover:border-blue-100">
-            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 text-blue-600 group-hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <span class="ml-4 font-semibold text-gray-700 group-hover:text-blue-700">Player Ranking</span>
-        </a>
-        
-        <a href="result-submit.html" class="group flex items-center p-3 rounded-2xl hover:bg-purple-50 transition-all duration-200 border border-transparent hover:border-purple-100">
-            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl bg-purple-100 text-purple-600 group-hover:scale-110 transition-all shadow-sm">
-                <i class="fas fa-futbol"></i>
-            </div>
-            <span class="ml-4 font-semibold text-gray-700 group-hover:text-purple-700">Match Result</span>
-        </a>
-
-        <div class="my-3 border-t border-gray-100"></div>
-
-        <!-- Auth Links -->
-        <div class="grid grid-cols-2 gap-2 pb-2">
-            <a href="login.html" class="flex flex-col items-center justify-center gap-1.5 bg-green-50 hover:bg-green-100 text-green-700 font-semibold py-3 px-2 rounded-2xl transition-all border border-green-100 hover:border-green-300 text-sm group">
-                <i class="fas fa-gamepad text-lg text-green-600 group-hover:scale-110 transition-transform"></i> Player Log In
-            </a>
-            
-            <a href="club-login.html" class="flex flex-col items-center justify-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold py-3 px-2 rounded-2xl transition-all border border-blue-100 hover:border-blue-300 text-sm group">
-                <i class="fas fa-user-tie text-lg text-blue-600 group-hover:scale-110 transition-transform"></i> Manager Log In
-            </a>
-        </div>
-    </div>
-</div>
-
-<!-- Main Content -->
-<main class="flex-grow pt-24 sm:pt-28 px-4 max-w-7xl mx-auto w-full">
-
-    <!-- ==================== TOP BANNER SWIPER ==================== -->
-    <section class="relative rounded-2xl md:rounded-[2rem] overflow-hidden shadow-sm md:shadow-[0_10px_30px_rgba(126,34,206,0.15)] group w-full mb-8 md:mb-12">
-        <div class="swiper top-banner-swiper h-[160px] sm:h-[200px] md:h-[350px] bg-slate-900 w-full">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1518605368461-1e1e1273919e?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent"></div>
-                    <div class="absolute bottom-4 md:bottom-12 left-4 md:left-12 text-white">
-                        <span class="bg-yellow-500 text-black text-[9px] md:text-xs font-black px-2.5 py-1 md:px-3 rounded-full uppercase tracking-widest mb-1 md:mb-2 inline-block">New Season</span>
-                        <h2 class="text-xl md:text-5xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Welcome to POP</h2>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i> OFFICIAL LEAGUE
+                </div>
+                <h1 class="hero-title">
+                    PIRATES OF <br><span>THE PITCH</span>
+                </h1>
+                <p class="hero-desc">
+                    Join the ultimate eFootball battle arena. Compete, conquer, and become 
+                    the legendary pirate of the virtual pitch.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="number" id="heroPlayers">500+</div>
+                        <div class="label">PLAYERS</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" id="heroClubs">50+</div>
+                        <div class="label">CLUBS</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" id="heroMatches">10K+</div>
+                        <div class="label">MATCHES</div>
                     </div>
                 </div>
-                <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 to-transparent"></div>
-                    <div class="absolute bottom-4 md:bottom-12 left-4 md:left-12 text-white">
-                        <span class="bg-blue-500 text-white text-[9px] md:text-xs font-black px-2.5 py-1 md:px-3 rounded-full uppercase tracking-widest mb-1 md:mb-2 inline-block">Elite Community</span>
-                        <h2 class="text-xl md:text-5xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Register Your Club</h2>
-                    </div>
-                </div>
-                <div class="swiper-slide relative">
-                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&q=80&w=1200&h=400" loading="lazy" class="w-full h-full object-cover opacity-60">
-                    <div class="absolute inset-0 bg-gradient-to-t from-red-900/90 to-transparent"></div>
-                    <div class="absolute bottom-4 md:bottom-12 left-4 md:left-12 text-white">
-                        <span class="bg-red-500 text-white text-[9px] md:text-xs font-black px-2.5 py-1 md:px-3 rounded-full uppercase tracking-widest mb-1 md:mb-2 inline-block">Championship</span>
-                        <h2 class="text-xl md:text-5xl font-black uppercase tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Join The Battle</h2>
-                    </div>
+                <div class="hero-buttons">
+                    <a href="signup.html" class="btn-primary"><i class="fas fa-skull-crossbones"></i> JOIN NOW</a>
+                    <a href="club-register.html" class="btn-secondary"><i class="fas fa-building"></i> CREATE CLUB</a>
                 </div>
             </div>
-            <div class="swiper-pagination"></div>
+            <div class="hero-image">
+                <img src="https://images.pexels.com/photos/3991875/pexels-photo-3991875.jpeg?w=500" alt="Gaming">
+                <div class="floating-card card-1">
+                    <i class="fas fa-trophy"></i>
+                    <span>Champion's League</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-futbol"></i>
+                    <span>Live Matches</span>
+                </div>
+                <div class="floating-card card-3">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Live Stats</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon-sm"><i class="fas fa-trophy"></i></div>
+                <div class="stat-info">
+                    <div class="stat-number-sm" id="statClubs">0</div>
+                    <div class="stat-label-sm">Total Clubs</div>
+                </div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-icon-sm"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <div class="stat-number-sm" id="statPlayers">0</div>
+                    <div class="stat-label-sm">Total Players</div>
+                </div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-icon-sm"><i class="fas fa-futbol"></i></div>
+                <div class="stat-info">
+                    <div class="stat-number-sm" id="statMatches">0</div>
+                    <div class="stat-label-sm">Matches Played</div>
+                </div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-icon-sm"><i class="fas fa-calendar"></i></div>
+                <div class="stat-info">
+                    <div class="stat-number-sm" id="statTournaments">0</div>
+                    <div class="stat-label-sm">Tournaments</div>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- ==================== 4 ACTION CARDS ==================== -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 w-full mb-8 md:mb-12">
-        <a href="signup.html" class="relative bg-white p-3 md:p-5 rounded-[1rem] md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-[0_10px_30px_rgba(34,197,94,0.15)] hover:border-green-200 transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[95px] md:min-h-[120px]">
-            <div class="absolute -right-2 -top-2 text-[50px] md:text-[70px] text-green-50 opacity-50 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 pointer-events-none"><i class="fas fa-user-plus"></i></div>
-            <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-green-50 text-green-500 flex items-center justify-center text-sm md:text-lg mb-2 group-hover:bg-green-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-user-plus"></i></div>
-            <div class="relative z-10"><h3 class="font-black text-slate-800 text-[11px] md:text-lg uppercase leading-tight tracking-tight mb-0.5">Player<br>Registration</h3></div>
-        </a>
-
-        <a href="club-register.html" class="relative bg-white p-3 md:p-5 rounded-[1rem] md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] hover:border-blue-200 transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[95px] md:min-h-[120px]">
-            <div class="absolute -right-2 -top-2 text-[50px] md:text-[70px] text-blue-50 opacity-50 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 pointer-events-none"><i class="fas fa-users"></i></div>
-            <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-sm md:text-lg mb-2 group-hover:bg-blue-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-users"></i></div>
-            <div class="relative z-10"><h3 class="font-black text-slate-800 text-[11px] md:text-lg uppercase leading-tight tracking-tight mb-0.5">Club<br>Registration</h3></div>
-        </a>
-
-        <a href="point-table.html" class="relative bg-white p-3 md:p-5 rounded-[1rem] md:rounded-2xl border border-gray-100 shadow-sm hover:shadow-[0_10px_30px_rgba(234,179,8,0.15)] hover:border-yellow-200 transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[95px] md:min-h-[120px]">
-            <div class="absolute -right-2 -top-2 text-[50px] md:text-[70px] text-yellow-50 opacity-50 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 pointer-events-none"><i class="fas fa-award"></i></div>
-            <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center text-sm md:text-lg mb-2 group-hover:bg-yellow-500 group-hover:text-white transition-colors shadow-sm"><i class="fas fa-award"></i></div>
-            <div class="relative z-10"><h3 class="font-black text-slate-800 text-[11px] md:text-lg uppercase leading-tight tracking-tight mb-0.5">Club<br>Ranking</h3></div>
-        </a>
-
-        <a href="player-rankings.html" class="relative bg-gradient-to-br from-purple-800 to-indigo-900 p-3 md:p-5 rounded-[1rem] md:rounded-2xl shadow-lg hover:shadow-[0_10px_40px_rgba(126,34,206,0.3)] transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[95px] md:min-h-[120px]">
-            <div class="absolute -right-2 -top-2 text-[50px] md:text-[70px] text-indigo-400 opacity-20 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 pointer-events-none"><i class="fas fa-chart-bar"></i></div>
-            <div class="w-7 h-7 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white/10 text-yellow-400 flex items-center justify-center text-sm md:text-lg mb-2 group-hover:bg-white group-hover:text-purple-700 transition-colors shadow-sm backdrop-blur-sm"><i class="fas fa-chart-bar"></i></div>
-            <div class="relative z-10"><h3 class="font-black text-white text-[11px] md:text-lg uppercase leading-tight tracking-tight mb-0.5">Player<br>Ranking</h3></div>
-        </a>
-    </div>
-
-    <!-- ==================== PARTNERS MARQUEE ==================== -->
-    <section class="w-full overflow-hidden mb-8 md:mb-12">
-        <div class="flex flex-row justify-between items-center mb-4 md:mb-8 border-b border-gray-200 pb-2 md:pb-3">
-            <h2 class="text-base md:text-2xl font-black text-slate-800 uppercase tracking-tighter flex items-center gap-2">
-                <span class="w-6 h-6 md:w-8 md:h-8 rounded md:rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 text-white flex items-center justify-center shadow-md text-[10px] md:text-sm">
-                    <i class="fas fa-handshake"></i>
-                </span>
-                Partners
-            </h2>
-            <span class="text-[8px] md:text-[10px] font-black text-yellow-600 tracking-widest uppercase bg-yellow-50 px-2 py-1 rounded-full border border-yellow-200">Elite</span>
+        <!-- Point Table - New Style -->
+        <div class="point-table-container">
+            <div class="point-table-header">
+                <h3><i class="fas fa-trophy"></i> POP Intra Bid S-01 | Championship Standings</h3>
+            </div>
+            <div class="point-table-wrapper">
+                <table class="point-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th>MP</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pointTableBody">
+                        <tr><td colspan="10" style="text-align:center; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading...<\/td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="marquee-container marquee-mask pb-2 md:pb-4 max-w-full">
-            <div class="marquee-content gap-3 md:gap-5 px-2 md:px-0">
-                <a href="#" class="w-48 md:w-72 bg-slate-900 rounded-xl md:rounded-[1.5rem] p-1 relative group overflow-hidden transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,179,8,0.2)] shrink-0 block">
-                    <div class="relative bg-slate-900 rounded-[0.85rem] md:rounded-[1.3rem] h-full p-3 md:p-5 flex items-center gap-3 md:gap-4 z-10 border border-slate-800 group-hover:border-transparent transition-colors">
-                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=56&name=NH" class="relative w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 border-slate-700 bg-slate-800 z-10"></div>
-                        <div class="flex-1 min-w-0 overflow-hidden">
-                            <div class="flex items-center gap-1 md:gap-2 mb-0.5 md:mb-1"><span class="bg-yellow-500 text-black text-[6px] md:text-[8px] font-black px-1 py-0.5 rounded uppercase tracking-wider">PRO</span><p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-widest truncate">Partner</p></div>
-                            <h3 class="font-black text-white text-[11px] md:text-sm uppercase truncate leading-tight group-hover:text-yellow-400 transition-colors">Not Humans</h3>
+        <!-- POP Intra Bid S-01 Top Players Carousel -->
+        <section class="players-carousel">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> POP Intra Bid S-01</h2>
+                <p>Top performers of the tournament</p>
+            </div>
+            <div class="players-slider" id="playersSlider">
+                <div style="text-align:center; width:100%; padding:40px;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" id="slidePrev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" id="slideNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <div class="section-header">
+            <h2><i class="fas fa-gem"></i> FEATURES</h2>
+            <p>Everything you need to dominate</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                <h3>Competitive</h3>
+                <p>Ranked matches with global leaderboards</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Analytics</h3>
+                <p>Track goals, wins, and performance</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Club System</h3>
+                <p>Build your team and recruit players</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-user-plus"></i></div>
+                <h3>Quick Register</h3>
+                <p>Sign up in seconds, start immediately</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-edit"></i></div>
+                <h3>Custom Profile</h3>
+                <p>Photos, gaming IDs, device info</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Secure</h3>
+                <p>Enterprise-grade authentication</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>READY TO PLAY?</h2>
+            <p>Join the fastest growing eFootball community</p>
+            <div class="cta-buttons">
+                <a href="signup.html" class="btn-primary"><i class="fas fa-user-plus"></i> SIGN UP</a>
+                <a href="club-register.html" class="btn-secondary"><i class="fas fa-building"></i> CREATE CLUB</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-icon">🏴‍☠️</div>
+                <h3>PIRATES OF THE PITCH</h3>
+                <p>POP | OFFICIAL GAMING LEAGUE</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="dashboard.html">Player Dashboard</a>
+                <a href="club-dashboard.html">Club Dashboard</a>
+                <a href="point-table.html">Point Table</a>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+                <a href="club-register.html">Club Register</a>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 POP - Pirates of the Pitch. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        const supabaseUrl = 'https://uwybeitqpnaqmcmqwbkv.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3eWJlaXRxcG5hcW1jbXF3Ymt2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczODA0NDUsImV4cCI6MjA5Mjk1NjQ0NX0.EEleJhKLpGgWEppaSYCSQTP_swHDUHZ3ciycuBHUO8g';
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        const tournamentName = "pop intra bid s-01";
+
+        async function loadStats() {
+            const { count: clubsCount } = await supabase.from('clubs').select('*', { count: 'exact', head: true });
+            document.getElementById('statClubs').innerText = clubsCount || 0;
+            document.getElementById('heroClubs').innerText = (clubsCount || 50) + '+';
+
+            const { count: playersCount } = await supabase.from('players').select('*', { count: 'exact', head: true });
+            document.getElementById('statPlayers').innerText = playersCount || 0;
+            document.getElementById('heroPlayers').innerText = (playersCount || 500) + '+';
+
+            const { count: matchesCount } = await supabase.from('match_results').select('*', { count: 'exact', head: true });
+            document.getElementById('statMatches').innerText = matchesCount || 0;
+            document.getElementById('heroMatches').innerText = (matchesCount || 10000) + '+';
+
+            const { count: tournamentsCount } = await supabase.from('tournaments').select('*', { count: 'exact', head: true }).eq('status', 'active');
+            document.getElementById('statTournaments').innerText = tournamentsCount || 1;
+        }
+
+        async function loadPointTable() {
+            const { data } = await supabase
+                .from('tournament_teams')
+                .select('*')
+                .eq('tournament_name', tournamentName)
+                .order('points', { ascending: false })
+                .order('goals_for', { ascending: false });
+
+            const tbody = document.getElementById('pointTableBody');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;">No data available</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map((team, i) => {
+                const gd = (team.goals_for || 0) - (team.goals_against || 0);
+                let rankClass = '';
+                if (i === 0) rankClass = 'top-1';
+                else if (i === 1) rankClass = 'top-2';
+                else if (i === 2) rankClass = 'top-3';
+
+                return `<tr>
+                    <td><span class="rank-badge ${rankClass}">${i+1}</span></td>
+                    <td><div class="team-info"><div class="team-badge">${team.team_name.charAt(0)}</div><span>${team.team_name}</span></div></td>
+                    <td>${team.matches_played || 0}</td>
+                    <td>${team.wins || 0}</td>
+                    <td>${team.draws || 0}</td>
+                    <td>${team.losses || 0}</td>
+                    <td>${team.goals_for || 0}</td>
+                    <td>${team.goals_against || 0}</td>
+                    <td class="${gd >= 0 ? 'gd-positive' : 'gd-negative'}">${gd >= 0 ? '+' : ''}${gd}</td>
+                    <td class="points-highlight">${team.points || 0}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        let playersData = [];
+
+        async function loadTopPlayers() {
+            const { data } = await supabase
+                .from('players')
+                .select('*')
+                .order('pts', { ascending: false })
+                .limit(12);
+
+            if (!data || data.length === 0) {
+                document.getElementById('playersSlider').innerHTML = '<div style="text-align:center; width:100%; padding:40px;">No players data available for this tournament</div>';
+                return;
+            }
+
+            playersData = data;
+            renderSlider();
+        }
+
+        function renderSlider() {
+            const container = document.getElementById('playersSlider');
+            container.innerHTML = playersData.map((player, idx) => `
+                <div class="player-card">
+                    <div class="player-card-top">
+                        <img class="player-avatar" src="${player.photo || `https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=70&name=${encodeURIComponent(player.player_name)}`}" alt="${player.player_name}">
+                        <h4 class="player-name">${player.player_name.length > 18 ? player.player_name.substring(0, 18) + '...' : player.player_name}</h4>
+                        <p class="player-tournament"><i class="fas fa-trophy"></i> POP Intra Bid S-01</p>
+                    </div>
+                    <div class="player-stats">
+                        <div class="player-stat-row">
+                            <span class="player-stat-label">Rank</span>
+                            <span class="player-stat-value">#${idx + 1}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-trophy"></i> Wins</span>
+                            <span class="player-stat-value">${player.win || 0}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-frown"></i> Losses</span>
+                            <span class="player-stat-value">${player.loss || 0}</span>
+                        </div>
+                        <div class="player-stat-row">
+                            <span class="player-stat-label"><i class="fas fa-futbol"></i> Goals (F/A)</span>
+                            <span class="player-stat-value">${player.gf || 0} / ${player.ga || 0}</span>
                         </div>
                     </div>
-                </a>
-                <a href="#" class="w-48 md:w-72 bg-slate-900 rounded-xl md:rounded-[1.5rem] p-1 relative group overflow-hidden transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,179,8,0.2)] shrink-0 block">
-                    <div class="relative bg-slate-900 rounded-[0.85rem] md:rounded-[1.3rem] h-full p-3 md:p-5 flex items-center gap-3 md:gap-4 z-10 border border-slate-800 group-hover:border-transparent transition-colors">
-                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=56&name=TF" class="relative w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 border-slate-700 bg-slate-800 z-10"></div>
-                        <div class="flex-1 min-w-0 overflow-hidden">
-                            <div class="flex items-center gap-1 md:gap-2 mb-0.5 md:mb-1"><span class="bg-yellow-500 text-black text-[6px] md:text-[8px] font-black px-1 py-0.5 rounded uppercase tracking-wider">PRO</span><p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-widest truncate">Partner</p></div>
-                            <h3 class="font-black text-white text-[11px] md:text-sm uppercase truncate leading-tight group-hover:text-yellow-400 transition-colors">Team Flame</h3>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="w-48 md:w-72 bg-slate-900 rounded-xl md:rounded-[1.5rem] p-1 relative group overflow-hidden transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,179,8,0.2)] shrink-0 block">
-                    <div class="relative bg-slate-900 rounded-[0.85rem] md:rounded-[1.3rem] h-full p-3 md:p-5 flex items-center gap-3 md:gap-4 z-10 border border-slate-800 group-hover:border-transparent transition-colors">
-                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=3498db&color=fff&bold=true&size=56&name=DM" class="relative w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 border-slate-700 bg-slate-800 z-10"></div>
-                        <div class="flex-1 min-w-0 overflow-hidden">
-                            <div class="flex items-center gap-1 md:gap-2 mb-0.5 md:mb-1"><span class="bg-yellow-500 text-black text-[6px] md:text-[8px] font-black px-1 py-0.5 rounded uppercase tracking-wider">PRO</span><p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-widest truncate">Partner</p></div>
-                            <h3 class="font-black text-white text-[11px] md:text-sm uppercase truncate leading-tight group-hover:text-yellow-400 transition-colors">Demo</h3>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="w-48 md:w-72 bg-slate-900 rounded-xl md:rounded-[1.5rem] p-1 relative group overflow-hidden transition-all duration-300 hover:-translate-y-1 md:hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,179,8,0.2)] shrink-0 block">
-                    <div class="relative bg-slate-900 rounded-[0.85rem] md:rounded-[1.3rem] h-full p-3 md:p-5 flex items-center gap-3 md:gap-4 z-10 border border-slate-800 group-hover:border-transparent transition-colors">
-                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=2ecc71&color=fff&bold=true&size=56&name=B2W" class="relative w-8 h-8 md:w-14 md:h-14 rounded-full object-cover border-2 border-slate-700 bg-slate-800 z-10"></div>
-                        <div class="flex-1 min-w-0 overflow-hidden">
-                            <div class="flex items-center gap-1 md:gap-2 mb-0.5 md:mb-1"><span class="bg-yellow-500 text-black text-[6px] md:text-[8px] font-black px-1 py-0.5 rounded uppercase tracking-wider">PRO</span><p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-widest truncate">Partner</p></div>
-                            <h3 class="font-black text-white text-[11px] md:text-sm uppercase truncate leading-tight group-hover:text-yellow-400 transition-colors">BORN2WIN</h3>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== MAIN GRID ==================== -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-12 w-full min-w-0">
-        
-        <!-- LEFT COLUMN (2/3 width on desktop) -->
-        <div class="lg:col-span-2 space-y-8 md:space-y-12 min-w-0 w-full overflow-hidden">
-            
-            <!-- TODAY'S MATCHES -->
-            <section class="w-full">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 gap-3 sm:gap-0 border-b border-gray-200 pb-3 md:pb-4 w-full">
-                    <h2 class="text-lg md:text-3xl font-black text-slate-800 uppercase tracking-tighter">TODAY'S MATCHES</h2>
-                    <div class="flex bg-white p-1 rounded-lg md:rounded-xl border border-gray-200 text-[9px] md:text-[10px] font-bold overflow-x-auto w-full sm:w-auto hide-scrollbar shadow-sm">
-                        <span class="px-2 md:px-4 py-1.5 md:py-2 rounded-[6px] md:rounded-lg flex-1 sm:flex-none text-center whitespace-nowrap bg-purple-100 text-purple-700 font-black">TODAY</span>
+                    <div class="player-points">
+                        <i class="fas fa-star"></i> ${player.pts || 0} POINTS
                     </div>
                 </div>
+            `).join('');
+        }
 
-                <div class="bg-white border border-gray-100 shadow-sm rounded-2xl md:rounded-[2rem] p-3 md:p-6 min-h-[250px] relative overflow-hidden w-full">
-                    <div class="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-purple-100 rounded-full blur-[40px] md:blur-[60px] opacity-40 pointer-events-none"></div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5 relative z-10 w-full">
-                        <!-- Sample Match Card -->
-                        <div class="block bg-white rounded-xl md:rounded-2xl p-3 md:p-5 border border-gray-100 shadow-sm transition-all duration-300">
-                            <div class="flex justify-between items-center mb-2 md:mb-3">
-                                <span class="text-[8px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1 bg-slate-50 px-2 py-0.5 rounded border border-slate-100 shadow-sm"><i class="fas fa-trophy text-yellow-500"></i> CHAMPIONS LEAGUE</span>
-                                <span class="text-[7px] md:text-[9px] font-black text-amber-500 uppercase tracking-widest bg-amber-50 px-1.5 py-0.5 rounded border border-amber-100">Upcoming</span>
-                            </div>
-                            <div class="flex items-stretch justify-between w-full">
-                                <div class="flex flex-col items-center justify-start flex-1 min-w-0 gap-1 text-center px-1">
-                                    <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xs md:text-sm">NH</div>
-                                    <h3 class="font-black text-slate-800 text-[9px] md:text-[11px] uppercase tracking-wide truncate max-w-full">Not Humans</h3>
-                                </div>
-                                <div class="flex flex-col items-center justify-center shrink-0 w-[25%] md:w-[20%] px-1">
-                                    <div class="bg-slate-50 px-2 py-1 md:px-3 md:py-1.5 rounded border border-slate-200 w-full text-center"><span class="text-[9px] md:text-sm font-black text-slate-400">VS</span></div>
-                                </div>
-                                <div class="flex flex-col items-center justify-start flex-1 min-w-0 gap-1 text-center px-1">
-                                    <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-xs md:text-sm">TF</div>
-                                    <h3 class="font-black text-slate-800 text-[9px] md:text-[11px] uppercase tracking-wide truncate max-w-full">Team Flame</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="block bg-white rounded-xl md:rounded-2xl p-3 md:p-5 border border-gray-100 shadow-sm transition-all duration-300">
-                            <div class="flex justify-between items-center mb-2 md:mb-3">
-                                <span class="text-[8px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1 bg-slate-50 px-2 py-0.5 rounded border border-slate-100 shadow-sm"><i class="fas fa-trophy text-yellow-500"></i> CHAMPIONS LEAGUE</span>
-                                <span class="text-[7px] md:text-[9px] font-black text-red-500 uppercase tracking-widest bg-red-50 px-1.5 py-0.5 rounded border border-red-100 flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-red-500 animate-pulse"></span> LIVE</span>
-                            </div>
-                            <div class="flex items-stretch justify-between w-full">
-                                <div class="flex flex-col items-center justify-start flex-1 min-w-0 gap-1 text-center px-1">
-                                    <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-emerald-500 to-green-500 flex items-center justify-center text-white font-bold text-xs md:text-sm">DM</div>
-                                    <h3 class="font-black text-slate-800 text-[9px] md:text-[11px] uppercase tracking-wide truncate max-w-full">Demo</h3>
-                                </div>
-                                <div class="flex flex-col items-center justify-center shrink-0 w-[25%] md:w-[20%] px-1">
-                                    <div class="bg-green-50 px-2 py-1 md:px-3 md:py-1.5 rounded border border-green-200 w-full text-center"><span class="text-[9px] md:text-sm font-black text-green-600">2 - 1</span></div>
-                                </div>
-                                <div class="flex flex-col items-center justify-start flex-1 min-w-0 gap-1 text-center px-1">
-                                    <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white font-bold text-xs md:text-sm">B2W</div>
-                                    <h3 class="font-black text-slate-800 text-[9px] md:text-[11px] uppercase tracking-wide truncate max-w-full">BORN2WIN</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        const slider = document.getElementById('playersSlider');
+        const prevBtn = document.getElementById('slidePrev');
+        const nextBtn = document.getElementById('slideNext');
 
-            <!-- TOP PLAYERS SWIPER -->
-            <section class="w-full">
-                <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-gray-200 pb-2 md:pb-4">
-                    <h2 class="text-lg md:text-3xl font-black text-slate-800 uppercase tracking-tighter">Top Players</h2>
-                    <a href="player-rankings.html" class="text-[9px] md:text-xs font-bold text-gray-400 hover:text-purple-600 uppercase tracking-widest transition-colors mb-1 bg-white px-2 md:px-3 py-1 rounded border border-gray-100 shadow-sm">View All <i class="fas fa-chevron-right ml-1 text-[7px]"></i></a>
-                </div>
-                <div class="swiper player-swiper pb-8 md:pb-10 w-full">
-                    <div class="swiper-wrapper">
-                        <!-- Sample Player Slide -->
-                        <div class="swiper-slide">
-                            <div class="space-y-2 md:space-y-3 w-full">
-                                <a href="#" class="bg-white p-2 md:p-3 rounded-xl md:rounded-2xl border border-gray-100 shadow-[0_1px_5px_rgba(0,0,0,0.02)] flex flex-row items-center justify-between group gap-2 w-full">
-                                    <div class="flex items-center gap-1.5 md:gap-2 flex-1 min-w-0 pr-1">
-                                        <div class="w-4 md:w-6 text-center shrink-0"><span class="font-black text-[10px] md:text-sm gold-gradient">01</span></div>
-                                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=40&name=AB" class="w-7 h-7 md:w-10 md:h-10 rounded-full object-cover border border-slate-100"></div>
-                                        <div class="flex-1 min-w-0 overflow-hidden"><h4 class="font-black text-slate-800 text-[10px] md:text-xs uppercase truncate">Azim Khan</h4><p class="text-[7px] md:text-[8px] text-slate-400 font-bold uppercase truncate">Pes Yonko</p></div>
-                                    </div>
-                                    <div class="flex items-center justify-end gap-1.5 md:gap-3 bg-slate-50 rounded-lg px-1.5 py-1 shrink-0">
-                                        <div class="flex flex-col items-center"><span class="text-[6px] md:text-[8px] text-slate-400 font-black uppercase">MP</span><span class="text-[8px] md:text-[11px] font-black text-slate-600">3</span></div>
-                                        <div class="flex flex-col items-center"><span class="text-[6px] md:text-[8px] text-slate-400 font-black uppercase">W</span><span class="text-[8px] md:text-[11px] font-black text-green-500">3</span></div>
-                                        <div class="flex flex-col items-center justify-center bg-purple-100 px-1.5 md:px-2 py-0.5 rounded border border-purple-200 min-w-[32px] md:min-w-[45px] text-center shrink-0"><span class="text-[5px] md:text-[6px] text-purple-600 font-black uppercase">PTS</span><span class="text-[8px] md:text-xs font-black text-purple-900">39</span></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </section>
-        </div>
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -270, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: 270, behavior: 'smooth' });
+            });
+        }
 
-        <!-- RIGHT COLUMN (1/3 width on desktop) -->
-        <div class="space-y-8 md:space-y-12 min-w-0 w-full overflow-hidden">
-            
-            <!-- MVP SPOTLIGHT -->
-            <section class="w-full">
-                <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-gray-200 pb-2 md:pb-4 w-full">
-                    <h2 class="text-lg md:text-3xl font-black text-slate-800 uppercase tracking-tighter flex items-center gap-1 md:gap-2"><i class="fas fa-star text-yellow-400 text-base md:text-2xl drop-shadow-sm"></i> Spotlight</h2>
-                    <div class="flex bg-white p-1 rounded-lg border border-gray-200 text-[8px] md:text-[10px] font-bold shadow-sm shrink-0">
-                        <button id="btnWeekly" class="px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] bg-purple-100 text-purple-700 uppercase transition-all duration-300 font-black">Week</button>
-                        <button id="btnMonthly" class="px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] text-gray-500 hover:bg-gray-50 uppercase transition-all duration-300">Month</button>
-                    </div>
-                </div>
-                <div id="mvp-container" class="transition-all duration-300 w-full"></div>
-            </section>
+        async function loadNavbar() {
+            try {
+                const response = await fetch('/navbar.html');
+                const navbarHtml = await response.text();
+                document.getElementById('navbar-placeholder').innerHTML = navbarHtml;
+            } catch(e) { console.log('Navbar load skipped'); }
+        }
 
-            <!-- ELITE CLUBS SWIPER -->
-            <section class="w-full">
-                <div class="flex justify-between items-end mb-4 md:mb-6 border-b border-gray-200 pb-2 md:pb-4 w-full">
-                    <h2 class="text-lg md:text-3xl font-black text-slate-800 uppercase tracking-tighter">Elite Clubs</h2>
-                    <a href="point-table.html" class="text-[9px] md:text-xs font-bold text-gray-400 hover:text-purple-600 uppercase tracking-widest transition-colors mb-1 bg-white px-2 md:px-3 py-1 rounded border border-gray-100 shadow-sm shrink-0">Full Table <i class="fas fa-chevron-right ml-1 text-[7px]"></i></a>
-                </div>
-                <div class="swiper club-swiper pb-8 md:pb-10 w-full">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="space-y-2 md:space-y-3 w-full">
-                                <a href="#" class="bg-white p-2 md:p-3 rounded-xl md:rounded-2xl border border-gray-100 shadow-[0_1px_5px_rgba(0,0,0,0.02)] flex flex-row items-center justify-between group gap-2 w-full">
-                                    <div class="flex items-center gap-1.5 md:gap-2 flex-1 min-w-0 pr-1">
-                                        <div class="w-4 md:w-6 text-center shrink-0"><span class="font-black text-[10px] md:text-sm gold-gradient">01</span></div>
-                                        <div class="relative shrink-0"><img src="https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=40&name=NH" class="w-7 h-7 md:w-10 md:h-10 rounded-lg object-cover border border-slate-100"></div>
-                                        <div class="flex-1 min-w-0 overflow-hidden"><h4 class="font-black text-slate-800 text-[10px] md:text-xs uppercase truncate">Not Humans</h4><p class="text-[7px] md:text-[8px] text-slate-400 font-bold uppercase truncate">NH</p></div>
-                                    </div>
-                                    <div class="flex items-center justify-end gap-1.5 md:gap-3 bg-slate-50 rounded-lg px-1.5 py-1 shrink-0">
-                                        <div class="flex flex-col items-center"><span class="text-[6px] md:text-[8px] text-slate-400 font-black uppercase">P</span><span class="text-[8px] md:text-[11px] font-black text-slate-600">0</span></div>
-                                        <div class="flex flex-col items-center"><span class="text-[6px] md:text-[8px] text-slate-400 font-black uppercase">W</span><span class="text-[8px] md:text-[11px] font-black text-green-500">0</span></div>
-                                        <div class="flex flex-col items-center justify-center bg-purple-100 px-1.5 md:px-2 py-0.5 rounded border border-purple-200 min-w-[32px] md:min-w-[45px] text-center shrink-0"><span class="text-[5px] md:text-[6px] text-purple-600 font-black uppercase">RTG</span><span class="text-[8px] md:text-xs font-black text-purple-900">1000</span></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </section>
-
-            <!-- UPCOMING EVENT CARD -->
-            <section class="relative bg-slate-900 rounded-2xl md:rounded-[2.5rem] p-6 md:p-10 text-white shadow-xl overflow-hidden group w-full">
-                <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 opacity-90 z-0"></div>
-                <div class="absolute -right-10 -top-10 w-48 h-48 md:w-64 md:h-64 bg-yellow-500 rounded-full blur-[40px] md:blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-700 z-0"></div>
-                <div class="relative z-10 flex flex-col h-full justify-between min-h-[180px] md:min-h-[250px]">
-                    <div>
-                        <div class="inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-slate-900 text-[8px] md:text-[10px] font-black px-2 py-0.5 md:px-3 md:py-1 rounded-full uppercase tracking-widest mb-3 md:mb-4 shadow-sm border border-yellow-300">Upcoming Event</div>
-                        <h2 class="text-2xl md:text-4xl font-black uppercase leading-tight mb-2 md:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400">NEW EVENT<br>COMING SOON</h2>
-                    </div>
-                    <div class="mt-4 md:mt-8"><a href="#" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 w-full md:w-auto px-6 py-3 rounded-lg md:rounded-xl font-black uppercase text-[10px] md:text-sm shadow-[0_5px_15px_rgba(234,179,8,0.3)] hover:-translate-y-1 transition-all duration-300">Join Tournament <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-            </section>
-        </div>
-    </div>
-</main>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="relative bg-slate-950 border-t border-slate-800 mt-auto overflow-hidden mt-12 md:mt-16">
-    <div class="absolute inset-0 z-0 pointer-events-none opacity-20">
-        <div class="absolute -top-10 -left-10 w-48 h-48 bg-blue-600 rounded-full mix-blend-screen filter blur-[80px] animate-[pulse_6s_infinite_alternate]"></div>
-        <div class="absolute top-20 right-10 w-64 h-64 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] animate-[pulse_8s_infinite_alternate-reverse]"></div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-8 mb-10 md:mb-12">
-            <div class="space-y-4 text-center sm:text-left">
-                <h2 class="text-white font-black text-4xl tracking-tighter drop-shadow-md">POP<span class="text-blue-500">.XYZ</span></h2>
-                <p class="text-[9px] md:text-[10px] text-slate-400 leading-relaxed max-w-sm mx-auto sm:mx-0 font-medium">The Ultimate eFootball Community. Compete, rank up, and establish your legacy.</p>
-            </div>
-            <div class="space-y-3 md:space-y-4 text-center sm:text-left">
-                <h3 class="text-white font-black uppercase tracking-widest text-[9px] md:text-[10px] border-b-2 border-blue-500/50 pb-2 inline-block">Explore</h3>
-                <div class="flex flex-col space-y-2 text-[9px] md:text-[10px] text-slate-400 font-bold">
-                    <a href="index.html" class="hover:text-blue-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-blue-500"></i> Home</a>
-                    <a href="player-rankings.html" class="hover:text-blue-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-blue-500"></i> Player Rankings</a>
-                    <a href="point-table.html" class="hover:text-blue-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-blue-500"></i> Club Rankings</a>
-                </div>
-            </div>
-            <div class="space-y-3 md:space-y-4 text-center sm:text-left">
-                <h3 class="text-white font-black uppercase tracking-widest text-[9px] md:text-[10px] border-b-2 border-green-500/50 pb-2 inline-block">Information</h3>
-                <div class="flex flex-col space-y-2 text-[9px] md:text-[10px] text-slate-400 font-bold">
-                    <a href="#" class="hover:text-green-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-green-500"></i> About Us</a>
-                    <a href="#" class="hover:text-green-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-green-500"></i> Privacy Policy</a>
-                    <a href="#" class="hover:text-green-400 hover:translate-x-1 transition-all flex items-center gap-2"><i class="fas fa-angle-right text-[8px] text-green-500"></i> Terms & Conditions</a>
-                </div>
-            </div>
-            <div class="space-y-3 md:space-y-4 text-center sm:text-left">
-                <h3 class="text-white font-black uppercase tracking-widest text-[9px] md:text-[10px] border-b-2 border-purple-500/50 pb-2 inline-block">Connect</h3>
-                <div class="flex justify-center sm:justify-start gap-3 pt-1">
-                    <a href="#" class="w-7 h-7 rounded-full bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all"><i class="fab fa-facebook-f text-[10px]"></i></a>
-                    <a href="#" class="w-7 h-7 rounded-full bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube text-[10px]"></i></a>
-                    <a href="#" class="w-7 h-7 rounded-full bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center hover:bg-[#5865F2] hover:text-white transition-all"><i class="fab fa-discord text-[10px]"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="pt-5 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-3">
-            <p class="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest">&copy; 2026 POP. All Rights Reserved.</p>
-            <p class="text-[8px] md:text-[9px] text-slate-500 font-bold uppercase tracking-widest">Pirates of the Pitch</p>
-        </div>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script>
-    // ==================== SIDEBAR ====================
-    const openBtn = document.getElementById('open-sidebar-btn');
-    const closeBtn = document.getElementById('close-sidebar-btn');
-    const sidebar = document.getElementById('sidebar-menu');
-    const overlay = document.getElementById('sidebar-overlay');
-
-    function openSidebar() { sidebar.classList.remove('translate-x-full'); overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; setTimeout(() => overlay.classList.remove('opacity-0'), 10); }
-    function closeSidebar() { sidebar.classList.add('translate-x-full'); overlay.classList.add('opacity-0'); document.body.style.overflow = 'auto'; setTimeout(() => overlay.classList.add('hidden'), 300); }
-    openBtn.addEventListener('click', openSidebar);
-    closeBtn.addEventListener('click', closeSidebar);
-    overlay.addEventListener('click', closeSidebar);
-
-    // ==================== SWIPERS ====================
-    new Swiper('.top-banner-swiper', { loop: true, autoplay: { delay: 5000 }, pagination: { el: '.swiper-pagination', clickable: true }, effect: 'fade', fadeEffect: { crossFade: true } });
-    new Swiper('.player-swiper', { spaceBetween: 15, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 4500 }, grabCursor: true });
-    new Swiper('.club-swiper', { spaceBetween: 15, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 4000 }, grabCursor: true });
-
-    // ==================== MVP TOGGLE ====================
-    const mvpData = { weekly: { name: "Azim khan", club: "Pes Yonko", photo: "https://ui-avatars.com/api/?background=e94560&color=fff&bold=true&size=80&name=AK", mp: "3", w: "3", gs: "13", motm: "3", points: "39" }, monthly: { name: "Labib Hussain Saim", club: "Gangs Of PSB", photo: "https://ui-avatars.com/api/?background=667eea&color=fff&bold=true&size=80&name=LS", mp: "9", w: "9", gs: "47", motm: "3", points: "57" } };
-    function toggleMVP(type) {
-        const btnW = document.getElementById('btnWeekly'), btnM = document.getElementById('btnMonthly');
-        if (type === 'weekly') { btnW.className = "px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] bg-purple-100 text-purple-700 uppercase transition-all duration-300 font-black"; btnM.className = "px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] text-gray-500 hover:bg-gray-50 uppercase transition-all duration-300"; }
-        else { btnM.className = "px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] bg-purple-100 text-purple-700 uppercase transition-all duration-300 font-black"; btnW.className = "px-2 md:px-3 py-1 md:py-1.5 rounded-[5px] text-gray-500 hover:bg-gray-50 uppercase transition-all duration-300"; }
-        const data = mvpData[type];
-        document.getElementById('mvp-container').innerHTML = `<a href="#" class="block relative bg-white p-4 md:p-6 rounded-2xl md:rounded-[2rem] border border-yellow-200 shadow-md transition-all duration-300 w-full"><div class="flex items-center gap-3 md:gap-5 relative z-10 border-b border-gray-100 pb-3 md:pb-5 mb-3 md:mb-5 w-full"><div class="relative shrink-0"><img src="${data.photo}" class="w-12 h-12 md:w-20 md:h-20 rounded-full object-cover border-2 border-white shadow-md"></div><div class="overflow-hidden flex-1"><span class="inline-block bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 text-[7px] md:text-[9px] font-black px-1.5 py-0.5 rounded-sm uppercase">${type === 'weekly' ? 'PotW' : 'PotM'}</span><h3 class="font-black text-slate-800 text-sm md:text-xl uppercase leading-tight">${data.name}</h3><p class="text-[9px] md:text-xs text-gray-500 font-bold uppercase">${data.club}</p></div></div><div class="grid grid-cols-4 gap-1.5 md:gap-2 w-full"><div class="bg-slate-50 rounded-lg p-1.5 md:p-3 text-center"><span class="block text-[7px] md:text-[9px] text-slate-400 font-black uppercase">MP</span><span class="block font-black text-slate-700 text-xs md:text-base">${data.mp}</span></div><div class="bg-slate-50 rounded-lg p-1.5 md:p-3 text-center"><span class="block text-[7px] md:text-[9px] text-slate-400 font-black uppercase">GL</span><span class="block font-black text-green-500 text-xs md:text-base">${data.gs}</span></div><div class="bg-slate-50 rounded-lg p-1.5 md:p-3 text-center"><span class="block text-[7px] md:text-[9px] text-slate-400 font-black uppercase">MOTM</span><span class="block font-black text-amber-500 text-xs md:text-base">${data.motm}</span></div><div class="bg-purple-100 rounded-lg p-1.5 md:p-3 text-center"><span class="block text-[7px] md:text-[9px] text-purple-600 font-black uppercase">PTS</span><span class="block font-black text-purple-900 text-xs md:text-base">${data.points}</span></div></div></a>`;
-    }
-    toggleMVP('weekly');
-    document.getElementById('btnWeekly').addEventListener('click', () => toggleMVP('weekly'));
-    document.getElementById('btnMonthly').addEventListener('click', () => toggleMVP('monthly'));
-</script>
-
+        async function init() {
+            await loadNavbar();
+            await loadStats();
+            await loadPointTable();
+            await loadTopPlayers();
+        }
+        init();
+    </script>
 </body>
 </html>
